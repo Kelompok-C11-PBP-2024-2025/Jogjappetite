@@ -58,4 +58,4 @@ Pemilik restoran yang akan membuat dan menghapus restoran yang ada pada list res
 
 **vi. Tautan deployment aplikasi**
 
-Tautan : //TODO
+Tautan : http://naira-shafiqa-jogjappetite.pbp.cs.ui.ac.id/
