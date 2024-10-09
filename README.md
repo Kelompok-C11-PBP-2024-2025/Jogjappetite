@@ -8,8 +8,7 @@
 
 
 ## Deskripsi Aplikasi
-Jogjappetite adalah platform yang dirancang untuk mempermudah pengguna dalam menemukan, menilai, dan mengulas tempat makan di Yogyakarta. Pengguna dapat menjelajahi berbagai restoran, memberikan ulasan, dan menambahkan tempat makan baru yang belum tersedia di aplikasi. Dengan fitur interaktif seperti explore restaurant, wishlist restaurant, dan fitur pencarian yang canggih, Jogjappetite memastikan penggunanya selalu terhubung dengan tren kuliner terbaru di Jogja. Aplikasi ini mengutamakan fleksibilitas dalam pencarian restoran melalui filter yang dapat disesuaikan dengan kebutuhan pengguna.
-
+Jogjappetite adalah platform _food and restaurant discovery_ yang dirancang untuk mempermudah pengguna dalam menemukan, menilai, dan mengulas tempat makan di Yogyakarta. Pengguna dapat menjelajahi berbagai restoran, memberikan ulasan, dan menambahkan tempat makan baru yang belum tersedia di aplikasi. Dengan fitur interaktif seperti explore restaurant, _add to favorite_, dan sistem pencarian yang canggih, Jogjappetite memastikan penggunanya selalu terhubung dengan tren kuliner terbaru di Jogja. Aplikasi ini mengutamakan fleksibilitas dalam pencarian restoran melalui filter yang dapat disesuaikan dengan kebutuhan pengguna.
 
 ## Daftar Modul Aplikasi dan Penjelasannya
 ### 🗺️Explore Restaurant
@@ -19,12 +18,20 @@ Jogjappetite adalah platform yang dirancang untuk mempermudah pengguna dalam men
 Pengguna dapat menjelajahi restoran-restoran yang tersedia di Jogjappetite berdasarkan berbagai kategori seperti jenis makanan, lokasi, popularitas, serta filter tambahan. Kategori ini juga mencakup clustering kuliner untuk berbagai wilayah, misalnya chinese, indonesian, western, dan lain-lain.
 
 
-### 📃Wishlist Restaurant
+### ♥️ Tambah Favorit (Add Favorite) 
+
 **Dikerjakan oleh Irfan Rizqi Nurrahman**
 
 
-Pengguna dapat membuat wishlist yang berisi tempat-tempat makan yang mereka minati, disimpan untuk referensi masa mendatang. Wishlist ini bisa di-filter berdasarkan kategori yang disediakan, misalnya ingin mengunjungi restoran dengan view indah atau tempat makan halal.
 
+Pada fitur tambah favorit, pengguna dapat memilih restoran-restoran yang tersedia pada katalog restoran dan memasukkannya ke halaman favorit. Pengguna dapat menambahkan deskripsi atau notes dari setiap restoran yang ditambahkan pada laman favorit, sehingga pengguna tidak akan lupa mengapa mereka memasukkan restoran tersebut pada laman favorit sejak awal. Pengguna juga dapat memodifikasi notes dari yang mereka buat.
+
+
+
+Berikut aksi yang dapat dilakukan masing-masing role:
+| User (Guest)                                                                 | Logged in User                                                                                  | Restaurant Owner                                                                                   |
+|-------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| Sayangnya guest tidak bisa melakukan penambahan pada laman favorit. Pengguna harus melakukan proses login terlebih dahulu. | Member dapat melihat katalog restoran pada laman utama dan menambahkannya ke dalam laman favorit. Member juga dapat menambahkan dan memodifikasi catatan pada setiap restoran yang ditambahkan. | Sama seperti member |
 
 ### ⭐Ratings
 **Dikerjakan oleh Naira Shafiqa Afiany**
@@ -72,9 +79,9 @@ Apa tuh Levenshtein Distance?
 </blockquote>
 Berikut aksi yang dapat dilakukan masing-masing role:
 
-| User (Guest)                                                                 | Logged in User                                                                                  | Restaurant Owner                                                                                   |
-|-------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
-| Melihat daftar restoran dan makanan yang tersedia melalui fitur pencarian. | Melihat daftar restoran dan makanan yang tersedia melalui fitur pencarian. | Melihat daftar restoran dan makanan yang tersedia melalui fitur pencarian. |
+| All Users                                                              | 
+|-------------------------------------------------------------------------------|
+| Melihat daftar restoran dan makanan yang tersedia melalui fitur pencarian. | 
 
 ### ➕Add Restaurant For Restaurant Owner
 
