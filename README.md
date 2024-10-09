@@ -13,7 +13,7 @@ Jogjappetite adalah platform yang dirancang untuk mempermudah pengguna dalam men
 ### Explore Restaurant
 **Dikerjakan oleh Sultan Adrin Pasha Siregar**
 
-Pengguna dapat menjelajahi restoran-restoran yang tersedia di Jogja-Food-Spots berdasarkan berbagai kategori seperti jenis makanan, lokasi, popularitas, serta filter tambahan. Kategori ini juga mencakup clustering kuliner untuk berbagai wilayah, misalnya:
+Pengguna dapat menjelajahi restoran-restoran yang tersedia di Jogjappetite berdasarkan berbagai kategori seperti jenis makanan, lokasi, popularitas, serta filter tambahan. Kategori ini juga mencakup clustering kuliner untuk berbagai wilayah, misalnya:
 
 * Makanan Tradisional Jogja
 * Western Food di Jogja
