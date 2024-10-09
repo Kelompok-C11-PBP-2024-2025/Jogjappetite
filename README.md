@@ -15,8 +15,15 @@ Jogjappetite adalah platform _food and restaurant discovery_ yang dirancang untu
 **Dikerjakan oleh Sultan Adrin Pasha Siregar**
 
 
-Pengguna dapat menjelajahi restoran-restoran yang tersedia di Jogjappetite berdasarkan berbagai kategori seperti jenis makanan, lokasi, popularitas, serta filter tambahan. Kategori ini juga mencakup clustering kuliner untuk berbagai wilayah, misalnya chinese, indonesian, western, dan lain-lain.
+Fitur "Explore" adalah sebuah modul dalam aplikasi Jogjappetite yang memungkinkan pengguna untuk menjelajahi berbagai jenis makanan yang tersedia di kota Jogja. Dengan fitur ini, pengguna dapat memfilter pilihan makanan berdasarkan kategori seperti aneka nasi, bakmie, makanan barat, dan lainnya. Antarmuka yang intuitif memudahkan pengguna untuk menemukan jenis makanan yang mereka inginkan hanya dengan beberapa klik. Fitur ini dapat dilengkapi dengan gambar, deskripsi, dan ulasan dari pengguna lain, sehingga memberikan pengalaman yang lebih menarik dan informatif.
 
+Di era digital saat ini, banyak orang mencari kemudahan dalam menemukan makanan sesuai selera mereka pada kota Jogja dengan beragam pilihan kuliner. Fitur "Explore" menjadi sangat penting untuk memenuhi permintaan pengalaman kuliner yang lebih terpersonalisasi. Dengan opsi filter yang ada, pengguna dapat menghemat waktu dan mendapatkan rekomendasi yang lebih relevan berdasarkan preferensi mereka. Hal ini juga membantu mereka untuk menemukan makanan baru yang mungkin belum pernah mereka coba sebelumnya.
+
+Diharapkan fitur ini dapat meningkatkan pengalaman pengguna dan mendorong interaksi yang lebih tinggi dengan aplikasi. Dengan memudahkan pengguna menemukan makanan sesuai preferensi, fitur "Explore" diharapkan dapat meningkatkan penjualan untuk penjual yang terdaftar. Selain itu, fitur ini dapat memberikan data berharga tentang preferensi makanan pengguna, yang dapat digunakan untuk pengembangan fitur lebih lanjut atau promosi khusus, sehingga menciptakan lingkungan yang mendorong eksplorasi dan penemuan kuliner baru.
+
+| All Users                                                              | 
+|-------------------------------------------------------------------------------|
+| Menggunakan fitur explore untuk melihat berbagai restoran dan pilihan makanan yang telah terseleksi berdasarkan kategori tertentu. |
 
 ### ♥️ Tambah Favorit (Add Favorite) 
 
