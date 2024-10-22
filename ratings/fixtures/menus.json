@@ -1,0 +1,1271 @@
+[
+    {
+      "pk": 1,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "kwetiaw pangsit goreng",
+        "nama_restoran": "Mie Bandung Chinese Food",
+        "cluster": [
+          "Asian",
+          "Mie"
+        ],
+        "harga": 34000
+      }
+    },
+    {
+      "pk": 2,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "mie goreng ",
+        "nama_restoran": "Mie Bandung Chinese Food",
+        "cluster": [
+          "Indonesian",
+          "Mie"
+        ],
+        "harga": 41000
+      }
+    },
+    {
+      "pk": 3,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "soto tauco sapi",
+        "nama_restoran": "Soto Tauco Pekalongan Bu Iswi",
+        "cluster": [
+          "Soto",
+          "Indonesian"
+        ],
+        "harga": 16000
+      }
+    },
+    {
+      "pk": 4,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "soto tauco ayam",
+        "nama_restoran": "Soto Tauco Pekalongan Bu Iswi",
+        "cluster": [
+          "Soto",
+          "Indonesian"
+        ],
+        "harga": 9500
+      }
+    },
+    {
+      "pk": 5,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Sop Ayam Brutu/Punggung Pechok",
+        "nama_restoran": "Sop Ayam Klaten Seturan",
+        "cluster": [
+          "Indonesian",
+          "Nasi"
+        ],
+        "harga": 22800
+      }
+    },
+    {
+      "pk": 6,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Nasi Sop Ayam Biasa/Campur",
+        "nama_restoran": "Sop Ayam Klaten Seturan",
+        "cluster": [
+          "Indonesian",
+          "Nasi"
+        ],
+        "harga": 10000
+      }
+    },
+    {
+      "pk": 7,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Caramel machiato",
+        "nama_restoran": "Legend coffe",
+        "cluster": [
+          "Minuman",
+          "Western"
+        ],
+        "harga": 25000
+      }
+    },
+    {
+      "pk": 8,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Pisang bakar coklat keju",
+        "nama_restoran": "Legend coffe",
+        "cluster": [
+          "Snacks",
+          "Manis-manis"
+        ],
+        "harga": 22000
+      }
+    },
+    {
+      "pk": 9,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Mi Kakap Kering Kecil",
+        "nama_restoran": "Restoran Mahkota (Tiong San)",
+        "cluster": [
+          "Mie",
+          "Indonesian"
+        ],
+        "harga": 1375000
+      }
+    },
+    {
+      "pk": 10,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Jwan Lo Kecil Campur",
+        "nama_restoran": "Restoran Mahkota (Tiong San)",
+        "cluster": [
+          "Asian"
+        ],
+        "harga": 330000
+      }
+    },
+    {
+      "pk": 11,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Katsu Tamago 3",
+        "nama_restoran": "Curryin",
+        "cluster": [
+          "Japanese",
+          "Snack"
+        ],
+        "harga": 40000
+      }
+    },
+    {
+      "pk": 12,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Beef Curry Donburi",
+        "nama_restoran": "Curryin",
+        "cluster": [
+          "Japanese",
+          "Nasi"
+        ],
+        "harga": 36000
+      }
+    },
+    {
+      "pk": 13,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Mochi premium medium",
+        "nama_restoran": "Sakura mochi",
+        "cluster": [
+          "Japanese",
+          "Snacks"
+        ],
+        "harga": 42000
+      }
+    },
+    {
+      "pk": 14,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Bakpia sakura telo ungu",
+        "nama_restoran": "Sakura mochi",
+        "cluster": [
+          "Indonesian",
+          "Snacks"
+        ],
+        "harga": 12000
+      }
+    },
+    {
+      "pk": 15,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Empal gentong",
+        "nama_restoran": "Warung lawas",
+        "cluster": [
+          "Indonesian"
+        ],
+        "harga": 54000
+      }
+    },
+    {
+      "pk": 16,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Chicken Grilled Steak",
+        "nama_restoran": "Warung lawas",
+        "cluster": [
+          "Western"
+        ],
+        "harga": 50000
+      }
+    },
+    {
+      "pk": 17,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Avocado toast",
+        "nama_restoran": "Mediterranea Restaurant by Kamil",
+        "cluster": [
+          "Western",
+          "Snacks"
+        ],
+        "harga": 58000
+      }
+    },
+    {
+      "pk": 18,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "La tortila",
+        "nama_restoran": "Mediterranea Restaurant by Kamil",
+        "cluster": [
+          "Western",
+          "Snacks"
+        ],
+        "harga": 67000
+      }
+    },
+    {
+      "pk": 19,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Nasi Dori Bumbu Bali",
+        "nama_restoran": "Rustik Bistro & Bar",
+        "cluster": [
+          "Nasi",
+          "Indonesian"
+        ],
+        "harga": 35000
+      }
+    },
+    {
+      "pk": 20,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Nasi Goreng Bebek Hijau",
+        "nama_restoran": "Rustik Bistro & Bar",
+        "cluster": [
+          "Nasi",
+          "Indonesian"
+        ],
+        "harga": 35000
+      }
+    },
+    {
+      "pk": 21,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Chicken karage geprek",
+        "nama_restoran": "Gyudel Bowl & Nasi Goreng",
+        "cluster": [
+          "Indonesian",
+          "Nasi"
+        ],
+        "harga": 29000
+      }
+    },
+    {
+      "pk": 22,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Nasi goreng spesial gyu beef",
+        "nama_restoran": "Gyudel Bowl & Nasi Goreng",
+        "cluster": [
+          "Indonesian",
+          "Nasi"
+        ],
+        "harga": 30000
+      }
+    },
+    {
+      "pk": 23,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Angry Godzilla",
+        "nama_restoran": "Sushi story",
+        "cluster": [
+          "Japanese",
+          "Snacks"
+        ],
+        "harga": 37000
+      }
+    },
+    {
+      "pk": 24,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Volcano Menthai Yakisushi",
+        "nama_restoran": "Sushi story",
+        "cluster": [
+          "Japanese"
+        ],
+        "harga": 30000
+      }
+    },
+    {
+      "pk": 25,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Sirloin crispy",
+        "nama_restoran": "Pulung Steak & Ribs",
+        "cluster": [
+          "Western"
+        ],
+        "harga": 28999
+      }
+    },
+    {
+      "pk": 26,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Chicken cheese crispy",
+        "nama_restoran": "Pulung Steak & Ribs",
+        "cluster": [
+          "Western"
+        ],
+        "harga": 46999
+      }
+    },
+    {
+      "pk": 27,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Vegan Supreme Pizza",
+        "nama_restoran": "Vegan Cafe Black Forest",
+        "cluster": [
+          "Western",
+          "Snacks"
+        ],
+        "harga": 135000
+      }
+    },
+    {
+      "pk": 28,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Vegan Kemangi (Lemon Basil) Fried Rice",
+        "nama_restoran": "Vegan Cafe Black Forest",
+        "cluster": [
+          "Indonesian",
+          "Nasi"
+        ],
+        "harga": 35000
+      }
+    },
+    {
+      "pk": 29,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Chiro original",
+        "nama_restoran": "Chikuro Pakuwon Mall Jogja",
+        "cluster": [
+          "Japanese"
+        ],
+        "harga": 27500
+      }
+    },
+    {
+      "pk": 30,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Royal garlic cream cheese",
+        "nama_restoran": "Chikuro Pakuwon Mall Jogja",
+        "cluster": [
+          "Japanese"
+        ],
+        "harga": 27500
+      }
+    },
+    {
+      "pk": 31,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Thai Chicken Lemon Basil and Mint",
+        "nama_restoran": "ViaVia Jogja",
+        "cluster": [
+          "Indonesian",
+          "Nasi"
+        ],
+        "harga": 55000
+      }
+    },
+    {
+      "pk": 32,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Indian Veggie Curry",
+        "nama_restoran": "ViaVia Jogja",
+        "cluster": [
+          "Asian",
+          "Nasi"
+        ],
+        "harga": 50000
+      }
+    },
+    {
+      "pk": 33,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Kingdom (With Special Spicy Korean Sauce)",
+        "nama_restoran": "The Rock Burger",
+        "cluster": [
+          "Asian",
+          "Snack"
+        ],
+        "harga": 68750
+      }
+    },
+    {
+      "pk": 34,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Chester",
+        "nama_restoran": "The Rock Burger",
+        "cluster": [
+          "Western",
+          "Snack"
+        ],
+        "harga": 68750
+      }
+    },
+    {
+      "pk": 35,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Kupat Tahu + Telur Dadar / Ceplok / Rebus",
+        "nama_restoran": "Lotek Gado-Gado Bu Ning",
+        "cluster": [
+          "Indonesian"
+        ],
+        "harga": 33000
+      }
+    },
+    {
+      "pk": 36,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Lotek Original",
+        "nama_restoran": "Lotek Gado-Gado Bu Ning",
+        "cluster": [
+          "Indonesian"
+        ],
+        "harga": 29000
+      }
+    },
+    {
+      "pk": 37,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Titee",
+        "nama_restoran": "PigGoo Kitchen",
+        "cluster": [
+          "Indonesian"
+        ],
+        "harga": 69000
+      }
+    },
+    {
+      "pk": 38,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Nasi Babi Sambal Matah",
+        "nama_restoran": "PigGoo Kitchen",
+        "cluster": [
+          "Indonesian",
+          "Nasi"
+        ],
+        "harga": 44500
+      }
+    },
+    {
+      "pk": 39,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Recommended Abura Soba",
+        "nama_restoran": "Hotaru Ramen",
+        "cluster": [
+          "Japanese",
+          "Mie"
+        ],
+        "harga": 39000
+      }
+    },
+    {
+      "pk": 40,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Standard Abura Soba",
+        "nama_restoran": "Hotaru Ramen",
+        "cluster": [
+          "Japanese",
+          "Mie"
+        ],
+        "harga": 32000
+      }
+    },
+    {
+      "pk": 41,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Nasi Ayam Karage Bento",
+        "nama_restoran": "Bento Yay",
+        "cluster": [
+          "Japanese",
+          "Nasi"
+        ],
+        "harga": 39000
+      }
+    },
+    {
+      "pk": 42,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Nasi Ayam Katsu Bento",
+        "nama_restoran": "Bento Yay",
+        "cluster": [
+          "Japanese",
+          "Nasi"
+        ],
+        "harga": 45000
+      }
+    },
+    {
+      "pk": 43,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Rapokki",
+        "nama_restoran": "Nikkou Ramen",
+        "cluster": [
+          "Asian",
+          "Snacks"
+        ],
+        "harga": 40000
+      }
+    },
+    {
+      "pk": 44,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Spicy Chicken Ramen",
+        "nama_restoran": "Nikkou Ramen",
+        "cluster": [
+          "Japanese",
+          "Mie"
+        ],
+        "harga": 37000
+      }
+    },
+    {
+      "pk": 45,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Zuppa Soup Original",
+        "nama_restoran": "Wangoen Zuppa Soup",
+        "cluster": [
+          "Western"
+        ],
+        "harga": 18000
+      }
+    },
+    {
+      "pk": 46,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Zuppa Soup Smoked Beef",
+        "nama_restoran": "Wangoen Zuppa Soup",
+        "cluster": [
+          "Western"
+        ],
+        "harga": 20000
+      }
+    },
+    {
+      "pk": 47,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Cheese Burger",
+        "nama_restoran": "Burgerax",
+        "cluster": [
+          "Western"
+        ],
+        "harga": 35000
+      }
+    },
+    {
+      "pk": 48,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Bomb Burger",
+        "nama_restoran": "Burgerax",
+        "cluster": [
+          "Western"
+        ],
+        "harga": 50000
+      }
+    },
+    {
+      "pk": 49,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Bubur Permata Hitam",
+        "nama_restoran": "Kedai Jagoan Moy-Moy",
+        "cluster": [
+          "Snacks",
+          "Manis-manis"
+        ],
+        "harga": 9000
+      }
+    },
+    {
+      "pk": 50,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Bubur Sarang Naga",
+        "nama_restoran": "Kedai Jagoan Moy-Moy",
+        "cluster": [
+          "Snacks",
+          "Manis-manis"
+        ],
+        "harga": 9000
+      }
+    },
+    {
+      "pk": 51,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Chicken Schnitzel",
+        "nama_restoran": "Spark Resto And Sports Bar",
+        "cluster": [
+          "Western"
+        ],
+        "harga": 44000
+      }
+    },
+    {
+      "pk": 52,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Chicken Cordon Blue",
+        "nama_restoran": "Spark Resto And Sports Bar",
+        "cluster": [
+          "Western"
+        ],
+        "harga": 59000
+      }
+    },
+    {
+      "pk": 53,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Bolen Pisang Raja",
+        "nama_restoran": "Dapur Mamika",
+        "cluster": [
+          "Snacks",
+          "Manis-manis"
+        ],
+        "harga": 27000
+      }
+    },
+    {
+      "pk": 54,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Bakpia Kacang Hijau",
+        "nama_restoran": "Dapur Mamika",
+        "cluster": [
+          "Snacks",
+          "Manis-manis"
+        ],
+        "harga": 22500
+      }
+    },
+    {
+      "pk": 55,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Rawon Empuk Ginuk Ginuk",
+        "nama_restoran": "Pawon Mbokdis",
+        "cluster": [
+          "Indonesian"
+        ],
+        "harga": 21000
+      }
+    },
+    {
+      "pk": 56,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Rica Rica Ayam",
+        "nama_restoran": "Pawon Mbokdis",
+        "cluster": [
+          "Indonesian"
+        ],
+        "harga": 20000
+      }
+    },
+    {
+      "pk": 57,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Nasi Goreng Hongkong Seafood",
+        "nama_restoran": "Nasi Goreng & Halal Chinesefood MakJoss",
+        "cluster": [
+          "Nasi",
+          "Asian"
+        ],
+        "harga": 25500
+      }
+    },
+    {
+      "pk": 58,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Nasi Goreng Ayam",
+        "nama_restoran": "Nasi Goreng & Halal Chinesefood MakJoss",
+        "cluster": [
+          "Nasi",
+          "Asian"
+        ],
+        "harga": 20000
+      }
+    },
+    {
+      "pk": 59,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Soto Ayam",
+        "nama_restoran": "Soto Ayam 61",
+        "cluster": [
+          "Soto",
+          "Indonesian"
+        ],
+        "harga": 22500
+      }
+    },
+    {
+      "pk": 60,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Es Jeruk Kelapa",
+        "nama_restoran": "Soto Ayam 61",
+        "cluster": [
+          "Minuman",
+          "Manis-manis"
+        ],
+        "harga": 22000
+      }
+    },
+    {
+      "pk": 61,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Seblak Spesial Suwir Ayam",
+        "nama_restoran": "Seblak Mang Cepot & Baso Aci Hoax",
+        "cluster": [
+          "Indonesian"
+        ],
+        "harga": 18400
+      }
+    },
+    {
+      "pk": 62,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Seblak Spesial Cilok",
+        "nama_restoran": "Seblak Mang Cepot & Baso Aci Hoax",
+        "cluster": [
+          "Indonesian"
+        ],
+        "harga": 18800
+      }
+    },
+    {
+      "pk": 63,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Bakso Lontong",
+        "nama_restoran": "Bakso Lontong Djeng Thathit",
+        "cluster": [
+          "Indonesian",
+          "Bakso"
+        ],
+        "harga": 17000
+      }
+    },
+    {
+      "pk": 64,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Bakso Komplit",
+        "nama_restoran": "Bakso Lontong Djeng Thathit",
+        "cluster": [
+          "Indonesian",
+          "Bakso"
+        ],
+        "harga": 15500
+      }
+    },
+    {
+      "pk": 65,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Soto Daging Sapi",
+        "nama_restoran": "Soto Daging Lamongan Cak Ngun",
+        "cluster": [
+          "Soto",
+          "Indonesian"
+        ],
+        "harga": 21000
+      }
+    },
+    {
+      "pk": 66,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Soto Babat",
+        "nama_restoran": "Soto Daging Lamongan Cak Ngun",
+        "cluster": [
+          "Soto",
+          "Indonesian"
+        ],
+        "harga": 21000
+      }
+    },
+    {
+      "pk": 67,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Soto Ceker",
+        "nama_restoran": "Tahu Walik & Soto Warisan",
+        "cluster": [
+          "Soto"
+        ],
+        "harga": 13700
+      }
+    },
+    {
+      "pk": 68,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Tahu Walik",
+        "nama_restoran": "Tahu Walik & Soto Warisan",
+        "cluster": [
+          "Snacks"
+        ],
+        "harga": 15600
+      }
+    },
+    {
+      "pk": 69,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Kepiting Saus Padang",
+        "nama_restoran": "Rm & Seafood 99",
+        "cluster": [
+          "Indonesian"
+        ],
+        "harga": 50000
+      }
+    },
+    {
+      "pk": 70,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Fuyung Hai Kepiting",
+        "nama_restoran": "Rm & Seafood 99",
+        "cluster": [
+          "Asian"
+        ],
+        "harga": 25000
+      }
+    },
+    {
+      "pk": 71,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Miso Glazed Black Cod",
+        "nama_restoran": "Roaster and Bear",
+        "cluster": [
+          "Japanese"
+        ],
+        "harga": 171800
+      }
+    },
+    {
+      "pk": 72,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Penang Kwetiaw",
+        "nama_restoran": "Roaster and Bear",
+        "cluster": [
+          "Mie",
+          "Asian"
+        ],
+        "harga": 92600
+      }
+    },
+    {
+      "pk": 73,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Teh Tubruk",
+        "nama_restoran": "Reisban Coffee Shop",
+        "cluster": [
+          "Minuman",
+          "Manis-manis"
+        ],
+        "harga": 10000
+      }
+    },
+    {
+      "pk": 74,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Sweet Caramel",
+        "nama_restoran": "Reisban Coffee Shop",
+        "cluster": [
+          "Minuman",
+          "Manis-manis"
+        ],
+        "harga": 21000
+      }
+    },
+    {
+      "pk": 75,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Hokkaido Iced Milk Tea",
+        "nama_restoran": "Pop Mart",
+        "cluster": [
+          "Minuman",
+          "Manis-manis"
+        ],
+        "harga": 22000
+      }
+    },
+    {
+      "pk": 76,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Hotbar Crab",
+        "nama_restoran": "Pop Mart",
+        "cluster": [
+          "Snacks"
+        ],
+        "harga": 9500
+      }
+    },
+    {
+      "pk": 77,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Bakso Urat Kuah",
+        "nama_restoran": "Bakso Urat Arema Soringin",
+        "cluster": [
+          "Bakso",
+          "Indonesian"
+        ],
+        "harga": 19000
+      }
+    },
+    {
+      "pk": 78,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Bakso Halus Kuah",
+        "nama_restoran": "Bakso Urat Arema Soringin",
+        "cluster": [
+          "Bakso",
+          "Indonesian"
+        ],
+        "harga": 19000
+      }
+    },
+    {
+      "pk": 79,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Yamie Asin Sukiyaki",
+        "nama_restoran": "Yamie Panda",
+        "cluster": [
+          "Mie",
+          "Japanese"
+        ],
+        "harga": 58500
+      }
+    },
+    {
+      "pk": 80,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Yamie Panda Asin",
+        "nama_restoran": "Yamie Panda",
+        "cluster": [
+          "Mie",
+          "Japanese"
+        ],
+        "harga": 55500
+      }
+    },
+    {
+      "pk": 81,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Red antioxidant",
+        "nama_restoran": "Easy Peasy Kitchen",
+        "cluster": [
+          "Minuman"
+        ],
+        "harga": 32900
+      }
+    },
+    {
+      "pk": 82,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Digestion Aid",
+        "nama_restoran": "Easy Peasy Kitchen",
+        "cluster": [
+          "Minuman"
+        ],
+        "harga": 32900
+      }
+    },
+    {
+      "pk": 83,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Red Velvet",
+        "nama_restoran": "Pepper Lunch",
+        "cluster": [
+          "Manis-manis"
+        ],
+        "harga": 22000
+      }
+    },
+    {
+      "pk": 84,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Oreo Cheese",
+        "nama_restoran": "Pepper Lunch",
+        "cluster": [
+          "Manis-manis"
+        ],
+        "harga": 22000
+      }
+    },
+    {
+      "pk": 85,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Yamie Asin JKT Style",
+        "nama_restoran": "Yamie Panda",
+        "cluster": [
+          "Mie",
+          "Indonesian"
+        ],
+        "harga": 46500
+      }
+    },
+    {
+      "pk": 86,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Lychee tea",
+        "nama_restoran": "Yamie Panda",
+        "cluster": [
+          "Minuman"
+        ],
+        "harga": 18000
+      }
+    },
+    {
+      "pk": 87,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Lemon Tea",
+        "nama_restoran": "Ichiban Sushi",
+        "cluster": [
+          "Minuman"
+        ],
+        "harga": 15400
+      }
+    },
+    {
+      "pk": 88,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Orange Juice",
+        "nama_restoran": "Ichiban Sushi",
+        "cluster": [
+          "Minuman"
+        ],
+        "harga": 15400
+      }
+    },
+    {
+      "pk": 89,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Bakso Campur Spesial",
+        "nama_restoran": "Bakso Lapangan Tembak Senayan - Cendana",
+        "cluster": [
+          "Bakso",
+          "Indonesian"
+        ],
+        "harga": 45000
+      }
+    },
+    {
+      "pk": 90,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Bakso Kuah Spesial",
+        "nama_restoran": "Bakso Lapangan Tembak Senayan - Cendana",
+        "cluster": [
+          "Bakso",
+          "Indonesian"
+        ],
+        "harga": 45000
+      }
+    },
+    {
+      "pk": 91,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Baskom (Bakso Komplit)",
+        "nama_restoran": "Twisted Noodle",
+        "cluster": [
+          "Bakso",
+          "Indonesian"
+        ],
+        "harga": 22800
+      }
+    },
+    {
+      "pk": 92,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Mie Ayam Rebus",
+        "nama_restoran": "Twisted Noodle",
+        "cluster": [
+          "Mie",
+          "Indonesian"
+        ],
+        "harga": 27600
+      }
+    },
+    {
+      "pk": 93,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Soto Ayam Nasi Pisah",
+        "nama_restoran": "Soto Ayam Jadul Mak Yem",
+        "cluster": [
+          "Soto",
+          "Indonesian",
+          "Nasi"
+        ],
+        "harga": 13000
+      }
+    },
+    {
+      "pk": 94,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Soto Ayam Nasi Campur",
+        "nama_restoran": "Soto Ayam Jadul Mak Yem",
+        "cluster": [
+          "Soto",
+          "Indonesian",
+          "Nasi"
+        ],
+        "harga": 13000
+      }
+    },
+    {
+      "pk": 95,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Eskopsu Salted Caramel",
+        "nama_restoran": "NABE COFFEE Soragan",
+        "cluster": [
+          "Minuman",
+          "Manis-manis"
+        ],
+        "harga": 20000
+      }
+    },
+    {
+      "pk": 96,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Kumo Latte",
+        "nama_restoran": "NABE COFFEE Soragan",
+        "cluster": [
+          "Minuman",
+          "Manis-manis"
+        ],
+        "harga": 20000
+      }
+    },
+    {
+      "pk": 97,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Berico",
+        "nama_restoran": "DF HEALTHY KITCHEN (DF FIT CLUB)",
+        "cluster": [
+          "Minuman",
+          "Manis-manis"
+        ],
+        "harga": 30000
+      }
+    },
+    {
+      "pk": 98,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Klepon Coffee",
+        "nama_restoran": "DF HEALTHY KITCHEN (DF FIT CLUB)",
+        "cluster": [
+          "Minuman",
+          "Indonesian"
+        ],
+        "harga": 29000
+      }
+    },
+    {
+      "pk": 99,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Blue Ocean",
+        "nama_restoran": "Pizza Hut",
+        "cluster": [
+          "Minuman",
+          "Western",
+          "Manis-manis"
+        ],
+        "harga": 37000
+      }
+    },
+    {
+      "pk": 100,
+      "model": "ratings.menu",
+      "fields": {
+        "nama_menu": "Winter Punch",
+        "nama_restoran": "Pizza Hut",
+        "cluster": [
+          "Minuman",
+          "Western"
+        ],
+        "harga": 39001
+      }
+    }
+  ]

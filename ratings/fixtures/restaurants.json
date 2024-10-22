@@ -1,0 +1,1402 @@
+[
+    {
+      "pk": 1,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Mie Bandung Chinese Food",
+        "lokasi": "Ngampilan",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 39000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipNyM93DJGe6cFN6y7kWxt8F5Nbfen0Lj92jAEgz=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 2,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Soto Tauco Pekalongan Bu Iswi",
+        "lokasi": "Jl. Pramuka No.42, Giwangan, Kec. Kotagede, Kota Yogyakarta, Daerah Istimewa Yogyakarta",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 19000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipOr3c3RkeAty1st0Xyk6erMglJU69YlZTZxqiSY=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 3,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Sop Ayam Klaten Seturan",
+        "lokasi": "Jl. Mataram, Suryatmajan, Kec. Danurejan, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55213",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 16000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipOoi1NcNjECVkiE_hIVD0cO5YJCv9c-1CKpOZ6Q=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 4,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Legend Coffee",
+        "lokasi": "Yogyakarta",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 37000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipOdcBTXbZhC6vBbTOtTbq0OD1vYFEuqyWYaZq1v=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 5,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Restoran Mahkota (Tiong San)",
+        "lokasi": "Pajeksan",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 132000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipNPTr3SAnhaqRnavME1kezpsNXSX2CVbOnMs42O=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 6,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Curryin",
+        "lokasi": "Perumnas",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 42000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipPdg3o9svuEMAWuTSqFxQzkaxxLS346gU4WsE8U=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 7,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Mochi Sakura",
+        "lokasi": "Plaza Ambarukmo",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 41000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipPED6W1bMHVrZGDlLLtUp_brV2n13PIPUX7jne0=s680-w680-h510"
+      }
+    },
+    {
+      "pk": 8,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Warung Lawas",
+        "lokasi": "Prawirotaman",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 41000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipNRxYavzIOeQkABoFWUy8e_UgdDHvYdZ55GufSP=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 9,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Mediterranea Restaurant by Kamil",
+        "lokasi": "Matrijeron",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 76000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipPxHqQPjnFRNnuYWB5aab-bqZHFx0-hkldNLS5E=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 10,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Rustik Bistro & Bar",
+        "lokasi": "Hotel Harper Malioboro Yogyakarta",
+        "jenis_suasana": "Formal",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 32000,
+        "gambar": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.tripadvisor.co.id%2FLocationPhotoDirectLink-g14782503-d10092248-i281748240-Rustik_Bistro_Bar-Yogyakarta_Yogyakarta_Region_Java.html&psig=AOvVaw1eAY_t26eM-ttD4Kc8jryL&ust=1729615112234000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPDlkMb0n4kDFQAAAAAdAAAAABAE"
+      }
+    },
+    {
+      "pk": 11,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Gyudel Bowl & Nasi Goreng",
+        "lokasi": "Dabag, Condongcatur, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta",
+        "jenis_suasana": "Formal",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 29000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipNh9a2cgT0Ti-K2uL4N8sD-JcCzm6JOLBAvwHo=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 12,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Sushi Story",
+        "lokasi": "Gejayan",
+        "jenis_suasana": "Formal",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 62000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipNsXrAhWezfn5H6x1z-7h1WDaJqYzCcMJjy0CFc=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 13,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Pulung Steak & Ribs",
+        "lokasi": "Catur Tunggal",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 43000,
+        "gambar": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fgofood.co.id%2Fyogyakarta%2Frestaurant%2Fpulung-steak-ribs-ngestiharjo-4b6a352f-cd06-4429-9b93-eabfc5c2579b&psig=AOvVaw3l4l4c9_cUSqCryPcfes0f&ust=1729615374282000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCICg68P1n4kDFQAAAAAdAAAAABAR"
+      }
+    },
+    {
+      "pk": 14,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Vegan Cafe Black Forest",
+        "lokasi": "Brontokusuman",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 22000,
+        "gambar": "https://lh5.googleusercontent.com/p/AF1QipNT5go0YEQQdtubzf9tvf2dPEm1iO3BgcbaABZL=w284-h160-k-no"
+      }
+    },
+    {
+      "pk": 15,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Chikuro Pakuwon Mall Jogja",
+        "lokasi": "Pakuwon Mall Lantai LG",
+        "jenis_suasana": "Formal",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 40000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipPPv91lcgyHMLDqG2CF7cykxIC0ftqqKc4mgT5B=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 16,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "ViaVia Jogja",
+        "lokasi": "Prawirotaman",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 75000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipPzSnUv4z2vFwPrPgXmFfyy1kujHNiyYX24PoH0=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 17,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "The Rock Burger",
+        "lokasi": "Melati Wetan",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 50000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipMRgcHFu3ChnF9FRAxtVUWeWqAUprIkrCRDpcwO=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 18,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Lotek Gado-Gado Bu Ning",
+        "lokasi": "Tamansiswa",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 26000,
+        "gambar": "https://www.google.com/url?sa=i&url=http%3A%2F%2Fwww.anishidayah.com%2F2016%2F02%2Fmenikmati-lezatnya-lotek-racikan-bu.html&psig=AOvVaw2srEKBl2EwBY9jsO-EoFT9&ust=1729615513292000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCKj4nIX2n4kDFQAAAAAdAAAAABAE"
+      }
+    },
+    {
+      "pk": 19,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "PigGoo Kitchen",
+        "lokasi": "Baciro",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 52000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipNojlXF7SRrkd3FmkbRAVYDIkTDa-lcb5xDEwww=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 20,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Hotaru Ramen",
+        "lokasi": "Banguntapan",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 36000,
+        "gambar": "https://www.google.com/maps/uv?pb=!1s0x2e7a57fa4a64868b%3A0x2a911f57d65c1dd5!3m1!7e115!4s%2Fmaps%2Fplace%2FHotaru%2BRamen%2F%40-7.7985842%2C110.4085115%2C3a%2C75y%2C33.29h%2C90t%2Fdata%3D*213m4*211e1*213m2*211szzgDnRsU-l66miKJOBsdeQ*212e0*214m2*213m1*211s0x2e7a57fa4a64868b%3A0x2a911f57d65c1dd5%3Fsa%3DX%26ved%3D2ahUKEwjn8PW29p-JAxXUUWwGHfqdJx8Qpx96BAg6EAA!5sHotaru%20Ramen%20-%20Penelusuran%20Google!15sCgIgAQ&imagekey=!1e10!2sAF1QipOAOND53vbX4LURa4rzLUM87-lOOXILoQUr3zX_&cr=le_a7&hl=id&ved=1t%3A206134&ictx=111#"
+      }
+    },
+    {
+      "pk": 21,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Bento Yay ]]",
+        "lokasi": "Selokan Yogya",
+        "jenis_suasana": "Formal",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 58000,
+        "gambar": "https://assets-pergikuliner.com/yLCgd7OLJm0rgSH0-n8mjIojlxI=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/image/picture/2422501/picture-1644304624.jpg"
+      }
+    },
+    {
+      "pk": 22,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Nikkou Ramen ]]",
+        "lokasi": "Pakualaman",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 32000,
+        "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyAg-XSdwVUJoZoM1F3EFcvbbRNht5bUhbHX8-nL_lf6bgki98j4f5KV07yV6QrnzMPw8&usqp=CAU"
+      }
+    },
+    {
+      "pk": 23,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Wangoen Zuppa Soup ]]",
+        "lokasi": "Umbulharjo",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 20000,
+        "gambar": "https://i0.wp.com/i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/4fb2a16b-d67e-4b74-8dab-b4be49afc59a_IMG_20201020_154931_731.jpg"
+      }
+    },
+    {
+      "pk": 24,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Burgerax ]]",
+        "lokasi": "Prawirotaman",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 38000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipOK6XV7UFCRt1Y_YCv-cyov41AovA8bPp-IN9oq=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 25,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Kedai Jagoan Moy-Moy [[",
+        "lokasi": "Tamsis",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 12000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipPLqlQIbQk3SPj1JqXOZerxerSTtBsE9ifRYN5a=s680-w680-h510"
+      }
+    },
+    {
+      "pk": 26,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Spark Resto And Sports Bar ]]",
+        "lokasi": "Prawirotaman",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 36000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipOsp4RNqJAVIjL_GxuC-Aeyo8SFUFFU5UvIyO89=s680-w680-h510"
+      }
+    },
+    {
+      "pk": 27,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Dapur Mamika ]]",
+        "lokasi": "Jl Sisingamangaraja Gg Menur",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 18000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipM6RzGWQjrn3ZGXIHvDHzJNBxYN9VmAV9w28sta=s680-w680-h510"
+      }
+    },
+    {
+      "pk": 28,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Pawon Mbokdis ]]",
+        "lokasi": "Mantrigawen Lor",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 20000,
+        "gambar": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fgofood.co.id%2Fid%2Fyogyakarta%2Frestaurant%2Fpawon-mbokdis-mantrigawen-lor-8645ce4e-1977-4c54-8be7-0860fff09168&psig=AOvVaw2RDUEd0dlTebj6tAG6Xsde&ust=1729663475804000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCOj_5NyooYkDFQAAAAAdAAAAABAE"
+      }
+    },
+    {
+      "pk": 29,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Rm & Seafood 99 ]]",
+        "lokasi": "Sorowajan",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 22000,
+        "gambar": "https://info-kuliner.com/wp-content/uploads/2023/01/WhatsApp-Image-2023-01-27-at-20.55.09.jpg"
+      }
+    },
+    {
+      "pk": 30,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Nasi Goreng & Halal Chinesefood MakJoss ]]",
+        "lokasi": "Rumah Pagar Biru Salon Yuli",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 25000,
+        "gambar": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/409feb68-0085-4a8d-9a56-44081a6edf1a_Go-Biz_20230531_151324.jpeg"
+      }
+    },
+    {
+      "pk": 31,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Soto Ayam 61 ]]",
+        "lokasi": "Gondomanan",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 19000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipOf-Qv7aOjoJ_7MBycA1Wc6Kquq0bPHEJwX1Juq=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 32,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Seblak Mang Cepot & Baso Aci Hoax [[",
+        "lokasi": "Umbulharjo",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 19000,
+        "gambar": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/2a2ea9c2-24e3-483f-903f-491a2598dfb5_Go-Biz_20220803_143822.jpeg"
+      }
+    },
+    {
+      "pk": 33,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Bakso Lontong Djeng Thathit ]]",
+        "lokasi": "Suryodiningratan",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 16000,
+        "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSG--1N9jsJT6JXnV6pL4iHlXAInon-OPTyRg&s"
+      }
+    },
+    {
+      "pk": 34,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Bakso Urat Arema Soringin ]]",
+        "lokasi": "Langensari",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 19000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipPx5b5h8mdKqpdfeRyu0IFQmBUfcNvKQhPsQvw6=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 35,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Soto Daging Lamongan Cak Ngun ]]",
+        "lokasi": "Jl. Veteran No 212 Umbulharjo",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 24000,
+        "gambar": "https://blue.kumparan.com/image/upload/fl_progressive,fl_lossy,c_fill,q_auto:best,w_640/v1634025439/01hwm75rmfjk7yd2mfmdkqf8h0.jpg"
+      }
+    },
+    {
+      "pk": 36,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Pop Mart [[",
+        "lokasi": "Laksda Adi Sucipto (Korner)",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 22000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipNScrX688CD8OH2SZDsKAaceaZD2HsYYNbNWuoT=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 37,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Tahu Walik & Soto Warisan ]]",
+        "lokasi": "Masjid Umbulharjo",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 19000,
+        "gambar": "https://i0.wp.com/i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/29ab5e85-8f6d-4e1d-82d5-b883a5da81d5_Go-Biz_20220119_151739.jpeg?w=250"
+      }
+    },
+    {
+      "pk": 38,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Roaster and Bear [[",
+        "lokasi": "P. Mangkubumi",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 87000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipPgS4ydQo22AXw-MPt76RuOqL5Ml6_c-B3rr7ws=s680-w680-h510"
+      }
+    },
+    {
+      "pk": 39,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Reisban Coffee Shop [[",
+        "lokasi": "Menukan",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 25000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipONkgt0ohUSrQxvwlnWnGpL9egbP19WfAL64yoH=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 40,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Yamie Panda ]]",
+        "lokasi": "Kridosono",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 28000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipNa-ZyIap6xZbW2y4YUOcvB9q9Dh2z61p5IersD=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 41,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Easy Peasy Kitchen",
+        "lokasi": "Prawirotaman",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 43000,
+        "gambar": "https://pbs.twimg.com/media/FTZvgyVVEAE12jh?format=jpg&name=large"
+      }
+    },
+    {
+      "pk": 42,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Pepper Lunch",
+        "lokasi": "Plaza Ambarrukmo",
+        "jenis_suasana": "Formal",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 92000,
+        "gambar": "https://lh5.googleusercontent.com/p/AF1QipM2Kx6PQnNC6vPycnVhZY3dICSJE-fufAOPTvAH"
+      }
+    },
+    {
+      "pk": 43,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Cak No Chinese Food",
+        "lokasi": "Jogoyudan",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 25000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipMw7jzGIA3DX2LEt93N6ZpxKWgGa3VYQZMjpXH5=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 44,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Warung Sop Iga Dan Soto Betawi Bu Tya",
+        "lokasi": "Jl. Prof. DR. Soepomo Sh No.10, Warungboto, Kec. Umbulharjo, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55164",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 28000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipPwdDspy8VWEnb6GCvfoWU0dk07dc5oFHGRVe_S=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 45,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "DF HEALTHY KITCHEN (DF FIT CLUB)",
+        "lokasi": "Yk",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 76000,
+        "gambar": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/44da0d02-e8ad-42d5-aaec-3f81c5c32f28_Go-Biz_20220521_142306.jpeg"
+      }
+    },
+    {
+      "pk": 46,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "RamenYa!",
+        "lokasi": "Plaza Ambarrukmo",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 73000,
+        "gambar": "https://ayomakan.oss-ap-southeast-5.aliyuncs.com/branch/BRANCH-AYOMAKAN_202309011021150opF.jpeg"
+      }
+    },
+    {
+      "pk": 47,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Pizza Hut",
+        "lokasi": "Sultan Agung Yogyakarta",
+        "jenis_suasana": "Formal",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 119000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipOZnauO_-iWtSrytH4JhUiNWgZbko66swZlzNCj=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 48,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Picnic! Pata X Sausage Tamansiswa",
+        "lokasi": "Jl. Tamansiswa No.49 Yogya",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 29000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipOuHopVTy29T84bpnwGZWJJSpjLmXc9aJNySIIC=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 49,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Lawson Shop",
+        "lokasi": "Tegalrejo",
+        "jenis_suasana": "Formal",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 44000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipNZ5Rtx3__bS9mNrNyLvhm_jU_N8oiWnG9MWFkI=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 50,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Twisted Noodle",
+        "lokasi": "Gondokusuman",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 12000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipOZsKXpQbz-ZUJOnoIrRt7i6GvE-PRkhZMbUPa-=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 51,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Yamie Panda",
+        "lokasi": "Demangan",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 28000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipNPswMVHl7WoXG9qlmH1YIczgcQ8RBflcLZJsZf=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 52,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Bebek Peking dan Ayam Panggang Pak Gembul",
+        "lokasi": "Jl KH Ahmad Dahlan No 40",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 45000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipMyjkZcA5pEYITMsW5kkK5XhzFpa7D16u30be42=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 53,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Soto Pak Zaenal",
+        "lokasi": "Dr. Supomo",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 15000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipNL-Xda6WwcJaHwwzpTLr6KTFbyNxQC-2ip4Gs5=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 54,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Bakso Lapangan Tembak Senayan - Cendana",
+        "lokasi": "Jl. Cendana No.34, Semaki, Kec. Umbulharjo, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55166",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 42000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipOVrtQjFHtlBLRvF-_Qu7UBfL4EKELMF4eKOcjs=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 55,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Soto Ayam Jadul Mak Yem",
+        "lokasi": "Sorogenen",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 10000,
+        "gambar": "https://dzglkev4c34xb.cloudfront.net/horego.com/umbulharjo/restaurant/soto-ayam-jadul-mak-yem-yen/other/af1qipmn7v7yf9nvbbuxv4aynjeqf627rgl3w25grd_l.jpg"
+      }
+    },
+    {
+      "pk": 56,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Funkydak",
+        "lokasi": "Komplek Colombo",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 58000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipMNbHynPhVhzCpIg7_GB0dCIKXT0lQzJ6KCrL_-=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 57,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "RM. Gajah jaya",
+        "lokasi": "Ruko Mas Plaza, Jl. Urip Sumoharjo No.7 5, Klitren, Kec. Gondokusuman, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55222",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 25000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipNrC3zaEIouM8e0EQ18qXnx2IRWmCQEvVwybEzO=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 58,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Ichiban Sushi",
+        "lokasi": "Hartono Mall",
+        "jenis_suasana": "Formal",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 52000,
+        "gambar": "https://dzglkev4c34xb.cloudfront.net/horego.com/sleman/japanese-restaurant/ichiban-sushi-pakuwon-mall-jogja/other/af1qipnr2f_qpoqf2yg-udkqcaruuio7cqyvhrhxz_mn.jpg"
+      }
+    },
+    {
+      "pk": 59,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "East Pork - #1 Sei Babi Kupang In Jogja",
+        "lokasi": "Ampel",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 30000,
+        "gambar": "https://awsimages.detik.net.id/community/media/visual/2022/05/13/resto-east-pork-di-jogja-tawarkan-sei-babi-khas-kupang-1_43.jpeg?w=1200"
+      }
+    },
+    {
+      "pk": 60,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "NABE COFFEE Soragan",
+        "lokasi": "Soragan",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 36000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipM0kdGrEXSMWd6EiV-14tCb8UjIF1H_bgQUix4r=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 61,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Mie Jakarta Express",
+        "lokasi": "Galeria Mall",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 48000,
+        "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP8oGnn3VqKnytUGQQy1kEFRVAM8alVwX6Lg&s"
+      }
+    },
+    {
+      "pk": 62,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Soto Ayam Pak Satar",
+        "lokasi": "Jl. Prof DR Soepomo Sh No. 121, Umbulharjo, Yogyakarta",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 13000,
+        "gambar": "https://dzglkev4c34xb.cloudfront.net/horego.com/umbulharjo/restaurant/soto-ayam-pak-satar/other/af1qipoxehlgiicj2awa9nw1mldn0deibeuaifgbboop.jpg"
+      }
+    },
+    {
+      "pk": 63,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Mie Ayam Sae Raos",
+        "lokasi": "Jl Sidikan No. 71 Sorosutan",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 14000,
+        "gambar": "https://dzglkev4c34xb.cloudfront.net/horego.com/umbulharjo/restaurant/mie-ayam-sae-raos-/ambience/af1qipndydqtpinwwjdlj3p3ch0nafkuqbxf1hke6ju1.jpg"
+      }
+    },
+    {
+      "pk": 64,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Happy Juice & Soto Padang",
+        "lokasi": "Umbulharjo",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 18000,
+        "gambar": "https://dzglkev4c34xb.cloudfront.net/horego.com/umbulharjo/beverages/happy-juice-cappuccino-cincau-dan-soto-padang/ambience/thumbnail/af1qipno5lihafthfdr6rhsue5czpxunsknrse57ytya.jpg"
+      }
+    },
+    {
+      "pk": 65,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Cerenti Restaurant",
+        "lokasi": "Hotel Grand Zuri",
+        "jenis_suasana": "Formal",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 66000,
+        "gambar": "https://www.zhmhotels.com/wp-content/uploads/sites/33/2016/03/Cerenti-1-1803x1080.jpg"
+      }
+    },
+    {
+      "pk": 66,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Sushi Tei",
+        "lokasi": "Komplek Colombo",
+        "jenis_suasana": "Formal",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 100000,
+        "gambar": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/70b97089-e2ac-41f4-9465-767d6c9e821c_restaurant-image_1698207015126.jpg"
+      }
+    },
+    {
+      "pk": 67,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Bubur Ayam Kampung Hawila",
+        "lokasi": "Timoho",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 25000,
+        "gambar": "https://scontent.fcgk27-2.fna.fbcdn.net/v/t1.6435-9/72670893_2667568053477182_6147623111534575616_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=W2MGqzr89ekQ7kNvgFsfKHD&_nc_ht=scontent.fcgk27-2.fna&_nc_gid=APAxauJGW1nM5DV61T3qSMw&oh=00_AYBLqc3r830PgF_VUcW0zfRG6Xpx8qAIeF3dYDcojPeWaQ&oe=673E8284"
+      }
+    },
+    {
+      "pk": 68,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Nasi Ayam d' Katsu",
+        "lokasi": "Rejodadi Sidorejo",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 38000,
+        "gambar": "https://instagram.fcgk27-2.fna.fbcdn.net/v/t51.29350-15/344242667_6126393847444517_4028802144224225494_n.jpg?stp=dst-jpg_e35&cb=9b69d9bc-cc9a4304&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xMDgweDEwODAuc2RyLmYyOTM1MC5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fcgk27-2.fna.fbcdn.net&_nc_cat=105&_nc_ohc=glUzZGwDYasQ7kNvgFYUI5L&_nc_gid=46c43306935c43a68913fbb56d8bdbd0&edm=APoiHPcBAAAA&ccb=7-5&ig_cache_key=MzA5Mjk4NjQ0NjkyNjk2NzM4OQ%3D%3D.3-ccb7-5-cb9b69d9bc-cc9a4304&oh=00_AYCYmnutqQ7jHFINeduA9Kc6Z-JohuLKGz6zcAADSTyzaw&oe=671CF9EC&_nc_sid=22de04"
+      }
+    },
+    {
+      "pk": 69,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Kedai Liang Xin",
+        "lokasi": "Jalan Manggis No. 56A Gaten, Kel. Condongcatur, Kec. Depok, Sleman",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 22000,
+        "gambar": "https://instagram.fcgk27-2.fna.fbcdn.net/v/t51.29350-15/310044375_1136255936976411_2696274473912545074_n.webp?stp=dst-jpg_e35&cb=9b69d9bc-cc9a4304&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xMzg0eDExMzMuc2RyLmYyOTM1MC5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fcgk27-2.fna.fbcdn.net&_nc_cat=103&_nc_ohc=ejE5iS4e7b4Q7kNvgHbrTow&_nc_gid=0afab37040c042ca8840ab80476f344d&edm=ALQROFkBAAAA&ccb=7-5&ig_cache_key=MjkzODQ0OTY1OTgxNTU3NjAyMg%3D%3D.3-ccb7-5-cb9b69d9bc-cc9a4304&oh=00_AYAvlhMSJ09OLm-rid8XUBKqx6F5jcLpL6glA4QA79Wjwg&oe=671CD5CE&_nc_sid=fc8dfb"
+      }
+    },
+    {
+      "pk": 70,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "My Kopi-O! Indonesian Bistro",
+        "lokasi": "Sagan",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 51000,
+        "gambar": "https://www.mykopio.id/data/brands/5/Beef%20Frankfurter%20&%20Scramble%20Egg.jpg"
+      }
+    },
+    {
+      "pk": 71,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Kalluna",
+        "lokasi": "Kotabaru",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 60000,
+        "gambar": "https://www.starjogja.com/assets/2023/10/Kalluna-Resto.jpg"
+      }
+    },
+    {
+      "pk": 72,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Sabi Jogja",
+        "lokasi": "Caturtunggal",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 49000,
+        "gambar": "https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p1/1035/2023/12/05/sabi-jogja-2253740795.jpg"
+      }
+    },
+    {
+      "pk": 73,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Lawang Resto",
+        "lokasi": "Yellow Star Ambarrukmo Hotel",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 28000,
+        "gambar": "https://img.harianjogja.com/posts/2018/04/05/908294/lawang-resto.jpg"
+      }
+    },
+    {
+      "pk": 74,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Kebab Turki Baba Rafi",
+        "lokasi": "Tegalrejo",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 38000,
+        "gambar": "https://www.babarafi.com/uploads/slides/1645787151636e4e80ba899.png"
+      }
+    },
+    {
+      "pk": 75,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Madam Tan Indonesian Food",
+        "lokasi": "Gondokusuman",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 30000,
+        "gambar": "https://madamtan.com/upload/images/logo/img_g92dabC.png"
+      }
+    },
+    {
+      "pk": 76,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Soto Lamongan Cak Mangku",
+        "lokasi": "Jalan Kusumanegara UH",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 18000,
+        "gambar": "https://pbs.twimg.com/media/Fkemoq0VEAAkCiR?format=jpg&name=large"
+      }
+    },
+    {
+      "pk": 77,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Nasi Bakar Lagi Dan Mendoan Jumbo \"Mbakayune\"",
+        "lokasi": "Umbulharjo",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 20000,
+        "gambar": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/c215ced9-26f9-41fb-a323-65adf6937e7a_Go-Biz_20220324_114010.jpeg"
+      }
+    },
+    {
+      "pk": 78,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Oriyamie",
+        "lokasi": "Kusumanegara",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 20000,
+        "gambar": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/25cef837-e6fe-4469-b7f8-d98230b5ad66_Go-Biz_20230615_185432.jpeg"
+      }
+    },
+    {
+      "pk": 79,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Monalisa Burger Sisingamangaraja",
+        "lokasi": "seberang BDS syariah",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 33000,
+        "gambar": "https://instagram.fcgk27-2.fna.fbcdn.net/v/t51.29350-15/172042797_293066842327457_6691351806545594234_n.jpg?stp=dst-jpg_e35&cb=9b69d9bc-cc9a4304&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xMDgweDEwODAuc2RyLmYyOTM1MC5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fcgk27-2.fna.fbcdn.net&_nc_cat=105&_nc_ohc=KLSWNkK57TIQ7kNvgG_Chxg&_nc_gid=3aa9e9e135ca4b98a21e077e323837f1&edm=ALQROFkBAAAA&ccb=7-5&ig_cache_key=MjU1MTAxMDA3MzI5NDgyNTE5OQ%3D%3D.3-ccb7-5-cb9b69d9bc-cc9a4304&oh=00_AYDar7261sqiQuxnLcSBAv6gUl5kb6--Hx1-xOdThMKOyA&oe=671CE387&_nc_sid=fc8dfb"
+      }
+    },
+    {
+      "pk": 80,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Etnik Kafe",
+        "lokasi": "Mergangsan",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 23000,
+        "gambar": "https://media-cdn.tripadvisor.com/media/photo-s/10/fb/86/1a/etnik-kafe.jpg"
+      }
+    },
+    {
+      "pk": 81,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Silla Korean & Japanese Restaurant",
+        "lokasi": "Jl. Arteri ( Ring Road ) Utara No.33,",
+        "jenis_suasana": "Formal",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 85000,
+        "gambar": "https://cdn.cerise.id/restoran/korean/images/477/337477sillakorea.jpg "
+      }
+    },
+    {
+      "pk": 82,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Aqori Angkringan Jepang",
+        "lokasi": "Kuliner Lor Tugu",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 23000,
+        "gambar": "https://pbs.twimg.com/media/CvRoQWQUkAAqKmR.jpg "
+      }
+    },
+    {
+      "pk": 83,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Bakso Urat dan Mie Ayam Krowal Krowel",
+        "lokasi": "Depot Klp. Muda, Jl. Tegalturi No.25, Giwangan, Kec. Umbulharjo, Kota Yogyakarta",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 15000,
+        "gambar": "https://dzglkev4c34xb.cloudfront.net/horego.com/umbulharjo/restaurant/bakso-urat-krowal-mie-ayam-kruwel-b-tieng-putra-354/other/af1qipoem_j5spytawdojpto0md84z2usi5uiw9vdd85.jpg "
+      }
+    },
+    {
+      "pk": 84,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Bubur Ayam Bang Opik",
+        "lokasi": "Jl. Lowanu No.34B, Sorosutan, Kec. Umbulharjo, Kota Yogyakarta ",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 18000,
+        "gambar": "https://dzglkev4c34xb.cloudfront.net/horego.com/mergangsan/restaurant/bubur-ayam-bang-opik/other/thumbnail/AF1QipMTJ3lcBQhJ425zXy8Er5VXJH4fnUG-MU-1EBX5.jpg "
+      }
+    },
+    {
+      "pk": 85,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Sate Kambing Pak Tomek",
+        "lokasi": "Ngentak",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 22000,
+        "gambar": " https://satekambingpaktomekngentaksapen.websites.co.in/files/33524/media/29795/_15521118373Ka1iE.jpeg"
+      }
+    },
+    {
+      "pk": 86,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Seafood 99",
+        "lokasi": "Sorogenen",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 32000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipMIXCE4E7CXfaigt2_u5avX59fw9GHiYMJN2Vxs=s1360-w1360-h1020 "
+      }
+    },
+    {
+      "pk": 87,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Burgerax",
+        "lokasi": "Gedongkuning",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 38000,
+        "gambar": "https://i.pinimg.com/564x/c3/fb/f0/c3fbf0987ea735838a431acae12a4c9d.jpg "
+      }
+    },
+    {
+      "pk": 88,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Hawker's Steak",
+        "lokasi": "JEC",
+        "jenis_suasana": "Formal",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 28000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipM9Y82nTW1fvSPd87Y3r5a3s9nj8z9kKzd1NhYG=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 89,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Pizza Aroma Italia 2",
+        "lokasi": "Gondokusuman",
+        "jenis_suasana": "Formal",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 107000,
+        "gambar": "https://cdn-2.tstatic.net/travel/foto/bank/images/aroma-italia-jogja.jpg "
+      }
+    },
+    {
+      "pk": 90,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Nasi Goreng dan Chinese Food Abah",
+        "lokasi": "Prawirotaman",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 22000,
+        "gambar": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/65130a8f-7e5a-4fef-8275-44273d167717_Go-Biz_20200806_090821.jpeg"
+      }
+    },
+    {
+      "pk": 91,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Bakso Rahayu",
+        "lokasi": "Jl. Tegal Gendu, Giwangan, Kec. Kotagede, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55172",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 14000,
+        "gambar": "https://assets-a1.kompasiana.com/items/album/2021/08/18/img-20210818-154000-611cf9aa01019024eb070232.jpg"
+      }
+    },
+    {
+      "pk": 92,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Soto Sapi Winong",
+        "lokasi": "Jl. Ngeksigondo No.6b, Prenggan, Kec. Kotagede, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55172",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 25000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipNvys7JjBcm7Nmx7bj8Uai5K-_hwg43MZALIngc=s1360-w1360-h1020 "
+      }
+    },
+    {
+      "pk": 93,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Mr. Teto Sate & Soto",
+        "lokasi": "Perintis Kemerdekaan",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 27000,
+        "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVTXAH1vcRDV33P4CtNPA2gsH-DowkxUt6dA&s "
+      }
+    },
+    {
+      "pk": 94,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Steak 36 Kusumanegara",
+        "lokasi": "No.222 , Kota Yogyakarta",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 24000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipNnII0cv69LfEk4uTf9Wg_CXC1RX3jCtY-EPBNg=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 95,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Petit Paris Boulangerie and Bistro",
+        "lokasi": "Kotabaru",
+        "jenis_suasana": "Formal",
+        "keramaian_restoran": 2,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 103000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipN2kFNyf9qH-yz_Wk6IWGby8S1oo4xNag4G6UpC=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 96,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "A&M Co. Express",
+        "lokasi": "Jogja",
+        "jenis_suasana": "Formal",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 75000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipNezhUAPEPFD1Q5PXYqJwdp3lgGklhThKA_7tBl=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 97,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Hakata Ikkousha",
+        "lokasi": "Hartono Mall",
+        "jenis_suasana": "Formal",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 64000,
+        "gambar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ78T5--IWP8mLvmVe2pDF9wh08Ll9R8gBv0A&s"
+      }
+    },
+    {
+      "pk": 98,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Warung Buto",
+        "lokasi": "Jl. Brigjen Katamso No.63, Prawirodirjan, Kec. Gondomanan, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55121",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 43000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipMnQlyY9E0qzsz4AqNNMtbb-t7ve8Qv_5WmE8Gi=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 99,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Mie Surabaya Pak Joko",
+        "lokasi": "Gedongkuning Selatan",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 3,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 18000,
+        "gambar": "https://lh3.googleusercontent.com/p/AF1QipN8sko6hKH7DOLvIu1A3HqhDrGDuSX1NtMFQN4-=s1360-w1360-h1020"
+      }
+    },
+    {
+      "pk": 100,
+      "model": "ratings.restaurant",
+      "fields": {
+        "nama_restoran": "Tanamera Coffee Roastery",
+        "lokasi": "Yogyakarta",
+        "jenis_suasana": "Santai",
+        "keramaian_restoran": 1,
+        "jenis_penyajian": "Disajikan",
+        "ayce_atau_alacarte": "Ala Carte",
+        "harga_rata_rata_makanan": 75000,
+        "gambar": "https://asset.kompas.com/crops/2nI5rfvmltiGIwvQT9IQezd0-m0=/0x0:780x520/750x500/data/photo/2020/10/14/5f868223c3be7.jpg"
+      }
+    }
+  ]
