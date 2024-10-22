@@ -283,7 +283,7 @@
       "pk": 21,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Bento Yay ]]",
+        "nama_restoran": "Bento Yay",
         "lokasi": "Selokan Yogya",
         "jenis_suasana": "Formal",
         "keramaian_restoran": 1,
@@ -297,7 +297,7 @@
       "pk": 22,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Nikkou Ramen ]]",
+        "nama_restoran": "Nikkou Ramen",
         "lokasi": "Pakualaman",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 3,
@@ -311,7 +311,7 @@
       "pk": 23,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Wangoen Zuppa Soup ]]",
+        "nama_restoran": "Wangoen Zuppa Soup",
         "lokasi": "Umbulharjo",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 2,
@@ -325,7 +325,7 @@
       "pk": 24,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Burgerax ]]",
+        "nama_restoran": "Burgerax",
         "lokasi": "Prawirotaman",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 3,
@@ -339,7 +339,7 @@
       "pk": 25,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Kedai Jagoan Moy-Moy [[",
+        "nama_restoran": "Kedai Jagoan Moy-Moy",
         "lokasi": "Tamsis",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 2,
@@ -353,7 +353,7 @@
       "pk": 26,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Spark Resto And Sports Bar ]]",
+        "nama_restoran": "Spark Resto And Sports Bar",
         "lokasi": "Prawirotaman",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 3,
@@ -367,7 +367,7 @@
       "pk": 27,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Dapur Mamika ]]",
+        "nama_restoran": "Dapur Mamika",
         "lokasi": "Jl Sisingamangaraja Gg Menur",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 1,
@@ -381,7 +381,7 @@
       "pk": 28,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Pawon Mbokdis ]]",
+        "nama_restoran": "Pawon Mbokdis",
         "lokasi": "Mantrigawen Lor",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 2,
@@ -395,7 +395,7 @@
       "pk": 29,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Rm & Seafood 99 ]]",
+        "nama_restoran": "Rm & Seafood 99",
         "lokasi": "Sorowajan",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 2,
@@ -409,7 +409,7 @@
       "pk": 30,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Nasi Goreng & Halal Chinesefood MakJoss ]]",
+        "nama_restoran": "Nasi Goreng & Halal Chinesefood MakJoss",
         "lokasi": "Rumah Pagar Biru Salon Yuli",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 2,
@@ -423,7 +423,7 @@
       "pk": 31,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Soto Ayam 61 ]]",
+        "nama_restoran": "Soto Ayam 61",
         "lokasi": "Gondomanan",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 1,
@@ -437,7 +437,7 @@
       "pk": 32,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Seblak Mang Cepot & Baso Aci Hoax [[",
+        "nama_restoran": "Seblak Mang Cepot & Baso Aci Hoax",
         "lokasi": "Umbulharjo",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 3,
@@ -451,7 +451,7 @@
       "pk": 33,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Bakso Lontong Djeng Thathit ]]",
+        "nama_restoran": "Bakso Lontong Djeng Thathit",
         "lokasi": "Suryodiningratan",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 3,
@@ -465,7 +465,7 @@
       "pk": 34,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Bakso Urat Arema Soringin ]]",
+        "nama_restoran": "Bakso Urat Arema Soringin",
         "lokasi": "Langensari",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 2,
@@ -479,7 +479,7 @@
       "pk": 35,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Soto Daging Lamongan Cak Ngun ]]",
+        "nama_restoran": "Soto Daging Lamongan Cak Ngun",
         "lokasi": "Jl. Veteran No 212 Umbulharjo",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 2,
@@ -493,7 +493,7 @@
       "pk": 36,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Pop Mart [[",
+        "nama_restoran": "Pop Mart",
         "lokasi": "Laksda Adi Sucipto (Korner)",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 1,
@@ -507,7 +507,7 @@
       "pk": 37,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Tahu Walik & Soto Warisan ]]",
+        "nama_restoran": "Tahu Walik & Soto Warisan",
         "lokasi": "Masjid Umbulharjo",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 2,
@@ -521,7 +521,7 @@
       "pk": 38,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Roaster and Bear [[",
+        "nama_restoran": "Roaster and Bear",
         "lokasi": "P. Mangkubumi",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 1,
@@ -535,7 +535,7 @@
       "pk": 39,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Reisban Coffee Shop [[",
+        "nama_restoran": "Reisban Coffee Shop",
         "lokasi": "Menukan",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 1,
@@ -549,7 +549,7 @@
       "pk": 40,
       "model": "ratings.restaurant",
       "fields": {
-        "nama_restoran": "Yamie Panda ]]",
+        "nama_restoran": "Yamie Panda",
         "lokasi": "Kridosono",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 2,
@@ -606,7 +606,7 @@
       "model": "ratings.restaurant",
       "fields": {
         "nama_restoran": "Warung Sop Iga Dan Soto Betawi Bu Tya",
-        "lokasi": "Jl. Prof. DR. Soepomo Sh No.10, Warungboto, Kec. Umbulharjo, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55164",
+        "lokasi": "Jl. Prof. DR. Soepomo Sh No.10",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 3,
         "jenis_penyajian": "Disajikan",
@@ -746,7 +746,7 @@
       "model": "ratings.restaurant",
       "fields": {
         "nama_restoran": "Bakso Lapangan Tembak Senayan - Cendana",
-        "lokasi": "Jl. Cendana No.34, Semaki, Kec. Umbulharjo, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55166",
+        "lokasi": "Jl. Ahmad Yani No.5",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 1,
         "jenis_penyajian": "Disajikan",
@@ -788,7 +788,7 @@
       "model": "ratings.restaurant",
       "fields": {
         "nama_restoran": "RM. Gajah jaya",
-        "lokasi": "Ruko Mas Plaza, Jl. Urip Sumoharjo No.7 5, Klitren, Kec. Gondokusuman, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55222",
+        "lokasi": "Ruko Mas Plaza, Jl. Urip Sumoharjo",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 1,
         "jenis_penyajian": "Disajikan",
@@ -830,7 +830,7 @@
       "model": "ratings.restaurant",
       "fields": {
         "nama_restoran": "NABE COFFEE Soragan",
-        "lokasi": "Soragan",
+        "lokasi": "Jl. Soragan No.29",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 2,
         "jenis_penyajian": "Disajikan",
@@ -1054,7 +1054,7 @@
       "model": "ratings.restaurant",
       "fields": {
         "nama_restoran": "Soto Lamongan Cak Mangku",
-        "lokasi": "Jalan Kusumanegara UH",
+        "lokasi": "Jl. Kusumanegara UH",
         "jenis_suasana": "Santai",
         "keramaian_restoran": 1,
         "jenis_penyajian": "Disajikan",

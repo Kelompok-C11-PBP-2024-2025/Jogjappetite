@@ -16,8 +16,8 @@ class Restaurant(models.Model):
 class Menu(models.Model):
     id = models.AutoField(primary_key=True)
     nama_menu = models.CharField(max_length=255)
-    nama_restoran = models.CharField(max_length=255)  # Ubah menjadi CharField
-    cluster = models.CharField(max_length=255)  # Cluster tetap string
+    restoran = models.ForeignKey(Restaurant, on_delete=models.CASCADE)  # This references the id field in Restaurant
+    cluster = models.CharField(max_length=255)
     harga = models.IntegerField()
 
     def get_clusters(self):
