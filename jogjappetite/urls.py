@@ -24,4 +24,5 @@ urlpatterns = [
     path('explore/', include('explore.urls')),  # Mengarahkan ke URLs di aplikasi 'ratings'
 
 
+    path('auth/', include('authentication.urls')),
 ]
