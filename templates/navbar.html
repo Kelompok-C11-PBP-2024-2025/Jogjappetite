@@ -20,7 +20,10 @@
         <div class="container mx-auto flex items-center justify-between p-4">
             <!-- Logo -->
             <div>
-                <h1 class="text-4xl font-semibold mb-4 text-red-800 font-Charm">Jogjappetite</h1>
+                <a href="{% url 'explore:show_explore_page' %}">
+                    <h1 class="text-4xl font-semibold mb-4 text-red-800 font-Charm">Jogjappetite</h1>
+                </a>
+                
             </div>
 
             <!-- Desktop Menu -->
@@ -28,7 +31,7 @@
                 <a href="" class="text-gray-800 hover:text-gray-500 font-medium">Ratings</a>
                 <a href="" class="text-gray-800 hover:text-gray-500 font-medium">Favorite</a>
                 <a href="" class="text-gray-800 hover:text-gray-500 font-medium">Add Restaurant</a>
-                <a href="" class="text-red-500 hover:text-white border border-red-500 hover:bg-red-500 font-medium p-2 rounded transition-colors duration-300">Logout</a>
+                <a href="{% url 'authentication:login' %}" class="text-red-500 hover:text-white border border-red-500 hover:bg-red-500 font-medium p-2 rounded transition-colors duration-300">Logout</a>
             </div>
 
             <!-- Mobile Menu Button (Hamburger) -->
