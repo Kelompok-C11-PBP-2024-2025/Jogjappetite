@@ -30,6 +30,8 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1", "naira-shafiqa-jogjappetite.pbp.cs.ui
 
 # Application definition
 
+AUTH_USER_MODEL = 'main.User' 
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ratings',
+    'main',
+    'restaurant'
 ]
 
 MIDDLEWARE = [
@@ -55,7 +59,7 @@ ROOT_URLCONF = 'jogjappetite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR, 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
