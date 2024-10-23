@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm  # Assuming you have a RegisterForm in forms.py
 
@@ -36,9 +36,15 @@ def register(request):
         else:
             messages.error(request, 'Please correct the errors below.')
     else:
-        form = SignUpForm()  # Load an empty form for GET requests
+        form = SignUpForm() 
 
     context = {"form": form}
     if request.user.is_authenticated:
-        return redirect('explore:show_main')  # Redirect authenticated users away from registration
+        return redirect('explore:show_main')  
     return render(request, "register.html", context)
+
+
+def logout_user(request):
+    logout(request)
+    response = redirect('explore:show_main')
+    response.delete_cookie('last_login')  
