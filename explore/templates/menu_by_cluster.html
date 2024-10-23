@@ -1,0 +1,12 @@
+<h1>Menus in Cluster: {{ cluster_name }}</h1>
+
+<ul>
+    {% for menu in menus %}
+        <li>
+            <h2>{{ menu.nama_menu }}</h2>
+            <p>Restaurant: {{ menu.restoran.nama_restoran }}</p>
+            <p>Cluster: {{ menu.cluster }}</p>
+            <p>Price: Rp{{ menu.harga }}</p>
+        </li>
+    {% endfor %}
+</ul>
