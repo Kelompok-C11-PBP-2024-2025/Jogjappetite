@@ -1,0 +1,145 @@
+{% extends 'auth_base.html' %}
+
+{% block meta %}
+<title>Register | Jogjappetite</title>
+{% endblock meta %}
+
+{% block content %}
+<!-- component -->
+<body class="bg-gray-50 h-screen" style="background-color: #f9f9f6;">
+    <div class="flex justify-center items-center h-screen">
+        <!-- Left: Image -->
+        <div class="w-1/2 h-screen hidden lg:block">
+            <img src="https://images.unsplash.com/photo-1665825036585-488caec27c06?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                 alt="Placeholder Image" 
+                 class="object-cover w-full h-full">
+        </div>
+
+        <!-- Right: Registration Form -->
+        <div class="lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2 h-screen flex items-center">
+            <!-- Title with Calligraphy Font -->
+            <div class="w-full">
+                <h1 class="text-4xl font-semibold mb-4 text-red-800 font-calligraphy">Jogjappetite</h1>
+                <hr class="border-t-2 border-gray-300 mb-3">            
+                <h1 class="text-xl mb-3 text-gray-600 text-center">Create an account</h1>
+
+                <!-- Global Error Messages -->
+                {% if form.non_field_errors %}
+                <div class="p-2 mb-4 bg-red-200 rounded-md text-red-700">
+                    {% for error in form.non_field_errors %}
+                    <p class="text-sm text-center">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- Registration Form -->
+                <form action="{% url 'authentication:register' %}" method="POST" id="register-form">
+                    {% csrf_token %}
+                    
+                    <!-- Username Input -->
+                    <div class="mb-4">
+                        <label for="username" class="block text-red-900">Username</label>
+                        <input type="text" id="username" name="username" class="w-full border border-red-300 rounded-md py-2 px-3 focus:outline-none focus:border-red-500" autocomplete="off" required>
+                        <!-- Display Field Error -->
+                        {% if form.username.errors %}
+                        <p class="text-red-500 text-sm">{{ form.username.errors|striptags }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Full Name Input -->
+                    <div class="mb-4">
+                        <label for="full_name" class="block text-red-900">Full Name</label>
+                        <input type="text" id="full_name" name="full_name" class="w-full border border-red-300 rounded-md py-2 px-3 focus:outline-none focus:border-red-500" autocomplete="off" required>
+                        <!-- Display Field Error -->
+                        {% if form.full_name.errors %}
+                        <p class="text-red-500 text-sm">{{ form.full_name.errors|striptags }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Email Input -->
+                    <div class="mb-4">
+                        <label for="email" class="block text-red-900">Email</label>
+                        <input type="email" id="email" name="email" class="w-full border border-red-300 rounded-md py-2 px-3 focus:outline-none focus:border-red-500" autocomplete="off" required>
+                        <!-- Display Field Error -->
+                        {% if form.email.errors %}
+                        <p class="text-red-500 text-sm">{{ form.email.errors|striptags }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- User Type Input -->
+                    <div class="mb-4">
+                        <label for="user_type" class="block text-red-900">User Type</label>
+                        <select id="user_type" name="user_type" class="w-full border border-red-300 rounded-md py-2 px-3 focus:outline-none focus:border-red-500" required>
+                            <option value="">Select user type</option>
+                            <option value="customer">Customer</option>
+                            <option value="restaurant">Restaurant</option>
+                        </select>
+                        <!-- Display Field Error -->
+                        {% if form.user_type.errors %}
+                        <p class="text-red-500 text-sm">{{ form.user_type.errors|striptags }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Password Inputs -->
+                    <div class="mb-4">
+                        <label for="password1" class="block text-red-900">Password</label>
+                        <input type="password" id="password1" name="password1" class="w-full border border-red-300 rounded-md py-2 px-3 focus:outline-none focus:border-red-500" autocomplete="off" required>
+                        <!-- Display Field Error -->
+                        {% if form.password1.errors %}
+                        <p class="text-red-500 text-sm">{{ form.password1.errors|striptags }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="mb-4">
+                        <label for="password2" class="block text-red-900">Confirm Password</label>
+                        <input type="password" id="password2" name="password2" class="w-full border border-red-300 rounded-md py-2 px-3 focus:outline-none focus:border-red-500" autocomplete="off" required>
+                        <!-- Display Field Error -->
+                        {% if form.password2.errors %}
+                        <p class="text-red-500 text-sm">{{ form.password2.errors|striptags }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Submit Button (Matching Width) -->
+                    <button id="register-btn" class="w-full bg-gray-300 text-white transition duration-200 hover:bg-red-500 rounded-lg py-2 cursor-not-allowed" type="submit" disabled>
+                        Register
+                    </button>
+                </form>
+
+                <!-- Sign in Link -->
+                <div class="mt-4 text-red-700 text-center">
+                    Already have an account? <a href="{% url 'authentication:login' %}" class="hover:underline">Sign in here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock content %}
+
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('register-form');
+        const submitButton = document.getElementById('register-btn');
+
+        const fields = form.querySelectorAll('input[required], select[required]');
+        
+        // Enable or disable the submit button based on field validation
+        fields.forEach(field => {
+            field.addEventListener('input', function() {
+                let allFieldsFilled = true;
+                
+                fields.forEach(input => {
+                    if (input.value === '') {
+                        allFieldsFilled = false;
+                    }
+                });
+
+                submitButton.disabled = !allFieldsFilled;
+                submitButton.classList.toggle('bg-gray-300', !allFieldsFilled);
+                submitButton.classList.toggle('cursor-not-allowed', !allFieldsFilled);
+                submitButton.classList.toggle('bg-red-400', allFieldsFilled);
+                submitButton.classList.toggle('hover:bg-red-500', allFieldsFilled);
+            });
+        });
+    });
+</script>
+{% endblock script %}

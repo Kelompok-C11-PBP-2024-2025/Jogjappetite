@@ -1,0 +1,58 @@
+{% extends 'auth_base.html' %}
+
+{% block meta %}
+<title>Login | Jogjappetite</title>
+{% endblock meta %}
+
+{% block content %}
+<!-- component -->
+<body class="bg-gray-50" style="background-color: #f9f9f6;">
+    <div class="flex justify-center items-center h-screen">
+        <!-- Left: Image -->
+        <div class="w-1/2 h-screen hidden lg:block">
+            <img src="https://images.unsplash.com/photo-1665825036585-488caec27c06?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Placeholder Image" class="object-cover w-full h-full">
+        </div>
+        <!-- Right: Login Form -->
+        <div class="lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
+            <!-- Title with Calligraphy Font -->
+            <h1 class="text-4xl font-semibold mb-4 text-red-800 font-calligraphy">Jogjappetite</h1>
+            <hr class="border-t-2 border-gray-300 mb-3">            
+            <h1 class="text-xl mb-3 text-gray-600 text-center">Login</h1>
+            <!-- Messages Block -->
+            {% if messages %}
+            <div class="messages p-2 mb-4 bg-red-200 rounded-md text-red-700">
+                {% for message in messages %}
+                <p class="text-sm text-center">{{ message }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form action="{% url 'authentication:login' %}" method="POST">
+                {% csrf_token %}
+                <!-- Username Input -->
+                <div class="mb-4">
+                    <label for="username" class="block text-red-900">Username</label>
+                    <input type="text" id="username" name="username" class="w-full border border-red-300 rounded-md py-2 px-3 focus:outline-none focus:border-red-500" autocomplete="off">
+                </div>
+                <!-- Password Input -->
+                <div class="mb-2">
+                    <label for="password" class="block text-red-900">Password</label>
+                    <input type="password" id="password" name="password" class="w-full border border-red-300 rounded-md py-2 px-3 focus:outline-none focus:border-red-500" autocomplete="off">
+                </div>
+
+                <!-- Login Button -->
+                <button id="submit-btn" class="mt-2 w-full bg-red-400 text-white disabled:bg-gray-300 transition duration-200 hover:bg-red-500 rounded-lg py-2" type="submit">Login</button>
+            </form>
+            
+            <!-- Sign up Link -->
+            <div class="mt-4 text-red-700 text-center">
+                <a href="{% url 'authentication:register' %}" class="hover:underline">Sign up Here</a>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock content %}
+
+{% block script %}
+<script src="/static/js/auth_script.js"></script>
+{% endblock script %}
