@@ -26,5 +26,6 @@ class Menu(models.Model):
 class Ratings(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     menu_review = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    restaurant_review = models.ForeignKey(Restaurant, on_delete=models.CASCADE, blank=True, null=True)
     rating = models.IntegerField(default=1, choices=((i,i) for i in range(1, 6)))
     pesan_rating = models.TextField(blank=True, null=True)

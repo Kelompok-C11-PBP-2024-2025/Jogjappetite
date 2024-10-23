@@ -20,6 +20,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('ratings/', include('ratings.urls')),  # Mengarahkan ke URLs di aplikasi 'ratings'
+    path('ratings/', include('ratings.urls')),  
     path('auth/', include('authentication.urls')),
 ]
