@@ -22,3 +22,9 @@ class Menu(models.Model):
 
     def get_clusters(self):
         return self.cluster.split(',')
+
+class Ratings(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    menu_review = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    rating = models.IntegerField(default=1, choices=((i,i) for i in range(1, 6)))
+    pesan_rating = models.TextField(blank=True, null=True)

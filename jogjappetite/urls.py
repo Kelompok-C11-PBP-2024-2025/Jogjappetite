@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('ratings/', include('ratings.urls')),  # Mengarahkan ke URLs di aplikasi 'ratings'
     path('search/', include('search.urls')),
+    path('auth/', include('authentication.urls')),
 ]
