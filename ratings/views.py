@@ -20,11 +20,15 @@ def get_restaurant_ratings_by_id(request, id):
     for menu in reviewed_menus:
         menu.cleaned_clusters = [cluster.strip("[]' ") for cluster in menu.get_clusters()]
     
+    reviews_count = restaurant_ratings.count()
+    
     context = {
         'restaurant': restaurant,
         'restaurant_ratings': restaurant_ratings,
         'reviewed_menus': reviewed_menus,
-        'average_rating': average_rating
+        'average_rating': average_rating,
+        'rating_range': range(1, 6),
+        'reviews_count': reviews_count,
     }
     
     return render(request, 'restaurant_ratings.html', context)
