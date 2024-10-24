@@ -21,7 +21,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ratings/', include('ratings.urls')),   # Mengarahkan ke URLs di aplikasi 'ratings'
-
+    path('favorite', include('favorite.urls')),  # Mengarahkan URLs di aplikasi 'favorite'
 
     path('ratings/', include('ratings.urls')), 
     path('', include('explore.urls')),  
