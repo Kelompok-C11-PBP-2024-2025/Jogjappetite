@@ -1,7 +1,8 @@
 from django.urls import path
+from favorite.views import show_main_favorite
 
 app_name = 'favorite'
 
-url_patterns = [
-    path(''),
+urlpatterns = [
+    path('', show_main_favorite, name='show_main_favorite'),
 ]
