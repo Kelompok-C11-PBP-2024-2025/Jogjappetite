@@ -1,68 +1,118 @@
-{% load static %}
-<h1>Hello, {{ user.full_name }}!</h1>
+{% extends 'base.html' %}
+{% block content %}
 
-<h1>Ratings for {{ restaurant.nama_restoran }}</h1>
+{% comment %} {% include 'navbar.html' %} {% endcomment %}
 
-<h2>Restaurant Details</h2>
-<p>Location: {{ restaurant.lokasi }}</p>
-<p>Atmosphere: {{ restaurant.jenis_suasana }}</p>
-<p>Restaurant Crowd Level: {{ restaurant.keramaian_restoran }}</p>
-<p>Serving Style: {{ restaurant.jenis_penyajian }}</p>
-<p>All You Can Eat or A La Carte: {{ restaurant.ayce_atau_alacarte }}</p>
-<p>Average Meal Price: {{ restaurant.harga_rata_rata_makanan }}</p>
-<p>
-    <img src="{{ restaurant.gambar }}" alt="Image of {{ restaurant.nama_restoran }}" style="width:300px;height:auto;">
-</p>
+<div class="container mx-auto py-8">
+    <!-- Restaurant Details Section -->
+    <h1 class="text-4xl font-bold mb-4 mt-24">Ratings for {{ restaurant.nama_restoran }}</h1>
+    <div class="bg-gray-100 p-4 rounded-md shadow-md">
+        <h2 class="text-2xl font-semibold mb-2">Restaurant Details</h2>
+        <p><strong>Location:</strong> {{ restaurant.lokasi }}</p>
+        <p><strong>Atmosphere:</strong> {{ restaurant.jenis_suasana }}</p>
+        <p><strong>Restaurant Crowd Level:</strong> {{ restaurant.keramaian_restoran }}</p>
+        <p><strong>Serving Style:</strong> {{ restaurant.jenis_penyajian }}</p>
+        <p><strong>All You Can Eat or A La Carte:</strong> {{ restaurant.ayce_atau_alacarte }}</p>
+        <p><strong>Average Meal Price:</strong> {{ restaurant.harga_rata_rata_makanan }}</p>
+        <h3>Overall Rating: <span id="average-rating">{{ average_rating|floatformat:1 }} / 5</span></h3>
 
+        <div class="mt-4">
+            <img class="rounded-md w-full h-auto object-cover" src="{{ restaurant.gambar }}" alt="Image of {{ restaurant.nama_restoran }}">
+        </div>
+    </div>
+    
 
-<h1>Menus for {{ restaurant.nama_restoran }}</h1>
-<ul>
-    {% for menu in reviewed_menus %}
-    <li>
-        <strong>{{ menu.nama_menu }}</strong> - {{ menu.harga }} IDR <br>
-        <em>Category:</em>
-        <ul>
-            {% for category in menu.cleaned_clusters %}
-            <li>{{ category }}</li>
-            {% endfor %}
-        </ul>
-    </li>
-    {% endfor %}
-</ul>
+    <!-- Menus Section -->
+    <h1 class="text-3xl font-semibold mt-8 mb-4">Menus for {{ restaurant.nama_restoran }}</h1>
+    <ul class="list-disc pl-5">
+        {% for menu in reviewed_menus %}
+        <li class="mb-4">
+            <strong class="text-lg">{{ menu.nama_menu }}</strong> - {{ menu.harga }} IDR
+            <br>
+            <em>Category:</em>
+            <ul class="list-disc pl-5 mt-2">
+                {% for category in menu.cleaned_clusters %}
+                <li class="text-sm text-gray-600">{{ category }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
 
+    <!-- Add Rating Button -->
+    {% if request.user.is_authenticated %}
+        <button id="add-rating-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
+            Add Rating
+        </button>
+    {% else %}
+        <p class="mt-4">Please <a href="{% url 'login' %}" class="text-blue-600 underline">log in</a> to add a rating.</p>
+    {% endif %}
 
+    <!-- Ratings Section -->
+    <h2 class="text-2xl font-semibold mt-8 mb-4">Ratings</h2>
+    <div class="space-y-4">
+        {% for rating in restaurant_ratings %}
+        <div class="rating-item bg-white p-4 shadow-md rounded-md">
+            <p><strong>User:</strong> {{ rating.user.username }}</p>
+            <p><strong>Rating:</strong> {{ rating.rating }} stars</p>
+            <p><strong>Review:</strong> {{ rating.pesan_rating }}</p>
+        
+            {% if rating.user == request.user %}
+            <div class="flex space-x-2 mt-4">
+                <button class="edit-rating bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded-md" data-id="{{ rating.id }}">
+                    Edit
+                </button>
+                <button class="delete-rating bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-md" data-id="{{ rating.id }}">
+                    Delete
+                </button>
+            </div>
+            {% endif %}
+        </div>
+        
+        {% endfor %}
+    </div>
 
-<h2>Restaurant-Wide Ratings</h2>
-{% for rating in restaurant_ratings %}
-    <p>User: {{ rating.user.username }}</p>
-    <p>Rating: {{ rating.rating }} stars</p>
-    <p>Review: {{ rating.pesan_rating }}</p>
-    <button class="edit-rating" data-id="{{ rating.id }}">Edit</button>
-    <button class="delete-rating" data-id="{{ rating.id }}">Delete</button>
-    <hr>
-{% endfor %}
-
-<!-- Button to open modal for adding a new rating -->
-<button id="add-rating-btn">Add Rating</button>
-<!-- Modal for adding rating -->
-<div id="rating-modal" style="display: none;">
-    <div class="modal-content">
-        <span class="close-modal">&times;</span>
-        <h2>Add a Rating</h2>
-        <div id="modal-body">
-            <!-- The content from add_rating.html will be loaded here via AJAX -->
+    <!-- Modal for adding or editing rating -->
+    <div id="rating-modal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75" style="display: none;">
+        <div class="modal-content bg-white p-8 rounded-lg shadow-lg">
+            <span class="close-modal text-gray-500 cursor-pointer">&times;</span>
+            <h2 class="text-2xl font-semibold mb-4">Add/Edit a Rating</h2>
+            <div id="modal-body"></div>
         </div>
     </div>
 </div>
-<script>
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const addRatingBtn = document.getElementById("add-rating-btn");
-        const ratingModal = document.getElementById("rating-modal");
-        const modalBody = document.getElementById("modal-body");
-        const closeModal = document.querySelector(".close-modal");
-    
-        // Open the modal when "Add Rating" button is clicked
+<script>
+    function updateAverageRating(newAverage) {
+        document.getElementById('average-rating').textContent = newAverage.toFixed(1) + " / 5";
+    }
+
+
+
+
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const addRatingBtn = document.getElementById("add-rating-btn");
+    const ratingModal = document.getElementById("rating-modal");
+    const modalBody = document.getElementById("modal-body");
+    const closeModal = document.querySelector(".close-modal");
+
+    if (addRatingBtn) {
         addRatingBtn.addEventListener("click", function () {
             fetch(`/ratings/restaurants/{{ restaurant.id }}/add-rating/`)
                 .then(response => response.text())
@@ -71,60 +121,78 @@
                     ratingModal.style.display = "block";
                 });
         });
-    
-        // Close the modal when the "x" button is clicked
-        closeModal.addEventListener("click", function () {
-            ratingModal.style.display = "none";
-        });
-    
-        // Handle form submission with AJAX
-        document.body.addEventListener("submit", function (event) {
-            if (event.target.id === "rating-form") {
-                event.preventDefault();
-    
-                const formData = new FormData(event.target);
-                fetch(event.target.action, {
-                    method: "POST",
-                    body: formData,
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert("Rating added successfully!");
-                            ratingModal.style.display = "none";
-                            window.location.reload();  // Reload the page to show the new rating
-                        } else {
-                            alert("Error: " + JSON.stringify(data.errors));
-                        }
-                    });
-            }
-        });
-    
-        // Handle delete and edit actions (assume there are buttons with class "edit-rating" and "delete-rating")
-        document.body.addEventListener("click", function (event) {
-            if (event.target.classList.contains("delete-rating")) {
-                const ratingId = event.target.getAttribute("data-id");
-                fetch(`/ratings/${ratingId}/delete/`, { method: "POST" })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert("Rating deleted successfully!");
-                            window.location.reload();
-                        }
-                    });
-            }
-    
-            if (event.target.classList.contains("edit-rating")) {
-                const ratingId = event.target.getAttribute("data-id");
-                fetch(`/ratings/${ratingId}/edit/`)
-                    .then(response => response.text())
-                    .then(data => {
-                        modalBody.innerHTML = data;
-                        ratingModal.style.display = "block";
-                    });
-            }
-        });
+    }
+
+    closeModal.addEventListener("click", function () {
+        ratingModal.style.display = "none";
+    });
+
+    document.body.addEventListener("submit", function (event) {
+        if (event.target.id === "rating-form") {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            fetch(event.target.action, {
+                method: "POST",
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Rating added successfully!");
+                    ratingModal.style.display = "none";
+                    window.location.reload();
+                } else {
+                    alert("Error: " + JSON.stringify(data.errors));
+                }
+            });
+        }
+    });
+
+    document.body.addEventListener("click", function (event) {
+        if (event.target.classList.contains("edit-rating")) {
+            const ratingId = event.target.getAttribute("data-id");
+            fetch(`/ratings/restaurants/{{ restaurant.id }}/${ratingId}/edit/`)
+                .then(response => response.text())
+                .then(data => {
+                    modalBody.innerHTML = data;
+                    ratingModal.style.display = "block";
+                });
+        }
     });
     
 
+    // Handle delete and edit actions
+    document.body.addEventListener("click", function (event) {
+        if (event.target.classList.contains("delete-rating")) {
+            event.preventDefault();  
+            const ratingId = event.target.getAttribute("data-id");
+            const ratingElement = event.target.closest(".rating-item"); 
+    
+            const csrftoken = getCookie('csrftoken');
+    
+            fetch(`/ratings/restaurants/{{ restaurant.id }}/${ratingId}/delete/`, {
+                method: "POST",
+                headers: {
+                    'X-CSRFToken': csrftoken,  
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Rating deleted successfully!");
+                    if (ratingElement) {
+                        ratingElement.remove();
+                    }
+                } else {
+                    alert("Error: " + data.message);
+                }
+            });
+        }
+    });
+    
+    
+});
 </script>
+{% endblock %}
