@@ -1,24 +1,19 @@
-{% extends 'base.html' %}
 
+
+{% extends 'base.html' %}
 
 {% load range_filter %}
 {% load custom_filters %}
 
-
 {% block content %}
-
-
-{% comment %} {% include 'navbar.html' %} {% endcomment %}
-
-<div class="px-4 md:px-8 pb-8 pt-24 min-h-screen bg-gray-100">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="px-4 md:px-8 pb-4 pt-24 mb-2 bg-gray-100">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <!-- Left Column - Restaurant Information -->
         <div class="lg:col-span-2">
             <!-- Restaurant Image -->
             <div class="mt-4">
-                <img class="rounded-md w-full h-auto object-cover max-h-[70vh]" src="{{ restaurant.gambar }}" alt="Image of {{ restaurant.nama_restoran }}">
+                <img class="rounded-md w-full h-auto object-cover max-h-[60vh]" src="{{ restaurant.gambar }}" alt="Image of {{ restaurant.nama_restoran }}">
             </div>
-            
 
             <!-- Restaurant Title and Rating Section -->
             <h1 class="text-4xl font-bold mb-4 mt-10">{{ restaurant.nama_restoran }}</h1>
@@ -47,19 +42,19 @@
                     <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">out of</p>
                     <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">5</p>
                 </div>
-                
+
                 <!-- Reviews Count -->
                 <div class="flex items-center">
                     <img src="https://icons.veryicon.com/png/o/miscellaneous/template-four/comment-59.png" alt="Reviews Icon" class="inline w-6 h-6 mr-1">
                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ reviews_count }} Reviews</p>
                 </div>
-                
+
                 <!-- Price Indicator -->
                 <div class="flex items-center">
                     <img src="https://www.svgrepo.com/show/488292/money.svg" alt="Price Icon" class="inline w-6 h-6 mr-1">
                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">${{ restaurant.harga_rata_rata_makanan }}</p>
                 </div>
-            
+
                 <!-- Cuisine Type -->
                 <div class="flex items-center">
                     <i class="fas fa-utensils"></i>
@@ -71,42 +66,37 @@
             <p class="mt-4 text-gray-700">{{ restaurant.description }}</p>
         </div>
 
+        <!-- Right Column - Restaurant Details and Menu -->
         <div class="bg-white p-6 shadow-md rounded-lg">
             <div>
                 <h2 class="text-3xl font-semibold mb-4">Restaurant Details</h2>
                 <div class="grid grid-cols-1 gap-4">
                     <!-- Location -->
                     <div class="flex items-center">
-                        {% comment %} <img src="https://www.svgrepo.com/show/276264/location.svg" alt="Location Icon" class="w-5 h-5 mr-2"> {% endcomment %}
                         <p><strong class="font-semibold">Location:</strong> {{ restaurant.lokasi }}</p>
                     </div>
                     <!-- Atmosphere -->
                     <div class="flex items-center">
-                        {% comment %} <img src="https://www.svgrepo.com/show/303230/relaxation.svg" alt="Atmosphere Icon" class="w-5 h-5 mr-2"> {% endcomment %}
                         <p><strong class="font-semibold">Atmosphere:</strong> {{ restaurant.jenis_suasana }}</p>
                     </div>
                     <!-- Crowd Level -->
                     <div class="flex items-center">
-                        {% comment %} <img src="https://www.svgrepo.com/show/279839/crowd.svg" alt="Crowd Icon" class="w-5 h-5 mr-2"> {% endcomment %}
                         <p><strong class="font-semibold">Restaurant Crowd Level:</strong> {{ restaurant.keramaian_restoran }}</p>
                     </div>
                     <!-- Serving Style -->
                     <div class="flex items-center">
-                        {% comment %} <img src="https://www.svgrepo.com/show/303047/serving-tray.svg" alt="Serving Style Icon" class="w-5 h-5 mr-2"> {% endcomment %}
                         <p><strong class="font-semibold">Serving Style:</strong> {{ restaurant.jenis_penyajian }}</p>
                     </div>
                     <!-- All You Can Eat or A La Carte -->
                     <div class="flex items-center">
-                        {% comment %} <img src="https://www.svgrepo.com/show/276471/menu.svg" alt="Menu Icon" class="w-5 h-5 mr-2"> {% endcomment %}
                         <p><strong class="font-semibold">All You Can Eat or A La Carte:</strong> {{ restaurant.ayce_atau_alacarte }}</p>
                     </div>
-                
                 </div>
             </div>
-        
+
             <!-- Menus Section -->
             <h1 class="text-3xl font-semibold mt-8 mb-4">Menus</h1>
-            <div class="space-y-4"> <!-- This will create space between each card -->
+            <div class="space-y-4">
                 {% for menu in reviewed_menus %}
                 <div class="bg-white shadow-md rounded-lg p-4">
                     <strong class="text-lg">{{ menu.nama_menu }}</strong> - {{ menu.harga }} IDR
@@ -122,155 +112,286 @@
                 </div>
                 {% endfor %}
             </div>
-            
-            
-            
         </div>
-        
     </div>
 </div>
 
-<!-- Add Rating Button - Adjusted to be Right-Aligned -->
-<div class="flex justify-end mt-4">
-    {% if request.user.is_authenticated %}
-        <button id="add-rating-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
-            Add Rating
-        </button>
-    {% else %}
-        {% comment %} <p class="mt-4">Please <a href="{% url 'login' %}" class="text-blue-600 underline">log in</a> to add a rating.</p> {% endcomment %}
-    {% endif %}
-</div>
-
-<!-- Restaurant-Wide Ratings Section -->
-<h2 class="text-2xl font-semibold mt-8 mb-4">Restaurant-Wide Ratings</h2>
-<div class="space-y-4">
-    {% for rating in restaurant_ratings %}
-    <div class="rating-item bg-white p-4 shadow-md rounded-md">
-        <p><strong>User:</strong> {{ rating.user.username }}</p>
-        <p><strong>Rating:</strong> {{ rating.rating }} stars</p>
-        <p><strong>Review:</strong> {{ rating.pesan_rating }}</p>
-
-        {% if rating.user == request.user %}
-        <div class="flex space-x-2 mt-4">
-            <button class="edit-rating bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded-md" data-id="{{ rating.id }}">
-                Edit
+<!-- Add Rating Section -->
+<div class="bg-white p-6 shadow-md rounded-lg">
+    <div class="flex justify-end mb-2">
+        {% if request.user.is_authenticated %}
+            <button id="add-rating-btn" data-modal-target="ratingModal" data-modal-toggle="ratingModal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105" onclick="showRatingModal();">
+                Add Rating by AJAX
             </button>
-            <button class="delete-rating bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-md" data-id="{{ rating.id }}">
-                Delete
-            </button>
-        </div>
+
+            <div id="ratingModal" class="fixed z-50 inset-0 overflow-y-auto hidden">
+                <div class="flex items-center justify-center min-h-screen px-4 text-center">
+                    <div class="relative bg-white rounded-lg shadow-xl p-6 max-w-lg w-full">
+                        <button type="button" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600 close-modal" id="closeModalBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+            
+                        <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Add Rating</h3>
+            
+                        <!-- Rating Form -->
+                        <form id="ratingForm" method="POST">
+                            {% csrf_token %}
+                            <!-- Menu Selection Dropdown -->
+                            <div class="mb-4">
+                                <label for="menu_review" class="block text-sm font-medium text-gray-700">Tried Menus:</label>
+                                <div class="space-y-3">
+                                    {% for menu in reviewed_menus %}
+                                    <div class="flex items-center space-x-3">
+                                        <input type="checkbox" id="menu_{{ menu.id }}" name="menu_review" value="{{ menu.id }}" class="h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                        <label for="menu_{{ menu.id }}" class="text-gray-700 text-base">{{ menu.nama_menu }}</label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <!-- Star Rating System -->
+                            <div class="mb-4">
+                                <label for="rating" class="block text-sm font-medium text-gray-700">Rating:</label>
+                                <div id="star-rating" class="flex space-x-1">
+                                    <!-- Each star has a data-value attribute -->
+                                    <span class="star cursor-pointer text-gray-300 hover:text-yellow-400 transition" data-value="1">&#9733;</span>
+                                    <span class="star cursor-pointer text-gray-300 hover:text-yellow-400 transition" data-value="2">&#9733;</span>
+                                    <span class="star cursor-pointer text-gray-300 hover:text-yellow-400 transition" data-value="3">&#9733;</span>
+                                    <span class="star cursor-pointer text-gray-300 hover:text-yellow-400 transition" data-value="4">&#9733;</span>
+                                    <span class="star cursor-pointer text-gray-300 hover:text-yellow-400 transition" data-value="5">&#9733;</span>
+                                    <span id="rating-display" class="ml-2 text-gray-500">0 / 5</span> <!-- Default value is 0 / 5 -->
+
+                                </div>
+
+                                <input type="hidden" id="rating" name="rating"> <!-- Hidden input to store the selected star rating -->
+                            </div>
+
+                            <!-- Review Message Textbox -->
+                            <div class="mb-4">
+                                <label for="pesan_rating" class="block text-sm font-medium text-gray-700">Review message:</label>
+                                <textarea id="pesan_rating" name="pesan_rating" class="block w-full p-2 border rounded-md" rows="4"></textarea>
+                            </div>
+
+                            <!-- Submit and Cancel Buttons -->
+                            <div class="flex justify-end space-x-2">
+                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">Submit Rating</button>
+                                <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg" id="cancelButton">Cancel</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            
+        {% else %}
+            <!-- If user is not logged in, hide the button -->
         {% endif %}
     </div>
-    
-    <hr class="border-gray-200">
-    {% endfor %}
-</div>
 
+    <!-- Restaurant-Wide Ratings Section -->
+    <h2 class="text-2xl font-semibold mb-4">Restaurant-Wide Ratings</h2>
 
-    <!-- Modal for adding or editing rating -->
-    <div id="rating-modal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75" style="display: none;">
-        <div class="modal-content bg-white p-8 rounded-lg shadow-lg">
-            <span class="close-modal text-gray-500 cursor-pointer">&times;</span>
-            <h2 class="text-2xl font-semibold mb-4">Add/Edit a Rating</h2>
-            <div id="modal-body"></div>
-        </div>
+    <!-- Sorting Dropdown -->
+    <form id="sort-form" method="GET" class="mb-4">
+        <select name="sort" id="sort" class="bg-gray-100 p-2 rounded-md border border-gray-300" onchange="refreshRatings()">
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="highest">Highest Rated</option>
+            <option value="lowest">Lowest Rated</option>
+        </select>
+    </form>
+
+    <div id="restaurant_ratings_cards" class="space-y-4">
+        <!-- Ratings will be dynamically loaded here -->
     </div>
 </div>
 
 <script>
-// Function to get the CSRF token from the cookie
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
             }
         }
+        return cookieValue;
     }
-    return cookieValue;
+    
+    const csrftoken = getCookie('csrftoken');
+
+    async function getRatings() {
+        const response = await fetch("{% url 'ratings:show_json' restaurant.id %}");
+        return await response.json();
+    }
+    
+    async function refreshRatings() {
+        const ratingsContainer = document.getElementById("restaurant_ratings_cards");
+        ratingsContainer.innerHTML = ""; // Clear existing ratings
+        ratingsContainer.className = "";
+
+        const ratings = await getRatings();
+        console.log("Ratings received from server:", ratings);  // Debugging response
+
+        let htmlString = "";
+        let classNameString = "";
+
+        if (ratings.length === 0) {
+            htmlString = "<p>No ratings available.</p>"; // Message when there are no ratings
+        } else {
+            classNameString = "row g-4";  // Apply the required class for the grid layout
+            const sortOption = document.getElementById("sort").value;
+
+            ratings.sort((a, b) => {
+                switch (sortOption) {
+                    case 'newest':
+                        return new Date(b.fields.created_at) - new Date(a.fields.created_at);
+                    case 'oldest':
+                        return new Date(a.fields.created_at) - new Date(b.fields.created_at);
+                    case 'highest':
+                        return b.fields.rating - a.fields.rating;
+                    case 'lowest':
+                        return a.fields.rating - b.fields.rating;
+                }
+            });
+
+            ratings.forEach((item) => {
+                const pesan_rating = DOMPurify.sanitize(item.fields.pesan_rating);  // Sanitize the rating message
+
+                htmlString += `
+                    <div class="flex items-start space-x-4 p-4 bg-gray-100 rounded-md shadow-sm rating-item">
+                        <div class="flex-shrink-0">
+                            <img src="${item.fields.user_profile_image || 'https://via.placeholder.com/50'}" alt="User Profile" class="w-12 h-12 rounded-full object-cover">
+                        </div>
+                        <div>
+                            <div class="flex items-center mb-1">
+                                <p class="text-lg font-semibold">${item.fields.username}</p>
+                            </div>
+                            <div class="flex items-center mb-2">
+                                ${getStarRatingHTML(item.fields.rating)}
+                            </div>
+                            <p class="text-sm text-gray-500">Dined on ${new Date(item.fields.created_at).toLocaleDateString()}</p>
+                            <p class="mt-2 text-gray-700">${pesan_rating}</p>
+                        </div>
+                    </div>
+                    <hr class="border-gray-200">
+                `;
+            });
+        }
+
+        ratingsContainer.innerHTML = htmlString;
+        ratingsContainer.className = classNameString;
+    }
+
+
+    
+
+ function AddRating() {
+    const formData = new FormData(document.getElementById("ratingForm"));
+    const csrftoken = getCookie('csrftoken');
+
+    fetch("{% url 'ratings:add_rating' restaurant.id %}", {
+        method: "POST",
+        body: formData,
+        headers: {
+            'X-CSRFToken': csrftoken,
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Server response after posting rating:", data);  // Debug response
+
+        if (data.success) {
+            hideModal();  // Close the modal on success
+            refreshRatings();  // Refresh the ratings on the page
+            document.getElementById("ratingForm").reset();  // Reset the form
+        } else {
+            console.error("Form submission failed with errors:", data.errors);
+            alert("Error submitting rating.");
+        }
+    })
+    .catch(error => {
+        console.error("Error in AJAX request:", error);
+        alert("An error occurred while submitting the rating.");
+    });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const addRatingBtn = document.getElementById("add-rating-btn");
-    const ratingModal = document.getElementById("rating-modal");
-    const modalBody = document.getElementById("modal-body");
-    const closeModal = document.querySelector(".close-modal");
 
-    // Open modal when "Add Rating" button is clicked
-    if (addRatingBtn) {
-        addRatingBtn.addEventListener("click", function () {
-            fetch(`/ratings/restaurants/{{ restaurant.id }}/add-rating/`)
-                .then(response => response.text())
-                .then(data => {
-                    modalBody.innerHTML = data;
-                    ratingModal.style.display = "block";
-                });
-        });
+    function getStarRatingHTML(rating) {
+        let starsHTML = '';
+        for (let i = 1; i <= 5; i++) {
+            if (i <= rating) {
+                starsHTML += `
+                    <svg class="w-5 h-5 text-yellow-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>`;
+            } else {
+                starsHTML += `
+                    <svg class="w-5 h-5 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>`;
+            }
+        }
+        return starsHTML;
     }
 
-    // Close modal when the "x" button is clicked
-    closeModal.addEventListener("click", function () {
-        ratingModal.style.display = "none";
+    // Show the rating modal
+    function showRatingModal() {
+        document.getElementById('ratingModal').classList.remove('hidden');
+    }
+
+    // Hide the modal
+    function hideModal() {
+        document.getElementById('ratingModal').classList.add('hidden');
+    }
+
+    document.getElementById("cancelButton").addEventListener("click", hideModal);
+    document.getElementById("closeModalBtn").addEventListener("click", hideModal);
+
+    document.addEventListener("DOMContentLoaded", function () {
+        refreshRatings();
     });
 
-    // Submit form via AJAX
-    document.body.addEventListener("submit", function (event) {
-        if (event.target.id === "rating-form") {
-            event.preventDefault();
-
-            const formData = new FormData(event.target);
-            fetch(event.target.action, {
-                method: "POST",
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Rating added successfully!");
-                    ratingModal.style.display = "none";
-                    window.location.reload();
-                } else {
-                    alert("Error: " + JSON.stringify(data.errors));
-                }
+    document.addEventListener("DOMContentLoaded", function () {
+        const stars = document.querySelectorAll("#star-rating .star");
+        const ratingInput = document.getElementById("rating");
+        const ratingDisplay = document.getElementById("rating-display"); // Element to display the chosen rating
+    
+        // Event listener for clicking a star
+        stars.forEach(star => {
+            star.addEventListener("click", function () {
+                const value = this.getAttribute("data-value");
+                ratingInput.value = value; // Set hidden input value to the clicked star's value
+                updateStars(value); // Update star appearance
+                ratingDisplay.textContent = `${value} / 5`; // Update displayed rating
             });
-        }
-    });
-
-    // Handle delete and edit actions
-    document.body.addEventListener("click", function (event) {
-        if (event.target.classList.contains("delete-rating")) {
-            event.preventDefault();  
-            const ratingId = event.target.getAttribute("data-id");
-            const ratingElement = event.target.closest(".rating-item"); 
+        });
     
-            const csrftoken = getCookie('csrftoken');
-    
-            fetch(`/ratings/restaurants/{{ restaurant.id }}/${ratingId}/delete/`, {
-                method: "POST",
-                headers: {
-                    'X-CSRFToken': csrftoken,  
-                    'Content-Type': 'application/json'
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Rating deleted successfully!");
-                    if (ratingElement) {
-                        ratingElement.remove();
-                    }
+        // Update the star colors based on the clicked value
+        function updateStars(value) {
+            stars.forEach(star => {
+                if (star.getAttribute("data-value") <= value) {
+                    star.classList.add("text-yellow-400");
+                    star.classList.remove("text-gray-300");
                 } else {
-                    alert("Error: " + data.message);
+                    star.classList.add("text-gray-300");
+                    star.classList.remove("text-yellow-400");
                 }
             });
         }
     });
     
     
-});
 </script>
 {% endblock %}
+
+    
+
+

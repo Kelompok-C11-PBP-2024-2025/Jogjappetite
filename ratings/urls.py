@@ -9,5 +9,6 @@ urlpatterns = [
     path('restaurants/<int:id>/<int:rating_id>/edit/', views.edit_rating, name='edit_rating'),
     path('restaurants/<int:id>/<int:rating_id>/delete/', views.delete_rating, name='delete_rating'),
     path('restaurants/<int:id>/<int:rating_id>/edit/', views.edit_rating, name='edit_rating'),
+    path('ratings/show_json/<int:restaurant_id>/', views.get_ratings_json, name='show_json'),
 
 ]

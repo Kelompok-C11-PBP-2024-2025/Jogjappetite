@@ -43,13 +43,13 @@ def add_rating(request, id):
             rating.user = request.user
             rating.restaurant_review = restaurant
             rating.save()
-            return JsonResponse({'success': True})
+            return JsonResponse({'success': True})  # This is the success message
         else:
-            return JsonResponse({'success': False, 'errors': form.errors})
-
+            return JsonResponse({'success': False, 'errors': form.errors}, status=400)
     else:
-        form = AddRatingForm(restaurant=restaurant)
-    return render(request, 'add_rating.html', {'form': form, 'restaurant': restaurant})
+        return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=405)
+
+
 
 @login_required
 @csrf_exempt
@@ -119,3 +119,7 @@ def create_rating_ajax(request, id):
         return JsonResponse({"success": True})
 
     return JsonResponse({"success": False, "error": "Invalid request method"}, status=400)
+
+def show_json(request):
+    data = Ratings.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
