@@ -1,3 +1,11 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
 
-<h1>Hello World!</h1>
+{% block content %}
+<section class="relative -mt-16">
+    <img src="https://www.indonesia.travel/content/dam/indtravelrevamp/en/trip-ideas/the-ultimate-guide-to-must-try-indonesian-food/header.jpg" alt="Food Table" class="w-full h-64 object-cover">
+    <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-10" style="padding-top: 3rem;">
+        <h1 class="text-white text-5xl font-bold italic">MY FAVORITES</h1>
+    </div>
+</section>
+{% endblock content %}
