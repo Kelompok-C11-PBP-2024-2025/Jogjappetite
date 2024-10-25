@@ -6,7 +6,7 @@ from authentication.models import UserProfile
 
 # Create your views here.
 def show_explore_page(request):
-    # Check if the user is authenticated
+    # Check apakah user authenticated
     if request.user.is_authenticated:
         try:
             # Assume UserProfile is related to the logged-in user
