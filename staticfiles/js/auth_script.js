@@ -1,30 +1,32 @@
-const form = document.getElementById('register-form');
-const submitButton = document.getElementById('register-btn');
-const requiredFields = form.querySelectorAll('input[required], select[required]');
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById('register-form');
+    const inputs = form.querySelectorAll('input, select');
+    const submitButton = form.querySelector('button[type="submit"]');
 
-function checkFormCompletion() {
-    let allFieldsFilled = true;
+    function checkFormCompletion() {
+        let isFormComplete = true;
 
-    // Check if all required fields are filled
-    requiredFields.forEach((field) => {
-        if (!field.value.trim()) {
-            allFieldsFilled = false;
+        // Loop through all inputs and check if any are empty
+        inputs.forEach(input => {
+            if (!input.value.trim()) {
+                isFormComplete = false;
+            }
+        });
+
+        // Enable or disable the submit button based on form completion
+        if (isFormComplete) {
+            submitButton.disabled = false;
+            submitButton.classList.remove('bg-gray-300', 'cursor-not-allowed');
+            submitButton.classList.add('bg-red-500', 'cursor-pointer');
+        } else {
+            submitButton.disabled = true;
+            submitButton.classList.remove('bg-red-500', 'cursor-pointer');
+            submitButton.classList.add('bg-gray-300', 'cursor-not-allowed');
         }
-    });
-
-    // Enable or disable the submit button based on form completion
-    if (allFieldsFilled) {
-        submitButton.disabled = false;
-        submitButton.classList.remove('bg-gray-300', 'cursor-not-allowed');
-        submitButton.classList.add('bg-red-400', 'hover:bg-red-500');
-    } else {
-        submitButton.disabled = true;
-        submitButton.classList.remove('bg-red-400', 'hover:bg-red-500');
-        submitButton.classList.add('bg-gray-300', 'cursor-not-allowed');
     }
-}
 
-// Attach event listeners to all required fields
-requiredFields.forEach((field) => {
-    field.addEventListener('input', checkFormCompletion);
+    // Add event listeners to all form inputs to track changes
+    inputs.forEach(input => {
+        input.addEventListener('input', checkFormCompletion);
+    });
 });

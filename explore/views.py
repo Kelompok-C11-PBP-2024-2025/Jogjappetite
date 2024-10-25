@@ -5,15 +5,15 @@ from explore.models import ExploreHistory
 
 # Create your views here.
 def show_explore_page(request):
-    # user_profile = request.user.userprofile  # Asumsi bahwa UserProfile terkait dengan User
-    # # Ambil 5 riwayat terakhir berdasarkan waktu klik
-    # recent_history = ExploreHistory.objects.filter(user_profile=user_profile).order_by('-clicked_at')[:5]
+    user_profile = request.user.userprofile  # Asumsi bahwa UserProfile terkait dengan User
+    # Ambil 5 riwayat terakhir berdasarkan waktu klik
+    recent_history = ExploreHistory.objects.filter(user_profile=user_profile).order_by('-clicked_at')[:5]
     
-    # # Kirim data history ke template
-    # context = {
-    #     'recent_history': recent_history,
-    #     'menus': Menu.objects.all()  # Asumsi kategori menu
-    # }
+    # Kirim data history ke template
+    context = {
+        'recent_history': recent_history,
+        'menus': Menu.objects.all()  # Asumsi kategori menu
+    }
     return render(request,"explore.html")
 
 def show_menus_explore(request, cluster_name):

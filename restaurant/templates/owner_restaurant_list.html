@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+<section class="container mx-auto">
+    <div class="w-full pt-32 px-5 flex justify-between items-center ">
+        <h1 class="text-md md:text-2xl font-medium mb-3">Our Restaurants</h1>
+        <a href="{% url 'restaurant:add_restaurant' %}" class="bg-red-600  text-md md:text-2xl text-white px-6 py-2 rounded shadow-md hover:bg-red-700 transition duration-150 ease-in-out">Add Restaurant</a>
+    </div>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+    <div class="flex flex-wrap w-full px-3 md:px-0 gap-6 mt-6">
+    {% for restaurant in restaurants %}
+    <div class="w-full sm:w-1/2 md:w-[30%] lg:w-[23%] bg-white border border-gray-200 rounded-lg shadow-lg transition-transform transform hover:scale-105 dark:bg-white dark:border-slate-300">
+        <a href="{% url 'restaurant:restaurant_detail' restaurant.pk %}">
+            <img class="rounded-t-lg w-full h-40 object-cover" src="{{ restaurant.gambar }}" alt="Restaurant Image" />
+        </a>
+        <div class="p-4 flex flex-col gap-2">
+            <a href="{% url 'restaurant:restaurant_detail' restaurant.pk %}">
+                <h5 class="mb-2 text-xl font-semibold text-gray-900 dark:text-dark overflow-hidden whitespace-nowrap text-ellipsis">{{ restaurant.nama_restoran }}</h5>
+            </a>
+            
+            <div class="flex items-center justify-between -mt-3 mb-3">
+                <div class="flex items-center space-x-1 rtl:space-x-reverse">
+                    {% with restaurant.average_rating as avg_rating %}
+                    {% for i in "12345"|make_list %}
+                    {% if i|add:0 <= avg_rating %}
+                    <svg class="w-5 h-5 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                    {% elif i|add:0 == avg_rating %}
+                    <svg class="w-5 h-5 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                    {% else %}
+                                <svg class="w-5 h-5 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                </svg>
+                                {% endif %}
+                                {% endfor %}
+                                {% endwith %}
+                                <p class="ml-1 text-sm font-medium text-gray-500 dark:text-gray-400">({{ restaurant.average_rating|default:"0.0" }})</p>
+                </div>
+                <div>
+
+                    <p class="ml-1 text-sm font-medium text-gray-500 dark:text-gray-400">{{ restaurant.rating_count }} reviews</p>
+                </div>
+            </div>
+            
+            <div class="flex justify-between -mt-3">
+                <span class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ restaurant.ayce_atau_alacarte }}</span>
+                <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Rp.{{ restaurant.harga_rata_rata_makanan|intcomma }}</span>
+            </div>
+            <p class="text-sm font-medium text-gray-500 flex items-center dark:text-gray-400 overflow-hidden whitespace-nowrap text-ellipsis">
+                {{ restaurant.lokasi }}</p>
+            <a href="{% url 'restaurant:restaurant_detail' restaurant.pk %}" class=" inline-flex items-center w-full justify-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-2 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-700">
+                Read more
+                <svg class="rtl:rotate-180 w-4 h-4 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</section>
+<!-- Pagination -->
+<div class="flex flex-col items-center justify-center my-6 space-y-4 md:flex-row md:space-y-0 md:space-x-4">
+    <div class="flex flex-wrap justify-center space-x-2">
+        {% if restaurants.has_previous %}
+            <a href="?page=1&per_page={{ per_page }}" class="px-3 py-2 text-sm text-white bg-red-600 rounded hover:bg-red-700">First</a>
+            <a href="?page={{ restaurants.previous_page_number }}&per_page={{ per_page }}" class="px-3 py-2 text-sm text-white bg-red-600 rounded hover:bg-red-700">Previous</a>
+        {% endif %}
+
+        <span class="px-3 py-2 text-sm text-gray-700">Page {{ restaurants.number }} of {{ restaurants.paginator.num_pages }}</span>
+
+        {% if restaurants.has_next %}
+            <a href="?page={{ restaurants.next_page_number }}&per_page={{ per_page }}" class="px-3 py-2 text-sm text-white bg-red-600 rounded hover:bg-red-700">Next</a>
+            <a href="?page={{ restaurants.paginator.num_pages }}&per_page={{ per_page }}" class="px-3 py-2 text-sm text-white bg-red-600 rounded hover:bg-red-700">Last</a>
+        {% endif %}
+    </div>
+    <div class="flex flex-wrap justify-center space-x-2">
+        {% if restaurants.paginator.num_pages > 5 %}
+            {% if restaurants.number > 3 %}
+                <a href="?page=1&per_page={{ per_page }}" class="px-3 py-2 text-sm text-gray-600 bg-gray-100 border rounded hover:bg-gray-200">1</a>
+                {% if restaurants.number > 4 %}
+                    <span class="px-3 py-2 text-sm text-gray-700">...</span>
+                {% endif %}
+            {% endif %}
+
+            {% for num in restaurants.paginator.page_range %}
+                {% if num >= restaurants.number|add:-2 and num <= restaurants.number|add:2 %}
+                    {% if restaurants.number == num %}
+                        <span class="px-3 py-2 text-sm text-white bg-gray-600 rounded">{{ num }}</span>
+                    {% else %}
+                        <a href="?page={{ num }}&per_page={{ per_page }}" class="px-3 py-2 text-sm text-gray-600 bg-gray-100 border rounded hover:bg-gray-200">{{ num }}</a>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            {% if restaurants.number < restaurants.paginator.num_pages|add:-2 %}
+                {% if restaurants.number < restaurants.paginator.num_pages|add:-1 %}
+                    <span class="px-3 py-2 text-sm text-gray-700">...</span>
+                {% endif %}
+                <a href="?page={{ restaurants.paginator.num_pages }}&per_page={{ per_page }}" class="px-3 py-2 text-sm text-gray-600 bg-gray-100 border rounded hover:bg-gray-200">{{ restaurants.paginator.num_pages }}</a>
+            {% endif %}
+        {% else %}
+            {% for num in restaurants.paginator.page_range %}
+                {% if restaurants.number == num %}
+                    <span class="px-3 py-2 text-sm text-white bg-gray-600 rounded">{{ num }}</span>
+                {% else %}
+                    <a href="?page={{ num }}&per_page={{ per_page }}" class="px-3 py-2 text-sm text-gray-600 bg-gray-100 border rounded hover:bg-gray-200">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <form method="GET" action="" class="flex items-center space-x-2">
+        <label for="per_page" class="text-sm">Items per page:</label>
+        <select name="per_page" id="per_page" class="px-3 py-2 text-sm border rounded" onchange="this.form.submit()">
+            <option value="12" {% if per_page == '12' %}selected{% endif %}>12</option>
+            <option value="25" {% if per_page == '25' %}selected{% endif %}>25</option>
+            <option value="50" {% if per_page == '50' %}selected{% endif %}>50</option>
+            <option value="100" {% if per_page == '100' %}selected{% endif %}>100</option>
+        </select>
+        <input type="hidden" name="page" value="{{ restaurants.number }}">
+    </form>
+</div>
+{% endblock %}
