@@ -17,27 +17,9 @@
         </div>
     </section>
 
-     <!-- History Section (5 History Terakhir) -->
-     <section class="py-6">
-        <div class="container mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-8">Recent History</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-                {% for history in recent_history %}
-                    <a href="{% url 'explore:show_menus_explore' history.menu.nama_menu %}">
-                        <div class="bg-white rounded-lg shadow-md transition-transform duration-300 transform hover:scale-105">
-                            <img src="{{ "https://i.pinimg.com/564x/5e/06/b4/5e06b47cac34547f981c479cf4943b0f.jpg" }}" alt="{{ history.menu.nama_menu }}" class="w-full h-32 object-cover rounded-t-lg">
-                            <div class="p-4">
-                                <h3 class="text-xl font-bold">{{ history.menu.nama_menu }}</h3>
-                                <p class="text-gray-600 text-sm">{{ history.menu.restoran }}</p>
-                                <p class="text-green-500 text-lg font-bold">Rp{{ history.menu.harga }}</p>
-                                <p class="text-gray-400 text-xs mt-2">Clicked at: {{ history.clicked_at|date:"M d, Y H:i" }}</p>
-                            </div>
-                        </div>
-                    </a>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
+
+>
+
 
     <!-- Content Section -->
     <section class="py-10">
