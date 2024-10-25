@@ -6,7 +6,6 @@
     <title>Menus in Cluster</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Style for making the card expand to a full-screen modal */
         .expanded-card {
             position: fixed;
             top: 50%;
@@ -103,10 +102,12 @@
         </a>
     </div>
 
-    <!-- Tombol untuk menampilkan sidebar bookmark -->
-    <div class="container mx-auto text-center my-4">
-        <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600" onclick="toggleBookmarkSidebar()">View Bookmarks</button>
-    </div>
+    <!-- Tampilkan tombol View Bookmarks jika user sudah login -->
+    {% if user.is_authenticated %}
+        <div class="container mx-auto text-center my-4">
+            <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600" onclick="toggleBookmarkSidebar()">View Bookmarks</button>
+        </div>
+    {% endif %}
 
     <h1 class="text-4xl font-bold text-center my-8">Menus in Cluster: {{ cluster_name }}</h1>
 
@@ -127,18 +128,21 @@
                         <span class="font-medium">Restaurant: </span>{{ menu.restoran.nama_restoran }}
                     </p>
                     <p class="text-green-500 text-xl font-bold mb-4">Rp{{ menu.harga }}</p>
-    
-                    <!-- Check if the menu is bookmarked by the user -->
-                    {% if menu.id in user_bookmarks %}
-                        <!-- If bookmarked, show Unbookmark button -->
-                        <button id="bookmark-{{ menu.id }}" class="bg-red-500 text-white px-3 py-2 rounded-md bookmark-btn" onclick="toggleBookmark(event, {{ menu.id }})">
-                            Unbookmark
-                        </button>
-                    {% else %}
-                        <!-- If not bookmarked, show Bookmark button -->
-                        <button id="bookmark-{{ menu.id }}" class="bg-blue-500 text-white px-3 py-2 rounded-md bookmark-btn" onclick="toggleBookmark(event, {{ menu.id }})">
-                            Bookmark
-                        </button>
+
+                    <!-- Tampilkan tombol bookmark/unbookmark hanya jika user sudah login -->
+                    {% if user.is_authenticated %}
+                        <!-- Check if the menu is bookmarked by the user -->
+                        {% if menu.id in user_bookmarks %}
+                            <!-- If bookmarked, show Unbookmark button -->
+                            <button id="bookmark-{{ menu.id }}" class="bg-red-500 text-white px-3 py-2 rounded-md bookmark-btn" onclick="toggleBookmark(event, {{ menu.id }})">
+                                Unbookmark
+                            </button>
+                        {% else %}
+                            <!-- If not bookmarked, show Bookmark button -->
+                            <button id="bookmark-{{ menu.id }}" class="bg-blue-500 text-white px-3 py-2 rounded-md bookmark-btn" onclick="toggleBookmark(event, {{ menu.id }})">
+                                Bookmark
+                            </button>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>
@@ -158,48 +162,44 @@
 
     <script>
         // Toggle bookmark asynchronously
-       // Tambahkan pesan berhasil di UI jika bookmark berhasil
-// Toggle bookmark asynchronously
-function toggleBookmark(event, menuId) {
-    event.stopPropagation(); // Mencegah card expand
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        function toggleBookmark(event, menuId) {
+            event.stopPropagation();
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-    fetch(`/toggle_bookmark/${menuId}/`, {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': csrfToken,
-            'Content-Type': 'application/json'
+            fetch(`/toggle_bookmark/${menuId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const bookmarkButton = document.getElementById(`bookmark-${menuId}`);
+                const bookmarkMessage = document.getElementById('bookmarkMessage');
+
+                if (data.status === 'bookmarked') {
+                    bookmarkButton.textContent = "Unbookmark";
+                    bookmarkButton.classList.replace("bg-blue-500", "bg-red-500");
+                    bookmarkMessage.textContent = "Menu successfully bookmarked!";
+                } else if (data.status === 'unbookmarked') {
+                    bookmarkButton.textContent = "Bookmark";
+                    bookmarkButton.classList.replace("bg-red-500", "bg-blue-500");
+                    bookmarkMessage.textContent = "Menu removed from bookmarks!";
+                }
+
+                // Tampilkan pesan berhasil di UI
+                bookmarkMessage.classList.remove('hidden');
+                bookmarkMessage.style.display = 'block';
+
+                // Sembunyikan pesan setelah 3 detik
+                setTimeout(() => {
+                    bookmarkMessage.classList.add('hidden');
+                    bookmarkMessage.style.display = 'none';
+                }, 3000);
+            })
+            .catch(error => console.error('Error:', error));
         }
-    })
-    .then(response => response.json())
-    .then(data => {
-        const bookmarkButton = document.getElementById(`bookmark-${menuId}`);
-        const bookmarkMessage = document.getElementById('bookmarkMessage');
-
-        if (data.status === 'bookmarked') {
-            bookmarkButton.textContent = "Unbookmark";
-            bookmarkButton.classList.replace("bg-blue-500", "bg-red-500");
-            bookmarkMessage.textContent = "Menu successfully bookmarked!";
-        } else if (data.status === 'unbookmarked') {
-            bookmarkButton.textContent = "Bookmark";
-            bookmarkButton.classList.replace("bg-red-500", "bg-blue-500");
-            bookmarkMessage.textContent = "Menu removed from bookmarks!";
-        }
-
-        // Tampilkan pesan berhasil di UI
-        bookmarkMessage.classList.remove('hidden');
-        bookmarkMessage.style.display = 'block';
-
-        // Sembunyikan pesan setelah 3 detik
-        setTimeout(() => {
-            bookmarkMessage.classList.add('hidden');
-            bookmarkMessage.style.display = 'none';
-        }, 3000);
-    })
-    .catch(error => console.error('Error:', error));
-}
-
-
 
         // Toggle bookmark sidebar
         function toggleBookmarkSidebar() {
