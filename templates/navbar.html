@@ -29,7 +29,7 @@
             <div class="hidden md:flex space-x-6">
                 <a href="" class="text-gray-800 hover:text-gray-500 font-medium">Ratings</a>
                 <a href="" class="text-gray-800 hover:text-gray-500 font-medium">Favorite</a>
-                <a href="" class="text-gray-800 hover:text-gray-500 font-medium">Add Restaurant</a>
+                <a href="{% url 'restaurant:owner_restaurant_list' %}" class="text-gray-800 hover:text-gray-500 font-medium">Add Restaurant</a>
 
                 <!-- Check if the user is authenticated -->
                 {% if request.user.is_authenticated %}
@@ -56,7 +56,7 @@
             <div class="flex flex-col items-center space-y-4 p-4">
                 <a href="" class="text-gray-800 hover:text-gray-500 font-medium">Ratings</a>
                 <a href="" class="text-gray-800 hover:text-gray-500 font-medium">Favorite</a>
-                <a href="" class="text-gray-800 hover:text-gray-500 font-medium">Add Restaurant</a>
+                <a href="{% url 'restaurant:owner_restaurant_list' %}" class="text-gray-800 hover:text-gray-500 font-medium">Add Restaurant</a>
 
                 <!-- Login Logout Button -->
                 {% if request.user.is_authenticated %}

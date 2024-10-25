@@ -1,0 +1,99 @@
+{% extends 'base.html' %} 
+{% load humanize %} 
+{% block content %} 
+<section class="mt-16">
+
+    <div class="max-w-3xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+        <div class="relative">
+            <img src="{{ restaurant.gambar }}" alt="{{ restaurant.nama_restoran }}" class="w-full h-64 object-cover rounded-lg shadow-lg mb-6">
+            <div class="absolute bottom-0 left-0 p-4 bg-black bg-opacity-50 text-white rounded-lg">
+                <h2 class="text-2xl font-bold">{{ restaurant.nama_restoran }}</h2>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Detail Restoran</h3>
+            <div class="space-y-2 text-gray-700">
+                <p><strong>Lokasi:</strong> <span class="font-medium">{{ restaurant.lokasi }}</span></p>
+                <p><strong>Suasana:</strong> <span class="font-medium">{{ restaurant.jenis_suasana }}</span></p>
+                <p><strong>Keramaian:</strong> <span class="font-medium">{{ restaurant.keramaian_restoran }}</span></p>
+                <p><strong>Jenis Penyajian:</strong> <span class="font-medium">{{ restaurant.jenis_penyajian }}</span></p>
+                <p><strong>Harga Rata-rata:</strong> <span class="font-medium">Rp.{{ restaurant.harga_rata_rata_makanan|intcomma }}</span></p>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Statistik Restoran</h3>
+            <p class="text-gray-800 mb-1">
+                <strong>Total Ulasan:</strong> <span class="font-semibold">{{ restaurant.rating_count }}</span>
+            </p>
+            <p class="text-gray-800">
+                <strong>Rating Rata-rata:</strong> <span class="font-semibold">{{ restaurant.average_rating }}</span>/5
+            </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Ulasan</h3>
+            {% if reviews %}
+                <ul class="space-y-4">
+                    {% for review in reviews %}
+                    <li class="bg-gray-50 p-4 rounded-lg shadow-sm transition-transform transform hover:scale-105">
+                        <div class="flex items-center mb-2 gap-3">
+                            <p>  {{ review.menu_review }}</p>
+                            <span class="text-yellow-500 font-semibold text-xl">{{ review.rating }} ★</span>
+                            <p>-</p>
+                            <p class=" text-gray-900 font-semibold">{{ review.user.username }}</p>
+                        </div>
+                        <p class="text-gray-600 mb-1">{{ review.pesan_rating }}</p>
+                        <p class="text-gray-600"></p>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-gray-600">Belum memiliki ulasan.</p>
+            {% endif %}
+        </div>
+        
+        <div class="mt-6 flex justify-between">
+            <form method="POST" action="{% url 'restaurant:edit_restaurant' restaurant.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="text-blue-500 hover:text-blue-700 bg-transparent border border-blue-500 hover:bg-blue-100 rounded px-4 py-2 transition duration-150 ease-in-out">
+                    Edit
+                </button>
+            </form>
+            
+            <button class="delete-btn bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition duration-150 ease-in-out" data-id="{{ restaurant.pk }}">
+                Delete
+            </button>
+        </div>
+    </div>
+</section>
+
+<script>
+    function confirmCancel() {
+        return confirm("Are you sure you want to delete? Your restaurant will be lost!");
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.delete-btn').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const restaurantId = this.getAttribute('data-id');
+                if (confirm('Are you sure you want to delete this restaurant?')) {
+                    fetch(`/restaurant/${restaurantId}/delete/`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                        },
+                    })
+                    .then(data => {
+                        alert('Restaurant deleted successfully!');
+                        window.location.href = "{% url 'restaurant:owner_restaurant_list' %}"; // Redirect to the restaurant list
+                    })
+                    .catch(error => console.error('Error:', error));
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}
