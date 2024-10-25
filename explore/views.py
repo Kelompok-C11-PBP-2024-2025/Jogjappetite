@@ -41,15 +41,22 @@ def toggle_bookmark(request, menu_id):
 
 
 def show_menus_explore(request, cluster_name):
+    menus = Menu.objects.filter(cluster__icontains=cluster_name.lower())
     
-    menus = Menu.objects.filter(cluster__icontains=cluster_name.lower())  
-    user_bookmarks = Bookmark.objects.filter(user=request.user).values_list('menu_id', flat=True)
+    # Cek apakah user sudah login
+    if request.user.is_authenticated:
+        user_bookmarks = Bookmark.objects.filter(user=request.user).values_list('menu_id', flat=True)
+    else:
+        user_bookmarks = []  # Jika user belum login, tidak ada bookmark
+
     context = {
         'menus': menus,
-        'cluster_name': cluster_name,  
+        'cluster_name': cluster_name,
         'user_bookmarks': user_bookmarks,
     }
+    
     return render(request, 'menu_by_cluster.html', context)
+
 
 # New view to handle AJAX requests for menu details
 def menu_details(request, menu_id):
