@@ -1,0 +1,315 @@
+{% extends 'base.html' %}
+
+
+{% load range_filter %}
+{% load custom_filters %}
+
+
+{% block content %}
+
+
+{% comment %} {% include 'navbar.html' %} {% endcomment %}
+
+<div class="px-4 md:px-8 pb-8 pt-24 min-h-screen bg-gray-100">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Left Column - Restaurant Information -->
+        <div class="lg:col-span-2">
+            <!-- Restaurant Image -->
+            <div class="mt-4">
+                <img class="rounded-md w-full h-auto object-cover max-h-[70vh]" src="{{ restaurant.gambar }}" alt="Image of {{ restaurant.nama_restoran }}">
+            </div>
+            
+
+            <!-- Restaurant Title and Rating Section -->
+            <h1 class="text-4xl font-bold mb-4 mt-10">{{ restaurant.nama_restoran }}</h1>
+            <div class="flex items-center space-x-4 text-lg mb-4">
+                <!-- Star Rating Loop -->
+                <div class="flex items-center">
+                    {% for i in rating_range %}
+                        {% if i <= average_rating %}
+                            <!-- Full star -->
+                            <svg class="w-6 h-6 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                            </svg>
+                        {% elif i == average_rating|floatformat:0.5 %}
+                            <!-- Half star -->
+                            <svg class="w-6 h-6 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                <path d="M10.2 0l2.35 4.67 5.16.75c.19.03.37.15.46.32a.593.593 0 01-.07.66l-3.73 3.62.88 5.13c.04.23-.06.46-.24.6a.589.589 0 01-.63.04l-4.61-2.42-4.6 2.42a.589.589 0 01-.63-.04c-.19-.14-.28-.37-.24-.6l.88-5.13L1.35 6.4a.593.593 0 01-.07-.66c.09-.17.27-.29.46-.32l5.16-.75L8.9 0h1.3z"/>
+                            </svg>
+                        {% else %}
+                            <!-- Empty star -->
+                            <svg class="w-6 h-6 text-gray-300 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                            </svg>
+                        {% endif %}
+                    {% endfor %}
+                    <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">{{ average_rating|floatformat:1 }}</p>
+                    <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">out of</p>
+                    <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">5</p>
+                </div>
+                
+                <!-- Reviews Count -->
+                <div class="flex items-center">
+                    <img src="https://icons.veryicon.com/png/o/miscellaneous/template-four/comment-59.png" alt="Reviews Icon" class="inline w-6 h-6 mr-1">
+                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ reviews_count }} Reviews</p>
+                </div>
+                
+                <!-- Price Indicator -->
+                <div class="flex items-center">
+                    <img src="https://www.svgrepo.com/show/488292/money.svg" alt="Price Icon" class="inline w-6 h-6 mr-1">
+                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">${{ restaurant.harga_rata_rata_makanan }}</p>
+                </div>
+            
+                <!-- Cuisine Type -->
+                <div class="flex items-center">
+                    <i class="fas fa-utensils"></i>
+                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ restaurant.cuisine_type }}</p>
+                </div>
+            </div>
+
+            <!-- Restaurant Description -->
+            <p class="mt-4 text-gray-700">{{ restaurant.description }}</p>
+        </div>
+
+        <div class="bg-white p-6 shadow-md rounded-lg">
+            <div>
+                <h2 class="text-3xl font-semibold mb-4">Restaurant Details</h2>
+                <div class="grid grid-cols-1 gap-4">
+                    <!-- Location -->
+                    <div class="flex items-center">
+                        {% comment %} <img src="https://www.svgrepo.com/show/276264/location.svg" alt="Location Icon" class="w-5 h-5 mr-2"> {% endcomment %}
+                        <p><strong class="font-semibold">Location:</strong> {{ restaurant.lokasi }}</p>
+                    </div>
+                    <!-- Atmosphere -->
+                    <div class="flex items-center">
+                        {% comment %} <img src="https://www.svgrepo.com/show/303230/relaxation.svg" alt="Atmosphere Icon" class="w-5 h-5 mr-2"> {% endcomment %}
+                        <p><strong class="font-semibold">Atmosphere:</strong> {{ restaurant.jenis_suasana }}</p>
+                    </div>
+                    <!-- Crowd Level -->
+                    <div class="flex items-center">
+                        {% comment %} <img src="https://www.svgrepo.com/show/279839/crowd.svg" alt="Crowd Icon" class="w-5 h-5 mr-2"> {% endcomment %}
+                        <p><strong class="font-semibold">Restaurant Crowd Level:</strong> {{ restaurant.keramaian_restoran }}</p>
+                    </div>
+                    <!-- Serving Style -->
+                    <div class="flex items-center">
+                        {% comment %} <img src="https://www.svgrepo.com/show/303047/serving-tray.svg" alt="Serving Style Icon" class="w-5 h-5 mr-2"> {% endcomment %}
+                        <p><strong class="font-semibold">Serving Style:</strong> {{ restaurant.jenis_penyajian }}</p>
+                    </div>
+                    <!-- All You Can Eat or A La Carte -->
+                    <div class="flex items-center">
+                        {% comment %} <img src="https://www.svgrepo.com/show/276471/menu.svg" alt="Menu Icon" class="w-5 h-5 mr-2"> {% endcomment %}
+                        <p><strong class="font-semibold">All You Can Eat or A La Carte:</strong> {{ restaurant.ayce_atau_alacarte }}</p>
+                    </div>
+                
+                </div>
+            </div>
+        
+            <!-- Menus Section -->
+            <h1 class="text-3xl font-semibold mt-8 mb-4">Menus</h1>
+            <div class="space-y-4"> <!-- This will create space between each card -->
+                {% for menu in reviewed_menus %}
+                <div class="bg-white shadow-md rounded-lg p-4">
+                    <strong class="text-lg">{{ menu.nama_menu }}</strong> - {{ menu.harga }} IDR
+                    <br>
+                    <em class="block mt-2 text-gray-500">Categories:</em>
+                    <div class="mt-2 flex flex-wrap space-x-2">
+                        {% for category in menu.cleaned_clusters %}
+                        <span class="bg-blue-100 text-blue-800 text-sm font-semibold px-2 py-1 rounded-full">
+                            {{ category }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            
+            
+        </div>
+        
+    </div>
+</div>
+<!-- Add Rating Button -->
+{% if request.user.is_authenticated %}
+    <button id="add-rating-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
+        Add Rating
+    </button>
+{% endif %}
+
+<!-- Ratings Section -->
+<h2 class="text-2xl font-semibold mt-8 mb-4">Restaurant-Wide Ratings</h2>
+<div class="space-y-6">
+    {% for rating in restaurant_ratings %}
+    <div class="rating-item bg-white p-6 shadow-md rounded-lg flex space-x-4">
+        <!-- User Avatar -->
+        <div class="flex-shrink-0">
+            <div class="w-10 h-10 rounded-full bg-purple-600 text-white flex items-center justify-center">
+                {{ rating.user.username|slice:":2" }} <!-- Display first 2 letters of username -->
+            </div>
+        </div>
+
+        <!-- Rating Content -->
+        <div class="flex-1">
+            <!-- User Info and Date -->
+            <div class="flex justify-between items-center mb-2">
+                <div>
+                    <p class="font-semibold">{{ rating.user.username }}</p>
+                    <p class="text-sm text-gray-500">{{ rating.created_at|date:"F d, Y" }}</p>
+                </div>
+                <div class="text-sm text-gray-500">Dined on {{ rating.created_at|date:"F d, Y" }}</div>
+            </div>
+
+            <!-- Star Rating and Summary -->
+            <div class="flex items-center mb-2">
+                <div class="flex items-center text-yellow-500">
+                    {% for i in range %}
+                        {% if i <= rating.rating %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <span class="ml-2 text-gray-600 text-sm">Overall {{ rating.rating }}</span>
+            </div>
+
+            <!-- Review Text -->
+            <p class="text-gray-700 mb-2">{{ rating.pesan_rating }}</p>
+
+            <!-- Helpful and Report -->
+            <div class="flex justify-between items-center text-sm text-gray-500">
+                <div class="flex items-center">
+                    <button class="flex items-center space-x-1">
+                        <i class="far fa-thumbs-up"></i>
+                        <span>Is this helpful?</span>
+                    </button>
+                </div>
+                <button class="text-red-500">Report</button>
+            </div>
+
+            {% if rating.user == request.user %}
+            <div class="flex space-x-2 mt-4">
+                <button class="edit-rating bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded-md" data-id="{{ rating.id }}">
+                    Edit
+                </button>
+                <button class="delete-rating bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-md" data-id="{{ rating.id }}">
+                    Delete
+                </button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <hr class="border-gray-200">
+    {% endfor %}
+</div>
+
+
+
+    <!-- Modal for adding or editing rating -->
+    <div id="rating-modal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75" style="display: none;">
+        <div class="modal-content bg-white p-8 rounded-lg shadow-lg">
+            <span class="close-modal text-gray-500 cursor-pointer">&times;</span>
+            <h2 class="text-2xl font-semibold mb-4">Add/Edit a Rating</h2>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Function to get the CSRF token from the cookie
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const addRatingBtn = document.getElementById("add-rating-btn");
+    const ratingModal = document.getElementById("rating-modal");
+    const modalBody = document.getElementById("modal-body");
+    const closeModal = document.querySelector(".close-modal");
+
+    // Open modal when "Add Rating" button is clicked
+    if (addRatingBtn) {
+        addRatingBtn.addEventListener("click", function () {
+            fetch(`/ratings/restaurants/{{ restaurant.id }}/add-rating/`)
+                .then(response => response.text())
+                .then(data => {
+                    modalBody.innerHTML = data;
+                    ratingModal.style.display = "block";
+                });
+        });
+    }
+
+    // Close modal when the "x" button is clicked
+    closeModal.addEventListener("click", function () {
+        ratingModal.style.display = "none";
+    });
+
+    // Submit form via AJAX
+    document.body.addEventListener("submit", function (event) {
+        if (event.target.id === "rating-form") {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            fetch(event.target.action, {
+                method: "POST",
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Rating added successfully!");
+                    ratingModal.style.display = "none";
+                    window.location.reload();
+                } else {
+                    alert("Error: " + JSON.stringify(data.errors));
+                }
+            });
+        }
+    });
+
+    // Handle delete and edit actions
+    document.body.addEventListener("click", function (event) {
+        if (event.target.classList.contains("delete-rating")) {
+            event.preventDefault();  
+            const ratingId = event.target.getAttribute("data-id");
+            const ratingElement = event.target.closest(".rating-item"); 
+    
+            const csrftoken = getCookie('csrftoken');
+    
+            fetch(`/ratings/restaurants/{{ restaurant.id }}/${ratingId}/delete/`, {
+                method: "POST",
+                headers: {
+                    'X-CSRFToken': csrftoken,  
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Rating deleted successfully!");
+                    if (ratingElement) {
+                        ratingElement.remove();
+                    }
+                } else {
+                    alert("Error: " + data.message);
+                }
+            });
+        }
+    });
+    
+    
+});
+</script>
+{% endblock %}

@@ -1,0 +1,20 @@
+<form id="rating-form" method="POST" action="{% url 'ratings:add_rating' restaurant.id %}">
+    {% csrf_token %}
+    
+    <div>
+        <label for="menu_review">Menu review:</label>
+        {{ form.menu_review }}
+    </div>
+
+    <div>
+        <label for="rating">Rating:</label>
+        {{ form.rating }}
+    </div>
+
+    <div>
+        <label for="pesan_rating">Review message:</label>
+        {{ form.pesan_rating }}
+    </div>
+    
+    <button type="submit">Submit Rating</button>
+</form>
