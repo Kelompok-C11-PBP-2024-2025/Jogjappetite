@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Page</title>
+    {% include 'navbar.html' %}
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Header Section -->
+    <section class="relative">
+        <img src="https://www.baconismagic.ca/wp-content/uploads/2022/08/Indonesian-food-h.jpg" alt="Food Table" class="w-full h-96 object-cover">
+        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-10">
+            <h1 class="text-white text-8xl font-bold italic">EXPLORE</h1>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-10">
+        <div class="container mx-auto">
+            <!-- Repeatable Cards -->
+            <div>
+                <!-- Card 1 -->
+                <a href="{% url 'explore:show_menus_explore' 'nasi' %}">
+
+                    <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
+                        <div class="flex-1">
+                            <h2 class="text-3xl font-bold italic mb-4">Nasi</h2>
+                            <p class="text-gray-600">
+                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                            </p>
+                        </div>
+                        <div class="w-1/4">
+                            <img src="https://i.pinimg.com/564x/5e/06/b4/5e06b47cac34547f981c479cf4943b0f.jpg" alt="Nasi Image" class="rounded-lg w-full h-[120px] object-cover">
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 2 -->
+                <a href="{% url 'explore:show_menus_explore' 'mie' %}">
+                    <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
+                        <div class="flex-1">
+                            <h2 class="text-3xl font-bold italic mb-4">Mie</h2>
+                            <p class="text-gray-600">
+                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                            </p>
+                        </div>
+                        <div class="w-1/4">
+                            <img src="https://i.pinimg.com/736x/a7/c5/d1/a7c5d1bb9a7bcb9deedb6727b4c26adb.jpg" alt="Mie Image" class="rounded-lg w-full h-[120px] object-cover">
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 3 -->
+                <a href="{% url 'explore:show_menus_explore' 'bakso' %}">
+                    <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
+                        <div class="flex-1">
+                            <h2 class="text-3xl font-bold italic mb-4">Bakso</h2>
+                            <p class="text-gray-600">
+                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                            </p>
+                        </div>
+                        <div class="w-1/4">
+                            <img src="https://i.pinimg.com/474x/3a/9a/43/3a9a437acebfed3f968caadfd3df055d.jpg" alt="Bakso Image" class="rounded-lg w-full h-[120px] object-cover">
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 4 -->
+                <a href="{% url 'explore:show_menus_explore' 'soto' %}">
+                    <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
+                        <div class="flex-1">
+                            <h2 class="text-3xl font-bold italic mb-4">Soto</h2>
+                            <p class="text-gray-600">
+                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                            </p>
+                        </div>
+                        <div class="w-1/4">
+                            <img src="https://i.pinimg.com/control/474x/1d/e4/a1/1de4a19e2d70724d71ad912cec05885d.jpg" alt="Soto Image" class="rounded-lg w-full h-[120px] object-cover">
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Tambahkan lebih banyak card sesuai kebutuhan -->
+
+                <!-- Card 5 -->
+                <a href="{% url 'explore:show_menus_explore' 'snacks' %}">
+                    <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
+                        <div class="flex-1">
+                            <h2 class="text-3xl font-bold italic mb-4">Snacks</h2>
+                            <p class="text-gray-600">
+                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                            </p>
+                        </div>
+                        <div class="w-1/4">
+                            <img src="https://i.pinimg.com/474x/eb/33/c7/eb33c7632c8e848308a4977e11fa3c18.jpg" alt="Nasi Image" class="rounded-lg w-full h-[120px] object-cover">
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 6 -->
+                <a href="{% url 'explore:show_menus_explore' 'manis-manis' %}">
+                    <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
+                        <div class="flex-1">
+                            <h2 class="text-3xl font-bold italic mb-4">Manis-manis</h2>
+                            <p class="text-gray-600">
+                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                            </p>
+                        </div>
+                        <div class="w-1/4">
+                            <img src="https://i.pinimg.com/474x/01/c7/01/01c7019cf3e709aeb749fab51dc56f5c.jpg" alt="Nasi Image" class="rounded-lg w-full h-[120px] object-cover">
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 7 -->
+                <a href="{% url 'explore:show_menus_explore' 'minuman' %}">
+                    <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
+                        <div class="flex-1">
+                            <h2 class="text-3xl font-bold italic mb-4">Minuman</h2>
+                            <p class="text-gray-600">
+                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                            </p>
+                        </div>
+                        <div class="w-1/4">
+                            <img src="https://i.pinimg.com/474x/15/7a/e7/157ae7ce3f70fe6582928ff1d73b0940.jpg" alt="Nasi Image" class="rounded-lg w-full h-[120px] object-cover">
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 8 -->
+                <a href="{% url 'explore:show_menus_explore' 'indonesian' %}">
+                    <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
+                        <div class="flex-1">
+                            <h2 class="text-3xl font-bold italic mb-4">Indonesian</h2>
+                            <p class="text-gray-600">
+                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                            </p>
+                        </div>
+                        <div class="w-1/4">
+                            <img src="https://i.pinimg.com/control/474x/bb/ab/54/bbab54c699d8ac151e6c36627e6b2a76.jpg" alt="Nasi Image" class="rounded-lg w-full h-[120px] object-cover">
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 9 -->
+                <a href="{% url 'explore:show_menus_explore' 'japanese' %}">
+                    <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
+                        <div class="flex-1">
+                            <h2 class="text-3xl font-bold italic mb-4">Japanese</h2>
+                            <p class="text-gray-600">
+                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                            </p>
+                        </div>
+                        <div class="w-1/4">
+                            <img src="https://i.pinimg.com/control/474x/b1/21/41/b121419a4f6e16be30b58364b1b5681c.jpg" alt="Nasi Image" class="rounded-lg w-full h-[120px] object-cover">
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 10 -->
+                <a href="{% url 'explore:show_menus_explore' 'asian' %}">
+                    <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
+                        <div class="flex-1">
+                            <h2 class="text-3xl font-bold italic mb-4">Asian</h2>
+                            <p class="text-gray-600">
+                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                            </p>
+                        </div>
+                        <div class="w-1/4">
+                            <img src="https://i.pinimg.com/474x/1b/b7/9a/1bb79ad97c3356e971701c76b577751f.jpg" alt="Nasi Image" class="rounded-lg w-full h-[120px] object-cover">
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 11 -->
+                <a href="{% url 'explore:show_menus_explore' 'western' %}">
+                    <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
+                        <div class="flex-1">
+                            <h2 class="text-3xl font-bold italic mb-4">Western</h2>
+                            <p class="text-gray-600">
+                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                            </p>
+                        </div>
+                        <div class="w-1/4">
+                            <img src="https://i.pinimg.com/474x/37/fe/c4/37fec482252df3c0e6604e68aa72f97f.jpg" alt="Nasi Image" class="rounded-lg w-full h-[120px] object-cover">
+                        </div>
+                    </div>
+                </a>
+                 
+
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

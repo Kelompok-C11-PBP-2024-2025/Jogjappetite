@@ -1,0 +1,212 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Bar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .icon-wrapper {
+            position: relative;
+            width: 1rem; /* Adjust as needed */
+            height: 1rem;
+            overflow: hidden;
+        }
+
+        .icon {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            opacity: 0;
+        }
+
+        .icon.active {
+            transform: translateX(0) translateY(-50%);
+            opacity: 1;
+        }
+
+        .icon.out {
+            transform: translateX(-100%) translateY(-50%);
+            opacity: 0;
+        }
+
+        .icon.in {
+            transform: translateX(100%) translateY(-50%);
+            opacity: 0;
+        }
+    </style>
+</head>
+<form method="GET" class="max-w-md mx-auto p-4">
+    <!-- Label for Screen Readers -->
+    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+
+    <!-- Container for Search Input and Buttons -->
+    <div class="flex items-center bg-gray-700 rounded-lg p-1 px-2 space-x-2">
+        <!-- Search Icon -->
+        <div class="flex items-center ps-3 pointer-events-none">
+            <svg class="w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+            </svg>
+        </div>
+
+        <!-- Search Input -->
+        <input type="search" id="default-search" name="search" placeholder="Search Foods or Restos..." required
+            class="w-full p-2 text-sm text-gray-900 border border-transparent rounded-lg bg-gray-800 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white"
+            autocomplete="off" onfocus="showSearchHistory()" onblur="hideSearchHistory()" />
+
+        <!-- Search History Container -->
+        <div id="search-history" class="absolute top-full left-0 w-full bg-white text-black mt-1 rounded-lg shadow-lg z-50 hidden">
+            {% for history in user_history %}
+                <div class="flex items-center justify-between p-2 hover:bg-gray-100 cursor-pointer" onclick="selectHistory('{{ history.query }}')" data-history-id="{{ history.id }}">
+                    <span>{{ history.query }}</span>
+                    <button class="text-red-500 ml-2" onclick="deleteHistory(event, '{{ history.id }}')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Food Search Button (Icon Only) -->
+        <button type="submit" formaction="{% url 'food_search' %}" 
+                class="flex items-center justify-center p-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800">
+            <!-- Food Icon -->
+            <div class="icon-wrapper">
+                <i id="foodIcon" class="fa-solid fa-drumstick-bite w-4 h-4 icon active"></i>
+            </div>
+        </button>
+        
+        <!-- Resto Search Button (Icon Only) -->
+        <button type="submit" formaction="{% url 'resto_search' %}" 
+                class="flex items-center justify-center p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+            <!-- Resto Icon -->
+            <i class="fa-solid fa-utensils w-4 h-4"></i>
+        </button>
+
+    </div>
+</form>
+
+<!-- JavaScript to Rotate Icons -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Array of Font Awesome classes for the food icons
+        const icons = [
+            'fa-solid fa-drumstick-bite',
+            'fa-solid fa-burger',
+            'fa-solid fa-mug-hot',
+            'fa-solid fa-pizza-slice',
+            'fa-solid fa-bread-slice',
+            'fa-solid fa-ice-cream',
+            'fa-solid fa-hotdog',
+            'fa-solid fa-martini-glass',
+            'fa-solid fa-shrimp'
+        ];
+
+        let currentIndex = 0;
+        const iconWrapper = document.querySelector('.icon-wrapper');
+        let currentIcon = document.getElementById('foodIcon');
+
+        function rotateIcon() {
+            // Create a new icon element
+            let newIcon = document.createElement('i');
+            newIcon.className = icons[(currentIndex + 1) % icons.length] + ' w-4 h-4 icon in';
+
+            // Append the new icon to the wrapper
+            iconWrapper.appendChild(newIcon);
+
+            // Start animation for current and new icon
+            currentIcon.classList.remove('active');
+            currentIcon.classList.add('out');
+            
+            // Delay setting the new icon to active to allow for smoother transition
+            setTimeout(() => {
+                currentIcon.remove(); // Remove the old icon
+                newIcon.classList.remove('in');
+                newIcon.classList.add('active');
+
+                // Update the reference to currentIcon
+                currentIcon = newIcon;
+            }, 500);
+
+            // Update index
+            currentIndex = (currentIndex + 1) % icons.length;
+        }
+
+        // Run the icon rotation when the page is loaded
+        setInterval(rotateIcon, 2000); // Adjust the interval as needed for smoother appearance
+    });
+
+    // Search History Dropdown
+    function showSearchHistory() {
+        // Show the search history dropdown
+        const historyElement = document.getElementById('search-history');
+        historyElement.classList.remove('hidden');
+    }
+
+    function hideSearchHistory() {
+        // Hide the search history dropdown after a short delay
+        setTimeout(() => {
+            const historyElement = document.getElementById('search-history');
+            historyElement.classList.add('hidden');
+        }, 200); // Adding a delay to allow time for click on a search item
+    }
+
+    function selectHistory(query) {
+        // Set the input value to the selected history query and hide the dropdown
+        const searchInput = document.getElementById('default-search');
+        searchInput.value = query;
+
+        // Keep the dropdown visible until the user interacts otherwise (e.g., clicks away)
+        hideSearchHistory(); 
+    }
+
+    function deleteHistory(event, historyId) {
+        event.stopPropagation(); // Prevent the click from selecting the history
+
+        // Confirm deletion
+        // if (!confirm("Are you sure you want to delete this search history?")) {
+        //     return;
+        // }
+
+        // Send AJAX request to delete the history
+        fetch(`/delete-history/${historyId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Remove the deleted history item from the UI
+                const historyItem = document.querySelector(`[data-history-id="${historyId}"]`);
+                if (historyItem) {
+                    historyItem.remove();
+                }
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Function to get CSRF token from cookies
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
