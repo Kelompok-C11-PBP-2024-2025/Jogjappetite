@@ -1,5 +1,7 @@
+
 {% load static %}
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,7 +25,7 @@
 
     <!-- Navbar Section -->
     <nav class="bg-white bg-opacity-75 backdrop-filter backdrop-blur-md fixed w-full top-0 z-10 h-12 md:h-16">
-        <div class="container mx-auto flex items-center justify-between px-4 py-2 md:py-4">
+        <div class="container mx-auto flex items-center justify-between px-4 py-1 md:py-4">
             <!-- Logo -->
             <div class="flex items-center space-x-2">
                 <a href="{% url 'explore:show_explore_page' %}" class="flex items-center space-x-2">
@@ -60,7 +62,7 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden">
+        <div id="mobile-menu" class="hidden md:hidden backdrop-filter inset-0  w-full backdrop-blur-md bg-white bg-opacity-80 w-full px-4">
             <div class="flex flex-col items-center space-y-4 p-4">
                 <a href="" class="text-gray-800 hover:text-gray-500 font-medium">Ratings</a>
                 <a href="" class="text-gray-800 hover:text-gray-500 font-medium">Favorite</a>
@@ -78,3 +80,5 @@
     </nav>
 </body>
 </html>
+
+
