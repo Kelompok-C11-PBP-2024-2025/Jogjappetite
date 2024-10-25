@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explore Page</title>
+    <title>Explore | Jogjappetite</title>
     {% include 'navbar.html' %}
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -13,7 +13,29 @@
     <section class="relative">
         <img src="https://www.baconismagic.ca/wp-content/uploads/2022/08/Indonesian-food-h.jpg" alt="Food Table" class="w-full h-96 object-cover">
         <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-10">
-            <h1 class="text-white text-8xl font-bold italic">EXPLORE</h1>
+            <h1 class="text-white text-7xl font-bold italic">EXPLORE YOUR TASTE</h1>
+        </div>
+    </section>
+
+     <!-- History Section (5 History Terakhir) -->
+     <section class="py-6">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-8">Recent History</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                {% for history in recent_history %}
+                    <a href="{% url 'explore:show_menus_explore' history.menu.nama_menu %}">
+                        <div class="bg-white rounded-lg shadow-md transition-transform duration-300 transform hover:scale-105">
+                            <img src="{{ history.menu.image_url }}" alt="{{ history.menu.nama_menu }}" class="w-full h-32 object-cover rounded-t-lg">
+                            <div class="p-4">
+                                <h3 class="text-xl font-bold">{{ history.menu.nama_menu }}</h3>
+                                <p class="text-gray-600 text-sm">{{ history.menu.restoran }}</p>
+                                <p class="text-green-500 text-lg font-bold">Rp{{ history.menu.harga }}</p>
+                                <p class="text-gray-400 text-xs mt-2">Clicked at: {{ history.clicked_at|date:"M d, Y H:i" }}</p>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
         </div>
     </section>
 
@@ -26,10 +48,10 @@
                 <a href="{% url 'explore:show_menus_explore' 'nasi' %}">
 
                     <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
-                        <div class="flex-1">
+                        <div class="flex-1 pr-4">
                             <h2 class="text-3xl font-bold italic mb-4">Nasi</h2>
                             <p class="text-gray-600">
-                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                                Hidangan utama yang berbasis nasi, diolah dengan berbagai bumbu dan teknik memasak. Makanan ini biasanya disajikan sebagai hidangan pokok di berbagai budaya kuliner, terutama di Asia
                             </p>
                         </div>
                         <div class="w-1/4">
@@ -41,10 +63,10 @@
                 <!-- Card 2 -->
                 <a href="{% url 'explore:show_menus_explore' 'mie' %}">
                     <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
-                        <div class="flex-1">
+                        <div class="flex-1 pr-4">
                             <h2 class="text-3xl font-bold italic mb-4">Mie</h2>
                             <p class="text-gray-600">
-                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                                Berbagai sajian mie yang bisa dinikmati dengan kuah atau tanpa kuah, menawarkan beragam tekstur dan rasa. Kategori ini menonjolkan fleksibilitas bahan dasar mie yang dipadukan dengan bumbu dan pelengkap
                             </p>
                         </div>
                         <div class="w-1/4">
@@ -56,10 +78,10 @@
                 <!-- Card 3 -->
                 <a href="{% url 'explore:show_menus_explore' 'bakso' %}">
                     <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
-                        <div class="flex-1">
+                        <div class="flex-1 pr-4">
                             <h2 class="text-3xl font-bold italic mb-4">Bakso</h2>
                             <p class="text-gray-600">
-                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                                Kategori ini menawarkan sajian berbasis olahan daging yang dibentuk bulat dan biasanya disajikan dengan pelengkap sederhana. Hidangannya bertekstur lembut dan sering kali disertai dengan kuah atau saus
                             </p>
                         </div>
                         <div class="w-1/4">
@@ -71,10 +93,10 @@
                 <!-- Card 4 -->
                 <a href="{% url 'explore:show_menus_explore' 'soto' %}">
                     <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
-                        <div class="flex-1">
+                        <div class="flex-1 pr-4">
                             <h2 class="text-3xl font-bold italic mb-4">Soto</h2>
                             <p class="text-gray-600">
-                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                                Hidangan berkuah yang berasal dari berbagai daerah dengan ciri khas rasa yang kuat dan aroma yang kaya. Setiap variasinya menampilkan kombinasi unik dari daging, sayuran, dan rempah
                             </p>
                         </div>
                         <div class="w-1/4">
@@ -88,11 +110,10 @@
                 <!-- Card 5 -->
                 <a href="{% url 'explore:show_menus_explore' 'snacks' %}">
                     <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
-                        <div class="flex-1">
+                        <div class="flex-1 pr-4">
                             <h2 class="text-3xl font-bold italic mb-4">Snacks</h2>
                             <p class="text-gray-600">
-                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-                            </p>
+                                Aneka camilan yang praktis dan ringan, cocok dinikmati sebagai hidangan selingan. Berbagai tekstur dan rasa, baik gurih maupun manis, menjadikan kategori ini sebagai pilihan populer untuk dinikmati kapan saja
                         </div>
                         <div class="w-1/4">
                             <img src="https://i.pinimg.com/474x/eb/33/c7/eb33c7632c8e848308a4977e11fa3c18.jpg" alt="Nasi Image" class="rounded-lg w-full h-[120px] object-cover">
@@ -103,10 +124,10 @@
                 <!-- Card 6 -->
                 <a href="{% url 'explore:show_menus_explore' 'manis-manis' %}">
                     <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
-                        <div class="flex-1">
+                        <div class="flex-1 pr-4">
                             <h2 class="text-3xl font-bold italic mb-4">Manis-manis</h2>
                             <p class="text-gray-600">
-                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                                Sajian penutup yang menonjolkan rasa manis, biasanya hadir dalam bentuk makanan yang ringan dan menyegarkan. Kategori ini menawarkan pengalaman yang lezat untuk menutup hidangan utama
                             </p>
                         </div>
                         <div class="w-1/4">
@@ -118,10 +139,10 @@
                 <!-- Card 7 -->
                 <a href="{% url 'explore:show_menus_explore' 'minuman' %}">
                     <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
-                        <div class="flex-1">
+                        <div class="flex-1 pr-4">
                             <h2 class="text-3xl font-bold italic mb-4">Minuman</h2>
                             <p class="text-gray-600">
-                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                                Pilihan minuman yang bervariasi dari yang menyegarkan hingga hangat. Kategori ini mencakup minuman yang cocok untuk berbagai suasana, baik sebagai pendamping makanan atau dinikmati sendiri
                             </p>
                         </div>
                         <div class="w-1/4">
@@ -133,10 +154,10 @@
                 <!-- Card 8 -->
                 <a href="{% url 'explore:show_menus_explore' 'indonesian' %}">
                     <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
-                        <div class="flex-1">
+                        <div class="flex-1 pr-4">
                             <h2 class="text-3xl font-bold italic mb-4">Indonesian</h2>
                             <p class="text-gray-600">
-                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                                Masakan tradisional yang mencerminkan kekayaan budaya Indonesia dengan cita rasa yang kompleks. Hidangan dalam kategori ini sering kali melibatkan penggunaan bumbu rempah yang khas dan metode memasak tradisional
                             </p>
                         </div>
                         <div class="w-1/4">
@@ -147,26 +168,30 @@
 
                 <!-- Card 9 -->
                 <a href="{% url 'explore:show_menus_explore' 'japanese' %}">
-                    <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
-                        <div class="flex-1">
+                    <div class="bg-white rounded-lg shadow-md flex p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
+                        <!-- Teks Kategori -->
+                        <div class="flex-1 pr-4"> <!-- Menambahkan padding kanan agar ada jarak antara teks dan gambar -->
                             <h2 class="text-3xl font-bold italic mb-4">Japanese</h2>
                             <p class="text-gray-600">
-                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                                Hidangan dari Jepang yang dikenal dengan penyajiannya yang sederhana namun estetis, serta cita rasa yang seimbang. Kategori ini menekankan pada kesegaran bahan dan teknik memasak yang menjaga keaslian rasa.
                             </p>
                         </div>
+                
+                        <!-- Gambar -->
                         <div class="w-1/4">
                             <img src="https://i.pinimg.com/control/474x/b1/21/41/b121419a4f6e16be30b58364b1b5681c.jpg" alt="Nasi Image" class="rounded-lg w-full h-[120px] object-cover">
                         </div>
                     </div>
                 </a>
+                
 
                 <!-- Card 10 -->
                 <a href="{% url 'explore:show_menus_explore' 'asian' %}">
                     <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
-                        <div class="flex-1">
+                        <div class="flex-1 pr-4">
                             <h2 class="text-3xl font-bold italic mb-4">Asian</h2>
                             <p class="text-gray-600">
-                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                                Koleksi masakan khas dari berbagai negara Asia, yang dikenal kaya akan rempah-rempah dan bahan segar. Hidangan dalam kategori ini menawarkan kombinasi rasa yang seimbang antara gurih, manis, pedas, dan asam
                             </p>
                         </div>
                         <div class="w-1/4">
@@ -178,11 +203,10 @@
                 <!-- Card 11 -->
                 <a href="{% url 'explore:show_menus_explore' 'western' %}">
                     <div class="bg-white rounded-lg shadow-md flex items-center p-6 w-2/3 mx-auto mb-12 transition-transform duration-300 transform hover:scale-105">
-                        <div class="flex-1">
+                        <div class="flex-1 pr-4">
                             <h2 class="text-3xl font-bold italic mb-4">Western</h2>
                             <p class="text-gray-600">
-                                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-                            </p>
+                                Masakan Barat yang menawarkan porsi besar dengan fokus pada bahan-bahan utama seperti daging, keju, dan roti. Hidangannya sering kali didominasi oleh cita rasa yang kuat dan teknik memasak yang modern
                         </div>
                         <div class="w-1/4">
                             <img src="https://i.pinimg.com/474x/37/fe/c4/37fec482252df3c0e6604e68aa72f97f.jpg" alt="Nasi Image" class="rounded-lg w-full h-[120px] object-cover">

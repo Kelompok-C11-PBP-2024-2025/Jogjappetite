@@ -37,10 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'ratings',
     'explore',
     'search',
     'authentication'
+    'favorite',
+    'restaurant'
 ]
 
 MIDDLEWARE = [
@@ -122,7 +125,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # This points to the folder where your static files like 'css/style.css' are located.
+    BASE_DIR / "static",  
 ]
 
 
@@ -130,3 +133,5 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_URL = '/auth/login/'  # or wherever your login page is located
+LOGIN_REDIRECT_URL = '/ratings/'  # Redirect after a successful login

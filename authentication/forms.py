@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 
 class SignUpForm(UserCreationForm):
     USER_TYPE_CHOICES = [
-        ('customer', 'Customer'),  # lowercase in the database
-        ('restaurant', 'Restaurant Owner'),  # lowercase in the database
+        ('customer', 'Customer'),  
+        ('restaurant', 'Restaurant Owner'),  
     ]
     
     user_type = forms.ChoiceField(
@@ -23,17 +23,15 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'email', 'password1', 'password2', 'full_name', 'user_type')
 
     def save(self, commit=True):
-        # Save the User model
         user = super(SignUpForm, self).save(commit=False)
-        user.email = self.cleaned_data['email']  # Save email to the user model
+        user.email = self.cleaned_data['email']  
         
         if commit:
             user.save()
 
-        # Create the UserProfile and link it to the user
         UserProfile.objects.create(
             user=user, 
-            user_type=self.cleaned_data['user_type'],  # ensure it's 'customer' or 'restaurant'
+            user_type=self.cleaned_data['user_type'], 
             full_name=self.cleaned_data['full_name']
         )
         

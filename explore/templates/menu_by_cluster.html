@@ -1,30 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    {% include 'navbar.html' %}
+    <title>Menus in Cluster</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Style for making the card expand to a full-screen modal */
+        .expanded-card {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            width: 90%;
+            max-width: 800px;
+            height: auto;
+            z-index: 1000;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
+<body class="pt-28">
+    {% include 'navbar.html' %}
 
-<h1 class="text-4xl font-bold text-center my-8">Menus in Cluster: {{ cluster_name }}</h1>
+    <!-- Tombol Back -->
+    <div class="container mx-auto px-4 mb-4">
+        <a href="javascript:window.history.back();" class="inline-flex items-center text-gray-600 hover:text-gray-800 font-bold">
+            <!-- SVG Icon Arrow -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back
+        </a>
+    </div>
 
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 container mx-auto px-4">
-    {% for menu in menus %}
-        <div class="bg-white rounded-lg shadow-lg transition-transform duration-800 transform hover:scale-105">
-            <!-- Card Image -->
-            <img src="https://i.pinimg.com/control/474x/15/e7/55/15e7552cce3a3bab8162eec3578ae0e9.jpg" alt="{{ menu.nama_menu }}" class="w-full h-48 object-cover">
-            
-            <!-- Card Content -->
+    <h1 class="text-4xl font-bold text-center my-8">Menus in Cluster: {{ cluster_name }}</h1>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 container mx-auto px-4">
+        {% for menu in menus %}
+            <!-- Add data attributes to pass menu details -->
+            <div class="card cursor-pointer bg-white rounded-lg shadow-lg transition-transform duration-300 hover:scale-105"
+                 data-id="{{ menu.id }}"
+                 data-name="{{ menu.nama_menu }}"
+                 data-restaurant="{{ menu.restoran.nama_restoran }}"
+                 data-price="{{ menu.harga }}"
+                 data-image-url="https://i.pinimg.com/control/474x/15/e7/55/15e7552cce3a3bab8162eec3578ae0e9.jpg"
+                 onclick="expandCard(this)">
+                <img src="https://i.pinimg.com/control/474x/15/e7/55/15e7552cce3a3bab8162eec3578ae0e9.jpg" alt="{{ menu.nama_menu }}" class="w-full h-48 object-cover rounded-t-lg">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">{{ menu.nama_menu }}</h2>
+                    <p class="text-gray-600 text-lg mb-4">
+                        <span class="font-medium">Restaurant: </span>{{ menu.restoran.nama_restoran }}
+                    </p>
+                    <p class="text-green-500 text-xl font-bold mb-4">Rp{{ menu.harga }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Full-Screen Expanded Card -->
+    <div id="expandedCard" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="expanded-card">
+            <button onclick="closeExpandedCard()" class="absolute top-4 right-4 text-gray-600 hover:text-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <img id="expandedImage" src="https://i.pinimg.com/control/474x/15/e7/55/15e7552cce3a3bab8162eec3578ae0e9.jpg" alt="Menu Image" class="w-72 h-full object-cover rounded-t-lg">
             <div class="p-6">
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">{{ menu.nama_menu }}</h2>
-                <p class="text-gray-600 text-lg mb-4">
-                    <span class="font-medium">Restaurant: </span>{{ menu.restoran.nama_restoran }}
-                </p>
-        
-                <p class="text-green-500 text-xl font-bold mb-4">Rp{{ menu.harga }}</p>
-                
-                <!-- Button -->
-                <a href="#" class="inline-block bg-red-500 text-white font-semibold py-2 px-4 rounded hover:bg-red-600 transition-colors duration-300">Order Now</a>
+                <h2 id="expandedTitle" class="text-3xl font-bold text-gray-800 mb-4"></h2>
+                <p id="expandedRestaurant" class="text-gray-600 mb-4"></p>
+                <p id="expandedPrice" class="text-green-500 text-xl font-bold mb-4"></p>
             </div>
         </div>
-    {% endfor %}
-</div>
+    </div>
+
+    <script>
+        // Expand card to full-screen modal
+        function expandCard(cardElement) {
+            const expandedCard = document.getElementById('expandedCard');
+            const expandedTitle = document.getElementById('expandedTitle');
+            const expandedRestaurant = document.getElementById('expandedRestaurant');
+            const expandedPrice = document.getElementById('expandedPrice');
+            const expandedImage = document.getElementById('expandedImage');
+
+            // Get data from clicked card
+            const name = cardElement.getAttribute('data-name');
+            const restaurant = cardElement.getAttribute('data-restaurant');
+            const price = cardElement.getAttribute('data-price');
+            const imageUrl = cardElement.getAttribute('data-image-url');
+
+            // Populate expanded card with data
+            expandedTitle.textContent = name;
+            expandedRestaurant.textContent = "Restaurant: " + restaurant;
+            expandedPrice.textContent = "Rp" + price;
+            expandedImage.src = imageUrl;
+
+            // Show the expanded card
+            expandedCard.classList.remove('hidden');
+        }
+
+        // Close expanded card
+        function closeExpandedCard() {
+            const expandedCard = document.getElementById('expandedCard');
+            expandedCard.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

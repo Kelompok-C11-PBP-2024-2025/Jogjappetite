@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def show_main_favorite(request):
+    return render(request,"favorite.html")
