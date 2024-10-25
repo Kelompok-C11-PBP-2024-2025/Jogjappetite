@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'navbar.html' %}
+  <div class="px-3 md:px-0 max-w-xl mx-auto py-32">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Edit Restoran: {{ restaurant.nama_restoran }}</h2>
+    <form method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-md">
+      {% csrf_token %}
+      <div class="space-y-4">
+        <div>
+          <label for="nama_restoran" class="block text-sm font-medium text-gray-700">Nama Restoran</label>
+          <input type="text" name="nama_restoran" value="{{ restaurant.nama_restoran }}" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter restaurant name" required>
+        </div>
+
+        <div>
+          <label for="lokasi" class="block text-sm font-medium text-gray-700">Lokasi</label>
+          <input type="text" name="lokasi" value="{{ restaurant.lokasi }}" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter restaurant location" required>
+        </div>
+
+        <div>
+          <label for="jenis_suasana" class="block text-sm font-medium text-gray-700">Jenis Suasana</label>
+          <input type="text" name="jenis_suasana" value="{{ restaurant.jenis_suasana }}" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter type of ambiance" required>
+        </div>
+
+        <div>
+          <label for="keramaian_restoran" class="block text-sm font-medium text-gray-700">Keramaian Restoran</label>
+          <input type="number" name="keramaian_restoran" value="{{ restaurant.keramaian_restoran }}" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter restaurant crowd level" required>
+        </div>
+
+        <div>
+          <label for="jenis_penyajian" class="block text-sm font-medium text-gray-700">Jenis Penyajian</label>
+          <input type="text" name="jenis_penyajian" value="{{ restaurant.jenis_penyajian }}" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter type of service" required>
+        </div>
+
+        <div>
+          <label for="ayce_atau_alacarte" class="block text-sm font-medium text-gray-700">AYCE atau Alacarte</label>
+          <input type="text" name="ayce_atau_alacarte" value="{{ restaurant.ayce_atau_alacarte }}" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter AYCE or Alacarte" required>
+        </div>
+
+        <div>
+          <label for="harga_rata_rata_makanan" class="block text-sm font-medium text-gray-700">Harga Rata-Rata Makanan</label>
+          <input type="number" name="harga_rata_rata_makanan" value="{{ restaurant.harga_rata_rata_makanan }}" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter average food price" step="0.01" required>
+        </div>
+
+        <div>
+          <label for="gambar" class="block text-sm font-medium text-gray-700">Gambar Restoran</label>
+          <input type="url" name="gambar" value="{{ restaurant.gambar }}" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter image URL" required>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2 justify-end mt-4">
+          <button type="submit" class=" bg-blue-600 text-white px-6 py-2 rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out w-full">
+              Perbarui Restoran
+            </button>
+            <a href="{% url 'restaurant:restaurant_detail' restaurant.pk %}" class=" bg-red-600 text-center text-white px-6 py-2 rounded shadow-md hover:bg-red-700 transition duration-150 ease-in-out w-full" onclick="return confirmCancel()">Cancel</a>
+        </div>
+    </form>
+  </div>
+  <script>
+    function confirmCancel() {
+        return confirm("Are you sure you want to cancel? Your changes will be lost! Take a moment to review your updates.");
+    }
+    </script>
+{% endblock %}
