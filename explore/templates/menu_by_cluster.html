@@ -6,7 +6,6 @@
     <title>Menus in Cluster</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Style for making the card expand to a full-screen modal */
         .expanded-card {
             position: fixed;
             top: 50%;
@@ -23,10 +22,74 @@
         .hidden {
             display: none;
         }
+
+        /* Tombol Bookmark Hover dan Klik */
+        .bookmark-btn {
+            transition: background-color 0.3s, transform 0.2s;
+            background-color: #1D4ED8;
+            color: white;
+        }
+
+        .bookmark-btn:hover {
+            background-color: #2563eb; /* Biru lebih terang */
+        }
+
+        .bookmark-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Style untuk sidebar bookmark */
+        .bookmark-sidebar {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            height: 100%;
+            width: 300px;
+            background-color: white;
+            box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 2000;
+            padding: 20px;
+            transition: right 0.3s ease-in-out;
+            overflow-y: auto;
+        }
+
+        .bookmark-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+        }
+
+        .bookmark-sidebar.open {
+            right: 0;
+        }
+
+        /* Style untuk pesan sukses */
+        #bookmarkMessage {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #10B981;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 3000;
+            display: none;
+        }
     </style>
 </head>
 <body class="pt-28">
     {% include 'navbar.html' %}
+
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+    <!-- Pesan berhasil bookmark -->
+    <div id="bookmarkMessage"></div>
 
     <!-- Tombol Back -->
     <div class="container mx-auto px-4 mb-4">
@@ -38,6 +101,13 @@
             Back
         </a>
     </div>
+
+    <!-- Tampilkan tombol View Bookmarks jika user sudah login -->
+    {% if user.is_authenticated %}
+        <div class="container mx-auto text-center my-4">
+            <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600" onclick="toggleBookmarkSidebar()">View Bookmarks</button>
+        </div>
+    {% endif %}
 
     <h1 class="text-4xl font-bold text-center my-8">Menus in Cluster: {{ cluster_name }}</h1>
 
@@ -58,57 +128,115 @@
                         <span class="font-medium">Restaurant: </span>{{ menu.restoran.nama_restoran }}
                     </p>
                     <p class="text-green-500 text-xl font-bold mb-4">Rp{{ menu.harga }}</p>
+
+                    <!-- Tampilkan tombol bookmark/unbookmark hanya jika user sudah login -->
+                    {% if user.is_authenticated %}
+                        <!-- Check if the menu is bookmarked by the user -->
+                        {% if menu.id in user_bookmarks %}
+                            <!-- If bookmarked, show Unbookmark button -->
+                            <button id="bookmark-{{ menu.id }}" class="bg-red-500 text-white px-3 py-2 rounded-md bookmark-btn" onclick="toggleBookmark(event, {{ menu.id }})">
+                                Unbookmark
+                            </button>
+                        {% else %}
+                            <!-- If not bookmarked, show Bookmark button -->
+                            <button id="bookmark-{{ menu.id }}" class="bg-blue-500 text-white px-3 py-2 rounded-md bookmark-btn" onclick="toggleBookmark(event, {{ menu.id }})">
+                                Bookmark
+                            </button>
+                        {% endif %}
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
     </div>
+    
 
-    <!-- Full-Screen Expanded Card -->
-    <div id="expandedCard" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="expanded-card">
-            <button onclick="closeExpandedCard()" class="absolute top-4 right-4 text-gray-600 hover:text-gray-800">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-            <img id="expandedImage" src="https://i.pinimg.com/control/474x/15/e7/55/15e7552cce3a3bab8162eec3578ae0e9.jpg" alt="Menu Image" class="w-72 h-full object-cover rounded-t-lg">
-            <div class="p-6">
-                <h2 id="expandedTitle" class="text-3xl font-bold text-gray-800 mb-4"></h2>
-                <p id="expandedRestaurant" class="text-gray-600 mb-4"></p>
-                <p id="expandedPrice" class="text-green-500 text-xl font-bold mb-4"></p>
-            </div>
+    <!-- Sidebar Bookmark -->
+    <div id="bookmarkSidebar" class="bookmark-sidebar">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Your Bookmarks</h2>
+        <div id="bookmarkList" class="space-y-4">
+            <!-- Bookmark items akan ditambahkan di sini -->
         </div>
+        <button class="bg-red-500 text-white px-4 py-2 rounded-md mt-4" onclick="toggleBookmarkSidebar()">Close</button>
     </div>
+    <div id="bookmarkOverlay" class="bookmark-overlay" onclick="toggleBookmarkSidebar()"></div>
 
     <script>
-        // Expand card to full-screen modal
-        function expandCard(cardElement) {
-            const expandedCard = document.getElementById('expandedCard');
-            const expandedTitle = document.getElementById('expandedTitle');
-            const expandedRestaurant = document.getElementById('expandedRestaurant');
-            const expandedPrice = document.getElementById('expandedPrice');
-            const expandedImage = document.getElementById('expandedImage');
+        // Toggle bookmark asynchronously
+        function toggleBookmark(event, menuId) {
+            event.stopPropagation();
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-            // Get data from clicked card
-            const name = cardElement.getAttribute('data-name');
-            const restaurant = cardElement.getAttribute('data-restaurant');
-            const price = cardElement.getAttribute('data-price');
-            const imageUrl = cardElement.getAttribute('data-image-url');
+            fetch(`/toggle_bookmark/${menuId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const bookmarkButton = document.getElementById(`bookmark-${menuId}`);
+                const bookmarkMessage = document.getElementById('bookmarkMessage');
 
-            // Populate expanded card with data
-            expandedTitle.textContent = name;
-            expandedRestaurant.textContent = "Restaurant: " + restaurant;
-            expandedPrice.textContent = "Rp" + price;
-            expandedImage.src = imageUrl;
+                if (data.status === 'bookmarked') {
+                    bookmarkButton.textContent = "Unbookmark";
+                    bookmarkButton.classList.replace("bg-blue-500", "bg-red-500");
+                    bookmarkMessage.textContent = "Menu successfully bookmarked!";
+                } else if (data.status === 'unbookmarked') {
+                    bookmarkButton.textContent = "Bookmark";
+                    bookmarkButton.classList.replace("bg-red-500", "bg-blue-500");
+                    bookmarkMessage.textContent = "Menu removed from bookmarks!";
+                }
 
-            // Show the expanded card
-            expandedCard.classList.remove('hidden');
+                // Tampilkan pesan berhasil di UI
+                bookmarkMessage.classList.remove('hidden');
+                bookmarkMessage.style.display = 'block';
+
+                // Sembunyikan pesan setelah 3 detik
+                setTimeout(() => {
+                    bookmarkMessage.classList.add('hidden');
+                    bookmarkMessage.style.display = 'none';
+                }, 3000);
+            })
+            .catch(error => console.error('Error:', error));
         }
 
-        // Close expanded card
-        function closeExpandedCard() {
-            const expandedCard = document.getElementById('expandedCard');
-            expandedCard.classList.add('hidden');
+        // Toggle bookmark sidebar
+        function toggleBookmarkSidebar() {
+            const bookmarkSidebar = document.getElementById('bookmarkSidebar');
+            const bookmarkOverlay = document.getElementById('bookmarkOverlay');
+
+            // Fetch bookmark list from server jika sidebar belum terbuka
+            if (!bookmarkSidebar.classList.contains('open')) {
+                fetch('/get_user_bookmarks/')
+                    .then(response => response.json())
+                    .then(data => {
+                        const bookmarkList = document.getElementById('bookmarkList');
+                        bookmarkList.innerHTML = '';  // Clear previous content
+
+                        if (data.bookmarks.length > 0) {
+                            data.bookmarks.forEach(bookmark => {
+                                const item = document.createElement('div');
+                                item.innerHTML = `
+                                    <p><strong>${bookmark.name}</strong> - ${bookmark.restaurant} - Rp${bookmark.price}</p>
+                                `;
+                                bookmarkList.appendChild(item);
+                            });
+                        } else {
+                            bookmarkList.innerHTML = '<p>No bookmarks found.</p>';
+                        }
+                    })
+                    .catch(error => console.error('Error fetching bookmarks:', error));
+            }
+
+            // Toggle sidebar visibility
+            if (bookmarkSidebar.classList.contains('open')) {
+                bookmarkSidebar.classList.remove('open');
+                bookmarkOverlay.style.display = 'none';
+            } else {
+                bookmarkSidebar.classList.add('open');
+                bookmarkOverlay.style.display = 'block';
+            }
         }
     </script>
 </body>
