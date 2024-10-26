@@ -8,14 +8,14 @@ from django.contrib.auth.decorators import login_required
 import Levenshtein
 
 @login_required
-def search_view(request):
+def search_history_view(request):
     # Fetch user search history (maximum of 5)
     user_history = SearchHistory.objects.filter(user=request.user).order_by('-created_at')[:5]
 
     return render(request, 'your_template.html', {'user_history': user_history})
 
 @login_required
-def save_search(request):
+def save_search_history(request):
     if request.method == 'GET':
         query = request.GET.get('q')
         if query:

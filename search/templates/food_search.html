@@ -6,5 +6,50 @@
 
 {% block content %}
 {% include 'search_bar.html' %}
+<body class="bg-gray-100 p-6">
 
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">Search for Food</h1>
+
+        <!-- Search Bar -->
+        <form method="GET" action="{% url 'menu-search' %}">
+            <input 
+                type="text" 
+                name="q" 
+                value="{{ query }}" 
+                placeholder="Search for food..." 
+                class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+        </form>
+
+        <!-- Results Section -->
+        <div class="overflow-y-auto h-96 bg-white rounded-lg shadow-md">
+            <ul class="divide-y divide-gray-200">
+                {% for menu in menus %}
+                <li class="p-4 transition duration-300 ease-in-out hover:bg-gray-100 hover:shadow-lg">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h2 class="text-xl font-semibold">{{ menu.nama_menu }}</h2>
+                            <p class="text-sm text-gray-500">{{ menu.restoran.nama_restoran }}</p>
+                            <p class="text-sm text-gray-500">Cluster: {{ menu.cluster }}</p>
+                            <p class="text-sm text-gray-500">Price: Rp{{ menu.harga }}</p>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="flex items-center mr-4">
+                                <span class="mr-1 text-green-500">👍</span> 
+                                <span>{{ menu.thumbs_up }}</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="mr-1 text-red-500">👎</span> 
+                                <span>{{ menu.thumbs_down }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
 {% endblock content %}

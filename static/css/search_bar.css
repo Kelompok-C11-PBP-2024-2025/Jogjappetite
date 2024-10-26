@@ -1,0 +1,30 @@
+.icon-wrapper {
+    position: relative;
+    width: 1rem; /* Adjust as needed */
+    height: 1rem;
+    overflow: hidden;
+}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    opacity: 0;
+}
+
+.icon.active {
+    transform: translateX(0) translateY(-50%);
+    opacity: 1;
+}
+
+.icon.out {
+    transform: translateX(-100%) translateY(-50%);
+    opacity: 0;
+}
+
+.icon.in {
+    transform: translateX(100%) translateY(-50%);
+    opacity: 0;
+}
