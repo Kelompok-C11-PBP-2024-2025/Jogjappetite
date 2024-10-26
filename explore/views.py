@@ -90,3 +90,17 @@ def get_user_bookmarks(request):
         for bookmark in bookmarks
     ]
     return JsonResponse({'bookmarks': bookmarks_data})
+
+def get_restaurant_details(request, restaurant_name):
+    try:
+        restaurant = Restaurant.objects.get(nama_restoran=restaurant_name)
+        data = {
+            'nama_restoran': restaurant.nama_restoran,
+            'lokasi': restaurant.lokasi,
+            'jenis_suasana': restaurant.jenis_suasana,
+            'harga_rata_rata_makanan': restaurant.harga_rata_rata_makanan,
+            'gambar': restaurant.gambar
+        }
+        return JsonResponse(data)
+    except Restaurant.DoesNotExist:
+        return JsonResponse({'error': 'Restaurant not found'}, status=404)
