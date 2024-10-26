@@ -14,7 +14,6 @@ def user_is_owner(view_func):
         return redirect('explore:show_explore_page')
     return _wrapped_view
 
-
 def user_is_customer(view_func):
     @wraps(view_func)
     def _wrapped_view(request, *args, **kwargs):
