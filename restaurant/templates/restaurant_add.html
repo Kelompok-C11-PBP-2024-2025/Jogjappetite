@@ -1,16 +1,52 @@
 {% extends 'base.html' %}
 {% block content %}
 {% include 'navbar.html' %}
-  <div class="px-3 md:px-0 max-w-xl mx-auto py-32">
+<div class="px-3 md:px-0 max-w-xl mx-auto py-32">
     <h2 class="text-3xl text-center md:text-start font-bold text-gray-800 mb-6">Tambahkan Restoran Baru</h2>
-    <form method="POST" class="bg-white p-6 rounded-lg shadow-md">
-      {% csrf_token %}
-      <div class="space-y-4">
-        {{ form.as_p }}
-      </div>
-      <button type="submit" class="mt-4 bg-blue-600 text-white px-6 py-2 rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out">
-        Tambah Restoran
-      </button>
+    <form id="addRestaurantForm" method="POST" class="bg-white p-6 rounded-lg shadow-md">
+        {% csrf_token %}
+        <div class="space-y-4">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="mt-4 bg-blue-600 text-white px-6 py-2 rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out">
+            Tambah Restoran
+        </button>
+        <div id="responseMessage" class="mt-4"></div>
     </form>
-  </div>
+</div>
+
+<script>
+document.getElementById('addRestaurantForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    let form = event.target;
+    let formData = new FormData(form);
+    
+    fetch("{% url 'restaurant:add_restaurant' %}", {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        let responseMessage = document.getElementById('responseMessage');
+        if (data.success) {
+            // Success message
+            responseMessage.innerHTML = `<p class="text-green-600">${data.message}</p>`;
+            form.reset();  // Optionally reset the form
+            window.location.href = "{% url 'restaurant:owner_restaurant_list' %}";
+            
+        } else {
+            // Error message
+            responseMessage.innerHTML = `<p class="text-red-600">${data.message}</p>`;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('responseMessage').innerHTML = `<p class="text-red-600">An error occurred. Please try again.</p>`;
+    });
+});
+</script>
 {% endblock %}

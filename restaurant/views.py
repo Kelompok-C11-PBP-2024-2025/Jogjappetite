@@ -7,6 +7,8 @@ from django.db.models import Avg, Count
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .decorators import user_is_owner, user_is_customer
+from django.http import JsonResponse
+
 
 
 @login_required
@@ -57,14 +59,15 @@ def add_restaurant(request):
     if request.method == 'POST':
         form = RestaurantForm(request.POST)
         if form.is_valid():
-            restaurant = form.save(commit=False)
-            restaurant.owner = request.user
-            restaurant.save()
-            # messages.success(request, 'Restoran berhasil ditambahkan!')
-            return redirect('restaurant:owner_restaurant_list')
+            form.save()
+            return JsonResponse({'success': True, 'message': 'Restaurant added successfully!'})
+        else:
+            errors = form.errors.as_json()
+            return JsonResponse({'success': False, 'message': 'Error adding restaurant.', 'errors': errors}, status=400)
     else:
         form = RestaurantForm()
     return render(request, 'restaurant_add.html', {'form': form})
+
 
 # Menghapus Restoran
 @login_required
@@ -91,12 +94,17 @@ def edit_restaurant(request, pk):
         form = RestaurantForm(request.POST, instance=restaurant)
         if form.is_valid():
             form.save()
-            return redirect('restaurant:owner_restaurant_list')
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({'success': True})
+            return redirect('restaurant:restaurant_detail',pk=pk)
+        else:
+            errors = form.errors.as_json()
+            return JsonResponse({'success': False, 'errors': errors})
     else:
         form = RestaurantForm(instance=restaurant)
 
     return render(request, 'restaurant_edit.html', {'form': form, 'restaurant': restaurant})
-
+    
 
 # Melihat Statistik Restoran
 @login_required
