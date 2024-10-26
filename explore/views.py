@@ -21,6 +21,7 @@ def toggle_bookmark(request, menu_id):
     user = request.user
     try:
         menu = get_object_or_404(Menu, id=menu_id)
+        
     except Menu.DoesNotExist:
         print("Menu not found")  # Log jika menu tidak ditemukan
         return JsonResponse({'status': 'error', 'message': 'Menu not found'}, status=404)
@@ -83,7 +84,8 @@ def get_user_bookmarks(request):
         {
             'name': bookmark.menu.nama_menu,
             'restaurant': bookmark.menu.restoran.nama_restoran,
-            'price': bookmark.menu.harga
+            'price': bookmark.menu.harga,
+            'id': bookmark.menu.id
         }
         for bookmark in bookmarks
     ]
