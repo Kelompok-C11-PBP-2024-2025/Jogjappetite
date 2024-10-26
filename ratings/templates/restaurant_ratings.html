@@ -1,14 +1,18 @@
 
 {% extends 'base.html' %}
+
 {% block title %}
 Ratings | Jogjappetite
 {% endblock %}
 
+{% block meta %}
+{% endblock %}
 
 {% load static %}
 
 
 {% block content %}
+
 <div class="px-4 md:px-8 pb-4 pt-24 mb-2 bg-gray-100">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <!-- Left Column - Restaurant Information -->
@@ -43,9 +47,10 @@ Ratings | Jogjappetite
                             </svg>
                         {% endif %}
                     {% endfor %}
-                    <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">{{ average_rating|floatformat:1 }}</p>
-                    <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">out of</p>
-                    <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">5</p>
+                    <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400 hidden md:inline">{{ average_rating|floatformat:1 }}</p>
+                    <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400 hidden md:inline">out of</p>
+                    <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400 hidden md:inline">5</p>
+                    
                 </div>
 
                 <!-- Reviews Count -->
@@ -57,7 +62,7 @@ Ratings | Jogjappetite
                 <!-- Price Indicator -->
                 <div class="flex items-center">
                     <img src="https://www.svgrepo.com/show/488292/money.svg" alt="Price Icon" class="inline w-6 h-6 mr-1">
-                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">${{ restaurant.harga_rata_rata_makanan }}</p>
+                    <p id="price" class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ restaurant.harga_rata_rata_makanan }}</p>
                 </div>
 
                 <!-- Cuisine Type -->
@@ -122,9 +127,7 @@ Ratings | Jogjappetite
 </div>
 
 <!-- Add Rating Section -->
- 
-
-<div class="bg-white p-6 shadow-md rounded-lg mx-5">
+<div class="bg-white p-6 shadow-md rounded-lg mx-8">
     <h2 class="text-2xl font-semibold mb-4">Add Rating</h2>
 
     {% if request.user.is_authenticated %}
@@ -149,7 +152,7 @@ Ratings | Jogjappetite
 
 </div>
 <div class="m mx-4 mb-6">
-<h2 class="text-2xl font-semibold mt-8 mb-4">Customers Ratings</h2>
+<h2 class="text-2xl font-semibold mt-8 mb-4 mx-4">Customers Ratings</h2>
 
 
 <div id="rating_cards"></div> <!-- This is where the rating cards will be inserted -->
@@ -194,9 +197,7 @@ Ratings | Jogjappetite
                 <label for="rating" class="block text-sm font-medium text-gray-700">How would you rate your experience?
                 </label>
                 <div class="flex items-center space-x-2" id="star-rating">
-                    <!-- Hidden input to store the selected rating -->
                     <input type="hidden" id="rating" name="rating" required>
-                    <!-- Star icons -->
                     <svg class="star w-8 h-8 text-gray-400 cursor-pointer" data-value="1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                     </svg>
@@ -321,6 +322,8 @@ Ratings | Jogjappetite
                 // Get the logged-in user's username (passed from Django)
                 const loggedInUser = "{{ request.user.username }}";
                 const isAuthenticated = "{{ request.user.is_authenticated }}";
+
+    
         
                 if (customerRatings.length === 0) {
                     classNameString = "flex justify-center items-center h-40 bg-gray-100 rounded-lg shadow-md p-4 mx-4 mb-6";
@@ -339,9 +342,13 @@ Ratings | Jogjappetite
                         const rating = item.rating || 0;
                         const pesanRating = item.pesan_rating || 'No message provided.';
                         const date = item.created_at || 'Unknown date';
+                        const menu_review = item.menu_review || 'Menu not specified'; // Additional menu information
         
                         // Check if the logged-in user is the owner of this rating
                         const canEditOrDelete = isAuthenticated && loggedInUser === username;
+                        
+                                        
+
         
                         // Conditionally display Edit and Delete buttons
                         const editButton = canEditOrDelete ? `
@@ -360,8 +367,17 @@ Ratings | Jogjappetite
                                 <span>Delete</span>
                             </a>` : '';
 
+                                // Generate stars based on rating value using a for loop
 
+                        const fullStars = `<svg class="w-6 h-6 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                            </svg>`.repeat(rating);
 
+                        const emptyStars = `<svg class="w-6 h-6 text-gray-300 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                            </svg>`.repeat(5 - rating);
+                        
+                        const stars = fullStars + emptyStars;                                
         
                         // Membuat HTML untuk setiap rating
                         htmlString += `
@@ -383,16 +399,21 @@ Ratings | Jogjappetite
                                     
                                     <!-- Star Rating -->
                                     <div class="flex items-center mt-1">
-                                        ${[...Array(5)].map((_, i) => {
-                                            if (i < rating) {
-                                                return '<i class="fas fa-star text-yellow-400"></i>'; // Full star
-                                            } else {
-                                                return '<i class="fas fa-star text-gray-300"></i>'; // Empty star
-                                            }
-                                        }).join('')}
-                                        <span class="ml-2 font-semibold text-gray-700">${rating}.0 out of 5</span>
+                                        ${stars}
                                     </div>
-                    
+
+
+                                    <!-- Monochrome Menu Tag -->
+                                    <div class="mt-2">
+                                        <span class="inline-flex items-center bg-gray-100 text-gray-700 text-xs font-semibold px-2 py-2 rounded-md">
+                                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v3H7a1 1 0 000 2h2v3a1 1 0 102 0v-3h2a1 1 0 100-2h-2V7z"/>
+                                            </svg>
+                                            ${menu_review}
+                                        </span>
+                                    </div>
+                                        
+
                                     <!-- Review message -->
                                     <p class="mt-4 text-gray-700">${pesanRating}</p>
                     
@@ -600,6 +621,16 @@ Ratings | Jogjappetite
 
 
 
+// Function to format a number as Indonesian Rupiah
+function formatRupiah(number) {
+    return 'Rp ' + Number(number).toLocaleString('id-ID');
+}
+
+// Select the price element
+const priceElement = document.getElementById('price');
+
+// Format the text content of the price element
+priceElement.textContent = formatRupiah(priceElement.textContent);
 
 
 
