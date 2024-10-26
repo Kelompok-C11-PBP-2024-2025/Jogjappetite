@@ -6,11 +6,32 @@ from ratings.models import Menu, Ratings, Restaurant
 from django.db.models import Avg, Count
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .decorators import user_is_owner, user_is_customer
 
 
+@login_required
+@user_is_customer
+def customer_restaurant_list(request):
+    per_page = request.GET.get('per_page', 12) 
+    restaurants = Restaurant.objects.all().annotate(
+        average_rating=Avg('menu__ratings__rating'),
+        rating_count=Count('menu__ratings')
+    )
+    
+    paginator = Paginator(restaurants, per_page) 
+    page_number = request.GET.get('page')
+    try:
+        restaurants_page = paginator.page(page_number)
+    except PageNotAnInteger:
+        restaurants_page = paginator.page(1)
+    except EmptyPage:
+        restaurants_page = paginator.page(paginator.num_pages)
+
+    return render(request, 'customer_restaurant_list.html', {'restaurants': restaurants_page, 'per_page': per_page})
 
 # List restoran
-# @login_required # uncomment untuk auth login required
+@login_required
+@user_is_owner
 def owner_restaurant_list(request):
     per_page = request.GET.get('per_page', 12) 
     restaurants = Restaurant.objects.all().annotate(
@@ -30,7 +51,8 @@ def owner_restaurant_list(request):
     return render(request, 'owner_restaurant_list.html', {'restaurants': restaurants_page, 'per_page': per_page})
 
 # Menambahkan Restoran Baru
-# @login_required # uncomment untuk auth login required
+@login_required 
+@user_is_owner
 def add_restaurant(request):
     if request.method == 'POST':
         form = RestaurantForm(request.POST)
@@ -45,7 +67,8 @@ def add_restaurant(request):
     return render(request, 'restaurant_add.html', {'form': form})
 
 # Menghapus Restoran
-# @login_required # uncomment untuk auth login required
+@login_required
+@user_is_owner
 def delete_restaurant(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
     if request.method == 'POST':
@@ -58,7 +81,8 @@ def delete_restaurant(request, pk):
     return redirect('restaurant:owner_restaurant_list')
 
 # Mengedit Restoran
-# @login_required # uncomment untuk auth login required
+@login_required 
+@user_is_owner
 def edit_restaurant(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
     print(restaurant) 
@@ -75,7 +99,8 @@ def edit_restaurant(request, pk):
 
 
 # Melihat Statistik Restoran
-# @login_required # uncomment untuk auth login required
+@login_required
+@user_is_owner
 def restaurant_detail(request,pk):
 
     restaurants = Restaurant.objects.filter(pk=pk).annotate(

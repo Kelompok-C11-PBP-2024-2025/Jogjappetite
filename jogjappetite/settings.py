@@ -32,6 +32,8 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1", "naira-shafiqa-jogjappetite.pbp.cs.ui
 CSRF_TRUSTED_ORIGINS = ["http://localhost","http://127.0.0.1","http://naira-shafiqa-jogjappetite.pbp.cs.ui.ac.id", "https://naira-shafiqa-jogjappetite.pbp.cs.ui.ac.id"]
 # Application definition
 
+AUTH_USER_MODEL = 'auth.User'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -71,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'authentication.context_processors.user_profile',
             ],
         },
     },
