@@ -122,3 +122,4 @@ def edit_favorite_notes(request):
             return JsonResponse({'success': False, 'message': 'Favorite not found.'})
     else:
         return JsonResponse({'success': False, 'message': 'Invalid request method.'})
+    

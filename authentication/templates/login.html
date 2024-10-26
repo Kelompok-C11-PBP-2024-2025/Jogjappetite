@@ -3,6 +3,7 @@
 {% block meta %}
 <title>Login | Jogjappetite</title>
 {% endblock meta %}
+{% load static %}
 
 {% block content %}
 <!-- component -->
@@ -14,13 +15,17 @@
         </div>
         <!-- Right: Login Form -->
         <div class="lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
-            <!-- Title with Calligraphy Font -->
-            <h1 class="text-4xl font-semibold mb-4 text-red-800">Jogjappetite</h1>
+            <!-- Logo and Title with charm Font -->
+            <div class="w-full text-center">
+                <img src="{% static 'image/logo.png' %}" alt="Logo Jogjappetite" class="mx-auto mb-2 h-24 w-24">
+                <h1 class="text-4xl font-semibold mb-4 text-red-800">Jogjappetite</h1>
+            </div>
+            
             <hr class="border-t-2 border-gray-300 mb-3">            
             <h1 class="text-xl mb-3 text-gray-600 text-center">Login</h1>
             <!-- Messages Block -->
             {% if messages %}
-            <div class="messages p-2 mb-4 {% for message in messages %}{% if "successfully" in message %}bg-green-200 text-green-700{% else %}bg-red-200 text-red-700{% endif %}{% endfor %} rounded-md">
+            <div class="messages p-2 mb-4 {% for message in messages %}{% if 'successfully' in message %}bg-green-200 text-green-700{% else %}bg-red-200 text-red-700{% endif %}{% endfor %} rounded-md">
                 {% for message in messages %}
                 <p class="text-sm text-center">{{ message }}</p>
                 {% endfor %}
@@ -42,7 +47,7 @@
                 </div>
 
                 <!-- Login Button -->
-                <button id="submit-btn" class="mt-2 w-full bg-red-400 text-white disabled:bg-gray-300 transition duration-200 hover:bg-red-500 rounded-lg py-2" type="submit">Login</button>
+                <button id="submit-btn" class="mt-2 w-full bg-red-800 text-white disabled:bg-gray-300 transition duration-200 hover:bg-red-500 rounded-lg py-2" type="submit">Login</button>
             </form>
             
             <!-- Sign up Link -->

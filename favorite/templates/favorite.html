@@ -75,9 +75,9 @@
                 </div>
             {% endfor %}
         {% else %}
-        <div class="text-center py-16">
-            <img src="{% static 'image/no-food.png' %}" alt="No food" class="w-48 mx-auto mb-4">
-            <p class="text-lg text-gray-600">Belum ada Restoran yang menjadi favorit.</p>
+        <div class="flex flex-col items-center justify-center py-16 w-full">
+            <img src="{% static 'image/no-food.png' %}" alt="No food" class="w-48 mb-4">
+            <p class="text-lg text-gray-600 text-center">Belum ada Restoran yang menjadi favorit.</p>
         </div>
         {% endif %}
     </div>
