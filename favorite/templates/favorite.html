@@ -4,8 +4,9 @@
 
 {% block content %}
 <section class="container mx-auto">
-    <div class="w-full pt-32 px-5 flex justify-between items-center">
-        <h1 class="text-md md:text-2xl font-medium mb-3">Your Favorite Restaurants</h1>
+    <div class="w-full pt-32 px-5 flex flex-col items-center">
+        <h1 class="text-3xl md:text-4xl font-bold mb-1">Your Favorite Restaurants</h1>
+        <p class="text-sm md:text-md text-gray-500 mb-3">Keep track of the restaurants you love and leave the reason why</p>
         <a href="{% url 'favorite:list_all_restaurants' %}" class="bg-green-500 text-white px-4 py-2 rounded shadow-md hover:bg-green-600 transition duration-150 ease-in-out">
             Add Favorite Restaurant
         </a>
@@ -33,7 +34,7 @@
 
                         <div class="flex items-center justify-between -mt-3 mb-3">
                             <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                                {% with item.restaurant.average_rating as avg_rating %}
+                                {% with item.average_rating as avg_rating %}
                                 {% for i in "12345"|make_list %}
                                 {% if i|add:0 <= avg_rating %}
                                 <svg class="w-5 h-5 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
@@ -46,10 +47,10 @@
                                 {% endif %}
                                 {% endfor %}
                                 {% endwith %}
-                                <p class="ml-1 text-sm font-medium text-gray-500 dark:text-gray-400">({{ item.restaurant.average_rating|default:"0.0" }})</p>
+                                <p class="ml-1 text-sm font-medium text-gray-500 dark:text-gray-400">({{ item.average_rating|default:"0.0" }})</p>
                             </div>
                             <div>
-                                <p class="ml-1 text-sm font-medium text-gray-500 dark:text-gray-400">{{ item.restaurant.rating_count }} reviews</p>
+                                <p class="ml-1 text-sm font-medium text-gray-500 dark:text-gray-400">{{ item.rating_count }} reviews</p>
                             </div>
                         </div>
 
@@ -76,8 +77,8 @@
             {% endfor %}
         {% else %}
         <div class="flex flex-col items-center justify-center py-16 w-full">
-            <img src="{% static 'image/no-food.png' %}" alt="No food" class="w-48 mb-4">
-            <p class="text-lg text-gray-600 text-center">Belum ada Restoran yang menjadi favorit.</p>
+            <img src="{% static 'image/no-food.png' %}" alt="No food" class="w-56 mb-4">
+            <p class="text-lg text-gray-600 text-center">There is no favorite restaurant yet.</p>
         </div>
         {% endif %}
     </div>
