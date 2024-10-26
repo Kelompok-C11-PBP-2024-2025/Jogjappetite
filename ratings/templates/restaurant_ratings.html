@@ -1,7 +1,11 @@
+
 {% extends 'base.html' %}
 {% block title %}
-Jogjappetite | Ratings
+Ratings | Jogjappetite
 {% endblock %}
+
+
+{% load static %}
 
 
 {% block content %}
@@ -117,41 +121,32 @@ Jogjappetite | Ratings
     </div>
 </div>
 
-<!-- Add Rating Section --><div class="bg-white p-6 shadow-md rounded-lg">
+<!-- Add Rating Section -->
+ 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div class="bg-white p-6 shadow-md rounded-lg mx-5">
     <h2 class="text-2xl font-semibold mb-4">Add Rating</h2>
 
     {% if request.user.is_authenticated %}
-    <button data-modal-target="ratingModal" data-modal-toggle="ratingModal" class="btn bg-indigo-700 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105" onclick="showModal();">
-        Submit Rating by AJAX
-    </button>
-        
+        {% if request.user.userprofile.user_type == "customer" %}
+        <button data-modal-target="ratingModal" data-modal-toggle="ratingModal" class="border border-black text-black font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out hover:bg-gray-200 hover:shadow-lg" onclick="showModal();">
+            Write a review
+        </button>
+        {% else %}
+            <p class="text-gray-500">Restaurant owners cannot leave reviews.</p>
+        {% endif %}
     {% else %}
-        <p>Please log in to add a rating.</p>
+        <p>Please log in to write a review.</p>
     {% endif %}
+</div>
+
+
+
+
+
+
+
+
 </div>
 <div class="m mx-4 mb-6">
 <h2 class="text-2xl font-semibold mt-8 mb-4">Customers Ratings</h2>
@@ -185,29 +180,50 @@ Jogjappetite | Ratings
             {% csrf_token %}
             <!-- Menu Review (Dropdown) -->
             <div class="mb-4">
-                <label for="menuReview" class="block text-sm font-medium text-gray-700">Choose Menu</label>
-                <select id="menuReview" name="menu_review" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-indigo-700" required>
+                <label for="menuReview" class="block text-sm font-medium text-gray-700">What menu did you try?</label>
+                
+                <select id="menuReview" name="menu_review" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-red-700" required>
                     {% for menu in reviewed_menus %}
                     <option value="{{ menu.id }}">{{ menu.nama_menu }}</option>
                     {% endfor %}
                 </select>
             </div>
-
-            <!-- Rating (1-5) -->
+        
+            <!-- Star Rating (1-5) -->
             <div class="mb-4">
-                <label for="rating" class="block text-sm font-medium text-gray-700">Rating (1-5)</label>
-                <input type="number" id="rating" name="rating" min="1" max="5" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-indigo-700" required>
+                <label for="rating" class="block text-sm font-medium text-gray-700">How would you rate your experience?
+                </label>
+                <div class="flex items-center space-x-2" id="star-rating">
+                    <!-- Hidden input to store the selected rating -->
+                    <input type="hidden" id="rating" name="rating" required>
+                    <!-- Star icons -->
+                    <svg class="star w-8 h-8 text-gray-400 cursor-pointer" data-value="1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                    <svg class="star w-8 h-8 text-gray-400 cursor-pointer" data-value="2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                    <svg class="star w-8 h-8 text-gray-400 cursor-pointer" data-value="3" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                    <svg class="star w-8 h-8 text-gray-400 cursor-pointer" data-value="4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                    <svg class="star w-8 h-8 text-gray-400 cursor-pointer" data-value="5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                </div>
             </div>
-
+        
             <!-- Pesan Rating (Textarea) -->
             <div class="mb-4">
                 <label for="pesanRating" class="block text-sm font-medium text-gray-700">Review Message</label>
-                <textarea id="pesanRating" name="pesan_rating" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-indigo-700" placeholder="Write your review here" required></textarea>
+                <textarea id="pesanRating" name="pesan_rating" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-red-700" placeholder="Write your review here" required></textarea>
             </div>
-
+        
             <!-- Submit Button -->
             <div class="mb-4">
-                <button type="submit" class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300">
+                <button type="submit" class="w-full bg-red-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-red-700 transition duration-300">
                     Submit Rating
                 </button>
             </div>
@@ -218,7 +234,6 @@ Jogjappetite | Ratings
     <!-- Modal footer -->
     <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2 p-6 border-t border-gray-200 rounded-b justify-center md:justify-end">
       <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg" id="cancelButton">Cancel</button>
-      <button type="submit" id="submitMoodEntry" form="moodEntryForm" class="bg-indigo-700 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg">Save</button>
     </div>
   </div>
 </div>
@@ -330,49 +345,57 @@ Jogjappetite | Ratings
         
                         // Conditionally display Edit and Delete buttons
                         const editButton = canEditOrDelete ? `
-                            <a href="${item.id}/edit/" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-                                Edit
+                            <a href="${item.id}/edit/" 
+                            class="border border-blue-500 text-blue-500 font-semibold py-1 px-3 rounded-full transition duration-200 ease-in-out hover:bg-blue-50 flex items-center space-x-2">
+                                    
+                                <img src="{% static 'image/edit_logo.svg' %}" alt="Edit Icon" class="w-4 h-4 inline" />
+                                <span>Edit</span>
+
                             </a>` : '';
         
                         const deleteButton = canEditOrDelete ? `
-                            <a href="" onclick="event.preventDefault(); deleteRating(${item.id});" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-                                Delete
+                            <a href="" onclick="event.preventDefault(); deleteRating(${item.id});" 
+                            class="border border-orange-500 text-orange-500 font-semibold py-1 px-3 rounded-full transition duration-200 ease-in-out hover:bg-orange-50 flex items-center space-x-2 mx-1">
+                                <img src="{% static 'image/delete_logo.svg' %}" alt="Delete Icon" class="w-4 h-4 inline">
+                                <span>Delete</span>
                             </a>` : '';
+
+
+
         
                         // Membuat HTML untuk setiap rating
                         htmlString += `
-                        <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-4">
+                        <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-4 mx-1">
                             <div class="flex items-start">
-                                <!-- Profil dengan inisial -->
+                                <!-- Profile with initials -->
                                 <div class="flex-shrink-0">
-                                    <div class="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">
+                                    <div class="w-12 h-12 bg-red-600 text-white rounded-full flex items-center justify-center font-bold">
                                         ${initials}
                                     </div>
                                 </div>
-                                <!-- Konten di sebelah inisial -->
+                                <!-- Content next to initials -->
                                 <div class="ml-4 flex-1">
-                                    <!-- Nama user dan tanggal -->
-                                    <div class="flex justify-between items-center">
-                                        <div>
-                                            <p class="text-lg font-semibold">${username}</p>
-                                            <p class="text-sm text-gray-500">${date}</p>
-                                        </div>
-                                        <!-- Overall rating -->
-                                        <div class="flex items-center">
-                                            <span class="text-sm text-gray-500">Overall</span>
-                                            <span class="ml-2 font-semibold text-gray-700">${rating}</span>
-                                        </div>
+                                    <!-- Username and date -->
+                                    <div>
+                                        <p class="text-lg font-semibold">${username}</p>
+                                        <p class="text-sm text-gray-500">${date}</p>
                                     </div>
-                                    <!-- Rating bintang -->
-                                    <div class="flex items-center mt-2">
-                                        ${[...Array(5)].map((_, i) => i < rating ? 
-                                            '<i class="fas fa-star text-yellow-500"></i>' : 
-                                            '<i class="fas fa-star text-gray-300"></i>'
-                                        ).join('')}
+                                    
+                                    <!-- Star Rating -->
+                                    <div class="flex items-center mt-1">
+                                        ${[...Array(5)].map((_, i) => {
+                                            if (i < rating) {
+                                                return '<i class="fas fa-star text-yellow-400"></i>'; // Full star
+                                            } else {
+                                                return '<i class="fas fa-star text-gray-300"></i>'; // Empty star
+                                            }
+                                        }).join('')}
+                                        <span class="ml-2 font-semibold text-gray-700">${rating}.0 out of 5</span>
                                     </div>
-                                    <!-- Pesan review -->
+                    
+                                    <!-- Review message -->
                                     <p class="mt-4 text-gray-700">${pesanRating}</p>
-        
+                    
                                     <!-- Edit and Delete buttons (only if user is the owner) -->
                                     <div class="flex justify-end mt-4">
                                         ${editButton}
@@ -381,7 +404,19 @@ Jogjappetite | Ratings
                                 </div>
                             </div>
                         </div>
-                        `;
+                    `;
+                    
+
+
+
+
+
+
+
+
+
+
+
                     });
                 }
         
@@ -518,7 +553,44 @@ Jogjappetite | Ratings
 
 
 
-
+    document.addEventListener("DOMContentLoaded", () => {
+        const stars = document.querySelectorAll(".star");
+        const ratingInput = document.getElementById("rating");
+    
+        stars.forEach(star => {
+            star.addEventListener("mouseover", () => {
+                resetStars(); // Reset all stars
+                const value = star.getAttribute("data-value");
+                highlightStars(value); // Highlight stars up to the one hovered
+            });
+    
+            star.addEventListener("click", () => {
+                const value = star.getAttribute("data-value");
+                ratingInput.value = value; // Set the hidden input value to the selected rating
+            });
+    
+            star.addEventListener("mouseleave", () => {
+                resetStars(); // Reset stars after mouse leaves
+                if (ratingInput.value) {
+                    highlightStars(ratingInput.value); // Re-highlight the stars up to the selected rating
+                }
+            });
+        });
+    
+        function highlightStars(value) {
+            for (let i = 0; i < value; i++) {
+                stars[i].classList.add("text-yellow-400");
+                stars[i].classList.remove("text-gray-400");
+            }
+        }
+    
+        function resetStars() {
+            stars.forEach(star => {
+                star.classList.remove("text-yellow-400");
+                star.classList.add("text-gray-400");
+            });
+        }
+    });
 
     
 

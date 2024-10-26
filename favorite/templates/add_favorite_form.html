@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-4">Add "{{ restaurant.nama_restoran }}" to Favorite</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label for="notes" class="block text-gray-700">Your Reason for Adding:</label>
+            <textarea id="notes" name="notes" rows="4" class="w-full p-2 border rounded"></textarea>
+            {% if error_message %}
+                <p class="text-red-500">{{ error_message }}</p>
+            {% endif %}
+        </div>
+        <div class="flex justify-between items-center mt-4">
+            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Submit</button>
+            <a href="{% url 'favorite:list_all_restaurants' %}" class="bg-gray-500 text-white px-4 py-2 rounded">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}

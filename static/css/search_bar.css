@@ -28,3 +28,28 @@
     transform: translateX(100%) translateY(-50%);
     opacity: 0;
 }
+
+#search-history {
+    width: 100%; /* Match the parent container width */
+    max-width: inherit; /* Allow it to extend based on its parent container */
+    border: 1px solid #ddd; /* Light border to define boundaries */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-radius: 0.5rem; /* Rounded corners */
+}
+
+/* Style each history item */
+#search-history > div {
+    padding: 8px 12px; /* Increase padding for a comfortable look */
+    transition: background-color 0.2s ease-in-out; /* Smooth hover transition */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+/* History item hover effect */
+#search-history > div:hover {
+    background-color: #f0f0f0; /* Light gray background on hover */
+}
+
+/* Add a bottom border to each history item except the last one */
+#search-history > div:not(:last-child) {
+    border-bottom: 1px solid #eaeaea; /* Subtle separator between items */
+}

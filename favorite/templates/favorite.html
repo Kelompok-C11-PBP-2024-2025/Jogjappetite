@@ -1,11 +1,188 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block content %}
-<section class="relative -mt-16">
-    <img src="https://www.indonesia.travel/content/dam/indtravelrevamp/en/trip-ideas/the-ultimate-guide-to-must-try-indonesian-food/header.jpg" alt="Food Table" class="w-full h-64 object-cover">
-    <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-10" style="padding-top: 3rem;">
-        <h1 class="text-white text-5xl font-bold italic">MY FAVORITES</h1>
+<section class="container mx-auto">
+    <div class="w-full pt-32 px-5 flex justify-between items-center">
+        <h1 class="text-md md:text-2xl font-medium mb-3">Your Favorite Restaurants</h1>
+        <a href="{% url 'favorite:list_all_restaurants' %}" class="bg-green-500 text-white px-4 py-2 rounded shadow-md hover:bg-green-600 transition duration-150 ease-in-out">
+            Add Favorite Restaurant
+        </a>
+    </div>
+
+    <div class="flex flex-wrap w-full px-3 md:px-0 gap-6 mt-6">
+        {% if restaurants %}
+            {% for item in restaurants %}
+                <div class="w-full sm:w-1/2 md:w-[30%] lg:w-[23%] bg-white border border-gray-200 rounded-lg shadow-lg transition-transform transform hover:scale-105 dark:bg-white dark:border-slate-300 relative">
+                    <!-- Tombol "X" untuk Menghapus -->
+                    <button onclick="openDeleteModal({{ item.favorite_id }})" class="absolute top-2 right-2">
+                        <img src="{% static 'image/delete-favorite.png' %}" alt="Delete" class="w-8 h-8">
+                    </button>
+                    <a href="{% url 'restaurant:restaurant_detail' item.restaurant.pk %}">
+                        <img class="rounded-t-lg w-full h-40 object-cover" src="{{ item.restaurant.gambar }}" alt="Restaurant Image" />
+                    </a>
+
+                    <div class="p-4 flex flex-col gap-2">
+                        <a href="{% url 'restaurant:restaurant_detail' item.restaurant.pk %}">
+                            <h5 class="mb-2 text-xl font-semibold text-gray-900 dark:text-dark overflow-hidden whitespace-nowrap text-ellipsis">{{ item.restaurant.nama_restoran }}</h5>
+                        </a>
+
+                        <!-- Debugging favorite ID -->
+                        <!-- <p>ID Favorit: {{ item.favorite_id }}</p> Letakkan di sini -->
+
+                        <div class="flex items-center justify-between -mt-3 mb-3">
+                            <div class="flex items-center space-x-1 rtl:space-x-reverse">
+                                {% with item.restaurant.average_rating as avg_rating %}
+                                {% for i in "12345"|make_list %}
+                                {% if i|add:0 <= avg_rating %}
+                                <svg class="w-5 h-5 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                </svg>
+                                {% else %}
+                                <svg class="w-5 h-5 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                </svg>
+                                {% endif %}
+                                {% endfor %}
+                                {% endwith %}
+                                <p class="ml-1 text-sm font-medium text-gray-500 dark:text-gray-400">({{ item.restaurant.average_rating|default:"0.0" }})</p>
+                            </div>
+                            <div>
+                                <p class="ml-1 text-sm font-medium text-gray-500 dark:text-gray-400">{{ item.restaurant.rating_count }} reviews</p>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between -mt-3">
+                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ item.restaurant.ayce_atau_alacarte }}</span>
+                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Rp.{{ item.restaurant.harga_rata_rata_makanan|intcomma }}</span>
+                        </div>
+                        <p class="text-sm font-medium text-gray-500 flex items-center dark:text-gray-400 overflow-hidden whitespace-nowrap text-ellipsis">
+                            {{ item.restaurant.lokasi }}</p>
+                        <a href="{% url 'restaurant:restaurant_detail' item.restaurant.pk %}" class=" inline-flex items-center w-full justify-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-2 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-700">
+                            Read more
+                            <svg class="rtl:rotate-180 w-4 h-4 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                            </svg>
+                        </a>
+                        
+                    </div>
+                    <div class="bg-yellow-200 p-4 rounded-b-lg mt-2 flex flex-col items-center">
+                        <h3 class="font-semibold text-black mb-2">My Notes</h3>
+                        <p class="text-black text-center mb-2">{{ item.notes }}</p>
+                        <button class="bg-gray-400 text-white px-4 py-1 rounded" onclick="openEditNotesModal({{ item.favorite_id }}, '{{ item.notes }}')">Edit</button>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+        <div class="flex flex-col items-center justify-center py-16 w-full">
+            <img src="{% static 'image/no-food.png' %}" alt="No food" class="w-48 mb-4">
+            <p class="text-lg text-gray-600 text-center">Belum ada Restoran yang menjadi favorit.</p>
+        </div>
+        {% endif %}
     </div>
 </section>
-{% endblock content %}
+
+<!-- Modal for Deleting Favorite -->
+<div id="deleteModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white rounded-lg p-6 w-1/3">
+        <h2 class="text-lg font-semibold mb-4">Confirm Delete</h2>
+        <p>Are you sure you want to remove this restaurant from your favorites?</p>
+        <div class="flex justify-end mt-6 space-x-2">
+            <button id="cancelButton" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded">Cancel</button>
+            <button id="confirmDeleteButton" class="px-4 py-2 bg-red-500 text-white hover:bg-red-600 rounded">Delete</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Editing Notes -->
+<div id="editNotesModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white rounded-lg p-6 w-1/3">
+        <h2 class="text-lg font-semibold mb-4">Edit Notes</h2>
+        <input type="text" id="newNotesInput" class="border border-gray-300 p-2 w-full mb-4 rounded" placeholder="Update your notes here...">
+        <div class="flex justify-end mt-6 space-x-2">
+            <button id="cancelEditButton" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded">Cancel</button>
+            <button id="confirmEditButton" class="px-4 py-2 bg-green-500 text-white hover:bg-green-600 rounded">Save</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let favoriteIdToEdit;
+
+    function openEditNotesModal(favoriteId, currentNotes) {
+        favoriteIdToEdit = favoriteId;
+        document.getElementById('newNotesInput').value = currentNotes;
+        document.getElementById('editNotesModal').classList.remove('hidden');
+    }
+
+    document.getElementById('cancelEditButton').addEventListener('click', function () {
+        document.getElementById('editNotesModal').classList.add('hidden');
+    });
+
+    document.getElementById('confirmEditButton').addEventListener('click', function () {
+        editFavoriteNotes(favoriteIdToEdit);
+        document.getElementById('editNotesModal').classList.add('hidden');
+    });
+
+    function editFavoriteNotes(favoriteId) {
+        const newNotes = document.getElementById('newNotesInput').value;
+        fetch("{% url 'favorite:edit_favorite_notes' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify({ 'favorite_id': favoriteId, 'notes': newNotes }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert(data.message);
+            }
+        });
+    }
+</script>
+
+<script>
+    let favoriteIdToDelete;
+
+function openDeleteModal(favoriteId) {
+    console.log('Favorite ID to delete:', favoriteId); // Tambahkan ini untuk debugging
+    favoriteIdToDelete = favoriteId;
+    document.getElementById('deleteModal').classList.remove('hidden');
+}
+
+document.getElementById('cancelButton').addEventListener('click', function () {
+    document.getElementById('deleteModal').classList.add('hidden');
+});
+
+document.getElementById('confirmDeleteButton').addEventListener('click', function () {
+    deleteFavorite(favoriteIdToDelete);
+    document.getElementById('deleteModal').classList.add('hidden');
+});
+
+function deleteFavorite(favoriteId) {
+    console.log('Deleting favorite with ID:', favoriteId); // Tambahkan ini untuk debugging
+    fetch("{% url 'favorite:delete_favorite' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}',
+        },
+        body: JSON.stringify({ 'favorite_id': favoriteId }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert(data.message);
+        }
+    });
+}
+</script>
+
+{% endblock %}

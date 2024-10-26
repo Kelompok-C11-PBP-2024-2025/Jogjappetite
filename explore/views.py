@@ -1,43 +1,62 @@
+import json
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from ratings.models import Menu,Restaurant
-from explore.models import ExploreHistory
+
 from authentication.models import UserProfile
+from django.views.decorators.http import require_http_methods,require_POST
+from django.contrib.auth.decorators import login_required
+from .models import Bookmark
 
 # Create your views here.
 def show_explore_page(request):
-    # Check apakah user authenticated
-    if request.user.is_authenticated:
-        try:
-            # Assume UserProfile is related to the logged-in user
-            user_profile = UserProfile.objects.get(user=request.user)
-            # Fetch recent history based on the logged-in user, ordered by 'clicked_at'
-            recent_history = ExploreHistory.objects.filter(user_profile=user_profile).order_by('-clicked_at')[:5]
-        except UserProfile.DoesNotExist:
-            # If the user has no UserProfile, set recent_history to None
-            recent_history = None
-    else:
-        # If the user is not logged in, recent_history will be None
-        recent_history = None
     
-    # Pass recent history only if user is logged in, else pass an empty context
-    context = {
-        'recent_history': recent_history,
-        'menus': Menu.objects.all(),  # Assume categories of the menu
-    }
     
-    return render(request, "explore.html", context)
+    return render(request, "explore.html")
+
+
+
+@login_required
+def toggle_bookmark(request, menu_id):
+    user = request.user
+    try:
+        menu = get_object_or_404(Menu, id=menu_id)
+    except Menu.DoesNotExist:
+        print("Menu not found")  # Log jika menu tidak ditemukan
+        return JsonResponse({'status': 'error', 'message': 'Menu not found'}, status=404)
+
+    # Cek apakah bookmark sudah ada
+    bookmark, created = Bookmark.objects.get_or_create(user=user, menu=menu)
+
+    if not created:
+        # Jika bookmark sudah ada, hapus bookmark
+        bookmark.delete()
+        print(f"Bookmark removed for user: {user.username}, menu: {menu.nama_menu}")
+        return JsonResponse({'status': 'unbookmarked', 'message': 'Bookmark removed successfully'})
+    
+    # Jika bookmark baru dibuat
+    print(f"Bookmark created for user: {user.username}, menu: {menu.nama_menu}")
+    return JsonResponse({'status': 'bookmarked', 'message': 'Menu bookmarked successfully'})
+
 
 
 def show_menus_explore(request, cluster_name):
+    menus = Menu.objects.filter(cluster__icontains=cluster_name.lower())
     
-    menus = Menu.objects.filter(cluster__icontains=cluster_name.lower())  
+    # Cek apakah user sudah login
+    if request.user.is_authenticated:
+        user_bookmarks = Bookmark.objects.filter(user=request.user).values_list('menu_id', flat=True)
+    else:
+        user_bookmarks = []  # Jika user belum login, tidak ada bookmark
 
     context = {
         'menus': menus,
-        'cluster_name': cluster_name  
+        'cluster_name': cluster_name,
+        'user_bookmarks': user_bookmarks,
     }
+    
     return render(request, 'menu_by_cluster.html', context)
+
 
 # New view to handle AJAX requests for menu details
 def menu_details(request, menu_id):
@@ -52,5 +71,20 @@ def menu_details(request, menu_id):
         return JsonResponse(data)
     except Menu.DoesNotExist:
         return JsonResponse({'error': 'Menu not found'}, status=404)
+@login_required
+def get_user_bookmarks(request):
+    user = request.user
+    bookmarks = Bookmark.objects.filter(user=user)
+    
+    # Tambahkan log untuk memeriksa data bookmark
+    print("Bookmarks for user:", bookmarks)
 
-
+    bookmarks_data = [
+        {
+            'name': bookmark.menu.nama_menu,
+            'restaurant': bookmark.menu.restoran.nama_restoran,
+            'price': bookmark.menu.harga
+        }
+        for bookmark in bookmarks
+    ]
+    return JsonResponse({'bookmarks': bookmarks_data})

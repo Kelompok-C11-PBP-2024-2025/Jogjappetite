@@ -1,5 +1,7 @@
+
 {% load static %}
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,6 +11,10 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{% static 'image/logo.png' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Include Search Bar CSS -->
+    <link rel="stylesheet" href="{% static 'css/search_bar.css' %}">
 
     <script>
       function toggleMenu() {
@@ -19,11 +25,9 @@
 </head>
 <body class="bg-gray-100">
 
-    
-
     <!-- Navbar Section -->
-    <nav class="bg-white bg-opacity-75 backdrop-filter backdrop-blur-md fixed w-full top-0 z-10 h-12 md:h-16">
-        <div class="container mx-auto flex items-center justify-between px-4 py-2 md:py-4">
+    <nav class="bg-white bg-opacity-75 backdrop-filter backdrop-blur-md fixed w-full top-0 z-10 h-18 md:h-18">
+        <div class="container mx-auto flex  flex-col md:flex-row items-center justify-between px-4 py-1 md:py-4">
             <!-- Logo -->
             <div class="flex items-center space-x-2">
                 <a href="{% url 'explore:show_explore_page' %}" class="flex items-center space-x-2">
@@ -32,13 +36,15 @@
                 </a>
             </div>
 
-            {% include "search/search_bar.html" %}
+            <div class="flex justify-center w-full md:w-auto mb-2 md:mb-0">
+                {% include "search_bar.html" %}
+            </div>
 
-            <!-- Desktop Menu -->
+            <!-- Desktop Menu (main)-->
             <div class="hidden md:flex items-center space-x-6">
-                <a href="{% url 'ratings:show_main_page' %}" class="text-gray-800 hover:text-gray-500 font-medium">Ratings</a>
-                <a href="" class="text-gray-800 hover:text-gray-500 font-medium">Favorite</a>
-                <a href="{% url 'restaurant:owner_restaurant_list' %}" class="text-gray-800 hover:text-gray-500 font-medium">Add Restaurant</a>
+                <a href="{% url 'ratings:show_main_page' %}" class="text-gray-800 hover:text-gray-500 font-medium">Ratings</a> <!-- Menghubungkan pada halaman Ratings -->
+                <a href="{% url 'favorite:favorite_list_view' %}" class="text-gray-800 hover:text-gray-500 font-medium">My Favorites</a> <!-- Menghubungkan pada halaman Favorite -->  
+                <a href="{% url 'restaurant:owner_restaurant_list' %}" class="text-gray-800 hover:text-gray-500 font-medium">Add Restaurant</a> <!-- Menghubungkan pada halaman Add Restaurant -->
 
                 <!-- Check if the user is authenticated -->
                 {% if request.user.is_authenticated %}
@@ -61,10 +67,10 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden">
+        <div id="mobile-menu" class="hidden md:hidden backdrop-filter inset-0  w-full backdrop-blur-md bg-white bg-opacity-80 w-full px-4">
             <div class="flex flex-col items-center space-y-4 p-4">
                 <a href="" class="text-gray-800 hover:text-gray-500 font-medium">Ratings</a>
-                <a href="" class="text-gray-800 hover:text-gray-500 font-medium">Favorite</a>
+                <a href="{% url 'favorite:favorite_list_view' %}" class="text-gray-800 hover:text-gray-500 font-medium">My Favorites</a>
                 <a href="{% url 'restaurant:owner_restaurant_list' %}" class="text-gray-800 hover:text-gray-500 font-medium">Add Restaurant</a>
 
                 <!-- Login Logout Button -->
@@ -79,3 +85,5 @@
     </nav>
 </body>
 </html>
+
+

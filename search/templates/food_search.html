@@ -2,54 +2,58 @@
 
 {% block meta %}
 <title>Food Search | Jogjappetite</title>
+<style>
+    .expanded-card {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        width: 90%;
+        max-width: 800px;
+        height: auto;
+        z-index: 1000;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+    .hidden {
+        display: none;
+    }
+</style>
 {% endblock meta %}
 
 {% block content %}
-{% include 'search_bar.html' %}
 <body class="bg-gray-100 p-6">
-
     <div class="max-w-4xl mx-auto">
-        <h1 class="text-3xl font-bold mb-6">Search for Food</h1>
-
-        <!-- Search Bar -->
-        <form method="GET" action="{% url 'menu-search' %}">
-            <input 
-                type="text" 
-                name="q" 
-                value="{{ query }}" 
-                placeholder="Search for food..." 
-                class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
-        </form>
-
+        {% if found == 2 %}
+            <h1 class="text-3xl font-bold mb-6">Search Result for {{ search }}</h1>
+        {% elif found == 1 %}
+            <h1 class="text-3xl font-bold mb-6">Can't Find Anything for {{ search }}</h1>
+            <h1 class="text-3xl font-bold mb-6">Our Recommendation for You</h1>
+        {% else %}
+            <h1 class="text-3xl font-bold mb-6">No Result Found for {{ search }}</h1>
+        {% endif %}
         <!-- Results Section -->
-        <div class="overflow-y-auto h-96 bg-white rounded-lg shadow-md">
-            <ul class="divide-y divide-gray-200">
-                {% for menu in menus %}
-                <li class="p-4 transition duration-300 ease-in-out hover:bg-gray-100 hover:shadow-lg">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <h2 class="text-xl font-semibold">{{ menu.nama_menu }}</h2>
-                            <p class="text-sm text-gray-500">{{ menu.restoran.nama_restoran }}</p>
-                            <p class="text-sm text-gray-500">Cluster: {{ menu.cluster }}</p>
-                            <p class="text-sm text-gray-500">Price: Rp{{ menu.harga }}</p>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="flex items-center mr-4">
-                                <span class="mr-1 text-green-500">👍</span> 
-                                <span>{{ menu.thumbs_up }}</span>
-                            </div>
-                            <div class="flex items-center">
-                                <span class="mr-1 text-red-500">👎</span> 
-                                <span>{{ menu.thumbs_down }}</span>
-                            </div>
-                        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 container mx-auto px-4">
+            {% for menu in menus %}
+                <div class="card cursor-pointer bg-white rounded-lg shadow-lg transition-transform duration-300 hover:scale-105"
+                    data-id="{{ menu.id }}"
+                    data-name="{{ menu.nama_menu }}"
+                    data-restaurant="{{ menu.restoran.nama_restoran }}"
+                    data-price="{{ menu.harga }}"
+                    data-image-url="https://i.pinimg.com/control/474x/15/e7/55/15e7552cce3a3bab8162eec3578ae0e9.jpg"
+                    onclick="expandCard(this)">
+                    <img src="https://i.pinimg.com/control/474x/15/e7/55/15e7552cce3a3bab8162eec3578ae0e9.jpg" alt="{{ menu.nama_menu }}" class="w-full h-48 object-cover rounded-t-lg">
+                    <div class="p-6">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2">{{ menu.nama_menu }}</h2>
+                        <p class="text-gray-600 text-lg mb-4">
+                            <span class="font-medium">Restaurant: </span>{{ menu.restoran.nama_restoran }}
+                        </p>
+                        <p class="text-green-500 text-xl font-bold mb-4">Rp{{ menu.harga }}</p>
                     </div>
-                </li>
-                {% endfor %}
-            </ul>
+                </div>
+            {% endfor %}
         </div>
     </div>
-
 </body>
-</html>
 {% endblock content %}
