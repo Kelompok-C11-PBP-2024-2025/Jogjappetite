@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}All Your Ratings{% endblock %}
+
+{% block content %}
+<div class="px-8 py-12 mt-20">
+    <h2 class="text-3xl font-bold mb-6">All Ratings Made by You</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for rating in user_ratings %}
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <!-- Restaurant Information -->
+            <a href="{% url 'ratings:get_restaurant_ratings_by_id' rating.restaurant_review.id %}" class="text-xl font-bold mb-2 block hover:text-red-600">
+                {{ rating.restaurant_review.nama_restoran }}
+            </a>
+            <p class="text-sm text-gray-500 mb-2">{{ rating.restaurant_review.lokasi }}</p>
+
+            <!-- User Rating -->
+            <div class="flex items-center mb-2">
+                {% for i in star_range %}
+                    {% if i <= rating.rating %}
+                    <svg class="w-5 h-5 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                    {% else %}
+                    <svg class="w-5 h-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                    {% endif %}
+                {% endfor %}
+                <span class="ml-2 text-sm text-gray-600">{{ rating.rating }} out of 5</span>
+            </div>
+
+            <!-- Review Message -->
+            <p class="text-gray-700 mb-4">{{ rating.pesan_rating|truncatechars:100 }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
