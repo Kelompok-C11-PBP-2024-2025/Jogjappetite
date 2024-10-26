@@ -20,10 +20,9 @@ from django.urls import path,include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ratings/', include('ratings.urls')),   # Mengarahkan ke URLs di aplikasi 'ratings'
-    path('favorite', include('favorite.urls')),  # Mengarahkan URLs di aplikasi 'favorite'
+    path('favorite/', include('favorite.urls')),  # Mengarahkan URLs di aplikasi 'favorite'
      path('restaurant/', include('restaurant.urls')), # mengarahkan ke URLs di aplikasi 'restaurant'
 
-    path('ratings/', include('ratings.urls')), 
     path('', include('explore.urls')),  
     path('auth/', include('authentication.urls')),
 ]
