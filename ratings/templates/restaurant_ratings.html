@@ -289,62 +289,48 @@ Ratings | Jogjappetite
 
 
 
-
-
-
-
 <script>
-    const restaurantId = "{{ restaurant.id }}"; 
+    const restaurantId = "{{ restaurant.id }}";
 
-        async function getRatings(){
-            const response = await fetch("{% url 'ratings:show_json' restaurant.id %}");  // Kirim restaurant_id dalam URL
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return await response.json();  // Mengembalikan hasil JSON
+    async function getRatings() {
+        const response = await fetch("{% url 'ratings:show_json' restaurant.id %}");
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
-
+        return await response.json();
+    }
     
+    async function refreshRatings() {
+        document.getElementById("rating_cards").innerHTML = "";
+        document.getElementById("rating_cards").className = "";
     
-        async function refreshRatings() {
-            // Hapus konten lama dan reset kelas
-            document.getElementById("rating_cards").innerHTML = "";
-            document.getElementById("rating_cards").className = "";
-        
-            try {
-                const customerRatings = await getRatings();  // Ambil data dari API JSON
-                console.log(customerRatings);  // Log untuk melihat data JSON di konsol
-        
-                let htmlString = "";
-                let classNameString = "";
-        
-                // Get the logged-in user's username (passed from Django)
-                const loggedInUser = "{{ request.user.username }}";
-                const isAuthenticated = "{{ request.user.is_authenticated }}";
-        
-                if (customerRatings.length === 0) {
-                    classNameString = "flex justify-center items-center h-40 bg-gray-100 rounded-lg shadow-md p-4 mx-4 mb-6";
-                    htmlString = "<p>No ratings available.</p>";
-                } else {
-                    classNameString = "space-y-4";  // Tambahkan spasi antar item
-        
-                    customerRatings.forEach((item) => {
-                        // Dapatkan inisial dari user atau default '?'
-                        const initials = item.user_initials || '?';  
-                        
-                        // Dapatkan username dari user atau default 'Anonymous'
-                        const username = item.username || 'Anonymous';  
-                        
-                        // Rating, pesan, dan tanggal
-                        const rating = item.rating || 0;
-                        const pesanRating = item.pesan_rating || 'No message provided.';
-                        const date = item.created_at || 'Unknown date';
-        
-                        // Check if the logged-in user is the owner of this rating
-                        const canEditOrDelete = isAuthenticated && loggedInUser === username;
-        
-                        // Conditionally display Edit and Delete buttons
-                        const editButton = canEditOrDelete ? `
+        try {
+            const customerRatings = await getRatings();
+            console.log(customerRatings);
+    
+            let htmlString = "";
+            let classNameString = "";
+    
+            const loggedInUser = "{{ request.user.username }}";
+            const isAuthenticated = "{{ request.user.is_authenticated }}";
+    
+            if (customerRatings.length === 0) {
+                classNameString = "flex justify-center items-center h-40 bg-gray-100 rounded-lg shadow-md p-4 mx-4 mb-6";
+                htmlString = "<p>No ratings available.</p>";
+            } else {
+                classNameString = "space-y-4";
+    
+                customerRatings.forEach((item) => {
+                    const initials = item.user_initials || '?';  
+                    const username = item.username || 'Anonymous';  
+                    const rating = item.rating || 0;
+                    const pesanRating = item.pesan_rating || 'No message provided.';
+                    const date = item.created_at || 'Unknown date';
+                    const menuId = item.menu_id || ''; 
+    
+                    const canEditOrDelete = isAuthenticated && loggedInUser === username;
+    
+                    const editButton = canEditOrDelete ? `
                             <a href="${item.id}/edit/" 
                             class="border border-blue-500 text-blue-500 font-semibold py-1 px-3 rounded-full transition duration-200 ease-in-out hover:bg-blue-50 flex items-center space-x-2">
                                     
@@ -353,50 +339,38 @@ Ratings | Jogjappetite
 
                             </a>` : '';
         
-                        const deleteButton = canEditOrDelete ? `
-                            <a href="" onclick="event.preventDefault(); deleteRating(${item.id});" 
-                            class="border border-orange-500 text-orange-500 font-semibold py-1 px-3 rounded-full transition duration-200 ease-in-out hover:bg-orange-50 flex items-center space-x-2 mx-1">
-                                <img src="{% static 'image/delete_logo.svg' %}" alt="Delete Icon" class="w-4 h-4 inline">
-                                <span>Delete</span>
-                            </a>` : '';
-
-
-
-        
-                        // Membuat HTML untuk setiap rating
-                        htmlString += `
+                
+    
+                    const deleteButton = canEditOrDelete ? `
+                        <a href="#" onclick="event.preventDefault(); deleteRating(${item.id});" 
+                        class="border border-orange-500 text-orange-500 font-semibold py-1 px-3 rounded-full transition duration-200 ease-in-out hover:bg-orange-50 flex items-center space-x-2 mx-1">
+                            <img src="{% static 'image/delete_logo.svg' %}" alt="Delete Icon" class="w-4 h-4 inline">
+                            <span>Delete</span>
+                        </a>` : '';
+    
+                    htmlString += `
                         <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-4 mx-1">
                             <div class="flex items-start">
-                                <!-- Profile with initials -->
                                 <div class="flex-shrink-0">
                                     <div class="w-12 h-12 bg-red-600 text-white rounded-full flex items-center justify-center font-bold">
                                         ${initials}
                                     </div>
                                 </div>
-                                <!-- Content next to initials -->
                                 <div class="ml-4 flex-1">
-                                    <!-- Username and date -->
                                     <div>
                                         <p class="text-lg font-semibold">${username}</p>
                                         <p class="text-sm text-gray-500">${date}</p>
                                     </div>
                                     
-                                    <!-- Star Rating -->
                                     <div class="flex items-center mt-1">
                                         ${[...Array(5)].map((_, i) => {
-                                            if (i < rating) {
-                                                return '<i class="fas fa-star text-yellow-400"></i>'; // Full star
-                                            } else {
-                                                return '<i class="fas fa-star text-gray-300"></i>'; // Empty star
-                                            }
+                                            return i < rating ? '<i class="fas fa-star text-yellow-400"></i>' : '<i class="fas fa-star text-gray-300"></i>';
                                         }).join('')}
                                         <span class="ml-2 font-semibold text-gray-700">${rating}.0 out of 5</span>
                                     </div>
                     
-                                    <!-- Review message -->
                                     <p class="mt-4 text-gray-700">${pesanRating}</p>
                     
-                                    <!-- Edit and Delete buttons (only if user is the owner) -->
                                     <div class="flex justify-end mt-4">
                                         ${editButton}
                                         ${deleteButton}
@@ -405,69 +379,55 @@ Ratings | Jogjappetite
                             </div>
                         </div>
                     `;
-                    
-
-
-
-
-
-
-
-
-
-
-
-                    });
-                }
-        
-                // Perbarui kelas dan HTML elemen rating_cards
-                document.getElementById("rating_cards").className = classNameString;
-                document.getElementById("rating_cards").innerHTML = htmlString;
-        
-            } catch (error) {
-                console.error('Error fetching ratings:', error);
+                });
             }
+    
+            document.getElementById("rating_cards").className = classNameString;
+            document.getElementById("rating_cards").innerHTML = htmlString;
+        } catch (error) {
+            console.error('Error fetching ratings:', error);
         }
-        
-    // Jalankan refreshRatings untuk memperbarui tampilan rating
-    refreshRatings();
+    }
     
+        // Function to open the modal and populate fields for editing
+        function openModalForEdit(ratingId, menuReview, ratingValue, reviewMessage) {
+            console.log("Opening modal for editing:", { ratingId, menuReview, ratingValue, reviewMessage });
+            
+            // Set menu selection, rating, and review message
+            document.getElementById("menuReview").value = menuReview;
+            document.getElementById("rating").value = ratingValue;
+            document.getElementById("pesanRating").value = reviewMessage;
+
+            highlightStars(ratingValue);  // Display appropriate stars
+
+            showModal();
+
+            document.getElementById("addRatingForm").dataset.editing = ratingId;
+        }
+
     
-
-
-
-    const modal = document.getElementById('ratingModal');
-    const modalContent = document.getElementById('ratingModalContent');
-  
-    // Fungsi untuk menampilkan modal
     function showModal() {
         const modal = document.getElementById('ratingModal');
         const modalContent = document.getElementById('ratingModalContent');
-
         modal.classList.remove('hidden');
         setTimeout(() => {
             modalContent.classList.remove('opacity-0', 'scale-95');
             modalContent.classList.add('opacity-100', 'scale-100');
         }, 50);
     }
-
-    // Fungsi untuk menyembunyikan modal
+    
     function hideModal() {
         const modal = document.getElementById('ratingModal');
         const modalContent = document.getElementById('ratingModalContent');
-
         modalContent.classList.remove('opacity-100', 'scale-100');
         modalContent.classList.add('opacity-0', 'scale-95');
-
         setTimeout(() => {
             modal.classList.add('hidden');
         }, 150);
     }
-  
+    
     document.getElementById("cancelButton").addEventListener("click", hideModal);
     document.getElementById("closeModalBtn").addEventListener("click", hideModal);
-
-
     function addRating() {
         const formData = new FormData(document.querySelector('#addRatingForm'));
         formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);  // Pastikan CSRF token ada
@@ -499,21 +459,12 @@ Ratings | Jogjappetite
         return false;
     }
     
-    
-
     document.getElementById("addRatingForm").addEventListener("submit", (e) => {
         e.preventDefault();
-        addRating();  // Panggil fungsi addRating via AJAX
+        addOrEditRating();
     });
-
-
-
-    function deleteRating(ratingId) {
-        // Display a confirmation dialog
-        const confirmation = confirm("Are you sure you want to delete this rating?");
-        if (!confirmation) return;
     
-        // Send an AJAX request to delete the rating
+    function deleteRating(ratingId) {
         fetch(`${ratingId}/delete/`, {
             method: 'POST',
             headers: {
@@ -524,8 +475,7 @@ Ratings | Jogjappetite
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert(data.message);
-                refreshRatings();  // Refresh the ratings after deletion
+                refreshRatings();
             } else {
                 alert('An error occurred: ' + data.message);
             }
@@ -535,76 +485,58 @@ Ratings | Jogjappetite
         });
     }
     
+    // Function to highlight stars based on rating value
+    function highlightStars(value) {
+        const stars = document.querySelectorAll(".star");
+        stars.forEach((star, index) => {
+            if (index < value) {
+                star.classList.add("text-yellow-400");
+                star.classList.remove("text-gray-400");
+            } else {
+                star.classList.remove("text-yellow-400");
+                star.classList.add("text-gray-400");
+            }
+        });
+    }
     
+    // Function to reset stars
+    function resetStars() {
+        const stars = document.querySelectorAll(".star");
+        stars.forEach(star => {
+            star.classList.remove("text-yellow-400");
+            star.classList.add("text-gray-400");
+        });
+    }
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // Initialize star rating and handling events for mouse hover, click, etc.
     document.addEventListener("DOMContentLoaded", () => {
         const stars = document.querySelectorAll(".star");
         const ratingInput = document.getElementById("rating");
     
         stars.forEach(star => {
             star.addEventListener("mouseover", () => {
-                resetStars(); // Reset all stars
+                resetStars();
                 const value = star.getAttribute("data-value");
-                highlightStars(value); // Highlight stars up to the one hovered
+                highlightStars(value);
             });
     
             star.addEventListener("click", () => {
                 const value = star.getAttribute("data-value");
-                ratingInput.value = value; // Set the hidden input value to the selected rating
+                ratingInput.value = value;
             });
     
             star.addEventListener("mouseleave", () => {
-                resetStars(); // Reset stars after mouse leaves
+                resetStars();
                 if (ratingInput.value) {
-                    highlightStars(ratingInput.value); // Re-highlight the stars up to the selected rating
+                    highlightStars(ratingInput.value);
                 }
             });
         });
-    
-        function highlightStars(value) {
-            for (let i = 0; i < value; i++) {
-                stars[i].classList.add("text-yellow-400");
-                stars[i].classList.remove("text-gray-400");
-            }
-        }
-    
-        function resetStars() {
-            stars.forEach(star => {
-                star.classList.remove("text-yellow-400");
-                star.classList.add("text-gray-400");
-            });
-        }
     });
-
     
-
-
-
-
-
-
-
-
-
-
-
-
+    // Refresh ratings on page load
+    refreshRatings();
+    
 
 
 
@@ -614,4 +546,5 @@ Ratings | Jogjappetite
 
 
 </script>
+
 {% endblock %}
