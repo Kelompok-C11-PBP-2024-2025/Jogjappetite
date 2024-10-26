@@ -12,7 +12,6 @@ import logging
 from django.http import HttpResponseForbidden
 
 
-logger = logging.getLogger(__name__)
 
 # Menampilkan ratings untuk restoran tertentu
 def get_restaurant_ratings_by_id(request, id):
@@ -182,17 +181,38 @@ def show_json(request, restaurant_id):
 
 
 def show_main_page(request):
-    # Fetch the latest ratings, you can modify the limit as needed
-    latest_ratings = Ratings.objects.order_by('-created_at')[:10]  # Or adjust the query
+    # Fetch the latest ratings, adjust the limit as needed
+    latest_ratings = Ratings.objects.order_by('-created_at')[:8]
     
+    # If the user is authenticated, fetch their ratings
+    if request.user.is_authenticated:
+        user_ratings = Ratings.objects.filter(user=request.user)
+    else:
+        user_ratings = None
+    highest_rated_restaurants = Restaurant.objects.annotate(average_rating=Avg('ratings__rating')).order_by('-average_rating')[:6]
+
     # Pass additional info like user initials and the range for stars
     context = {
         'latest_ratings': latest_ratings,
+        'user_ratings': user_ratings,  # Ratings made by the logged-in user (optional)
         'star_range': range(1, 6),  # For displaying star ratings
+        'highest_rated_restaurants': highest_rated_restaurants,  # Add highest-rated restaurants
     }
     return render(request, 'ratings_main_page.html', context)
-
 
 def restaurant_detail(request, id):
     restaurant = get_object_or_404(Restaurant, id=id)
     return render(request, 'restaurant_detail.html', {'restaurant': restaurant})
+
+
+@login_required
+def user_ratings_all(request):
+    # Fetch all ratings made by the user
+    user_ratings = Ratings.objects.filter(user=request.user)
+
+    context = {
+        'user_ratings': user_ratings,
+        'star_range': range(1, 6),  # For star rating display
+    }
+
+    return render(request, 'user_ratings_all.html', context)
