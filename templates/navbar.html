@@ -38,7 +38,7 @@
             <!-- Desktop Menu (main)-->
             <div class="hidden md:flex items-center space-x-6">
                 <a href="{% url 'ratings:show_main_page' %}" class="text-gray-800 hover:text-gray-500 font-medium">Ratings</a>
-                <a href="" class="text-gray-800 hover:text-gray-500 font-medium">Favorite</a>
+                <a href="{% url 'favorite:favorite_list_view' %}" class="text-gray-800 hover:text-gray-500 font-medium">Favorite</a>
                 {% if user_profile.user_type == 'restaurant' %}
                     <a href="{% url 'restaurant:owner_restaurant_list' %}" class="text-gray-800 hover:text-gray-500 font-medium">Add Restaurant</a>
                 {% elif user_profile.user_type == 'customer' %}
@@ -68,8 +68,8 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden backdrop-filter inset-0  w-full backdrop-blur-md bg-white bg-opacity-80 w-full px-4">
             <div class="flex flex-col items-center space-y-4 p-4">
-                <a href="" class="text-gray-800 hover:text-gray-500 font-medium">Ratings</a>
-                <a href="" class="text-gray-800 hover:text-gray-500 font-medium">Favorite</a>
+                <a href="{% url 'ratings:show_main_page' %}" class="text-gray-800 hover:text-gray-500 font-medium">Ratings</a>
+                <a href="{% url 'favorite:favorite_list_view' %}" class="text-gray-800 hover:text-gray-500 font-medium">Favorite</a>
                 {% if user_profile.user_type == 'restaurant' %}
                     <a href="{% url 'restaurant:owner_restaurant_list' %}" class="text-gray-800 hover:text-gray-500 font-medium">Add Restaurant</a>
                 {% elif user_profile.user_type == 'customer' %}
