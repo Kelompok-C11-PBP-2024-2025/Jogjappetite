@@ -23,7 +23,6 @@
             display: none;
         }
 
-        /* Tombol Bookmark Hover dan Klik */
         .bookmark-btn {
             transition: background-color 0.3s, transform 0.2s;
             background-color: #1D4ED8;
@@ -31,14 +30,13 @@
         }
 
         .bookmark-btn:hover {
-            background-color: #2563eb; /* Biru lebih terang */
+            background-color: #2563eb;
         }
 
         .bookmark-btn:active {
             transform: scale(0.95);
         }
 
-        /* Style untuk sidebar bookmark */
         .bookmark-sidebar {
             position: fixed;
             top: 0;
@@ -68,7 +66,6 @@
             right: 0;
         }
 
-        /* Style untuk pesan sukses */
         #bookmarkMessage {
             position: fixed;
             top: 20px;
@@ -81,6 +78,40 @@
             z-index: 3000;
             display: none;
         }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+        }
+
+        #menuPopup, #restaurantPopup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            z-index: 2000;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #menuPopup {
+            width: 80%;
+            max-width: 600px;
+        }
+
+        #restaurantPopup {
+            width: 50%;
+            max-width: 400px;
+        }
+
     </style>
 </head>
 <body class="pt-28">
@@ -88,13 +119,10 @@
 
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 
-    <!-- Pesan berhasil bookmark -->
     <div id="bookmarkMessage"></div>
 
-    <!-- Tombol Back -->
     <div class="container mx-auto px-4 mb-4">
         <a href="javascript:window.history.back();" class="inline-flex items-center text-gray-600 hover:text-gray-800 font-bold">
-            <!-- SVG Icon Arrow -->
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
@@ -102,7 +130,6 @@
         </a>
     </div>
 
-    <!-- Tampilkan tombol View Bookmarks jika user sudah login -->
     {% if user.is_authenticated %}
         <div class="container mx-auto text-center my-4">
             <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600" onclick="toggleBookmarkSidebar()">View Bookmarks</button>
@@ -113,13 +140,11 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 container mx-auto px-4">
         {% for menu in menus %}
-            <!-- Add data attributes to pass menu details -->
             <div class="card cursor-pointer bg-white rounded-lg shadow-lg transition-transform duration-300 hover:scale-105"
                  data-id="{{ menu.id }}"
                  data-name="{{ menu.nama_menu }}"
                  data-restaurant="{{ menu.restoran.nama_restoran }}"
                  data-price="{{ menu.harga }}"
-                 data-image-url="https://i.pinimg.com/control/474x/15/e7/55/15e7552cce3a3bab8162eec3578ae0e9.jpg"
                  onclick="expandCard(this)">
                 <img src="https://i.pinimg.com/control/474x/15/e7/55/15e7552cce3a3bab8162eec3578ae0e9.jpg" alt="{{ menu.nama_menu }}" class="w-full h-48 object-cover rounded-t-lg">
                 <div class="p-6">
@@ -129,17 +154,13 @@
                     </p>
                     <p class="text-green-500 text-xl font-bold mb-4">Rp{{ menu.harga }}</p>
 
-                    <!-- Tampilkan tombol bookmark/unbookmark hanya jika user sudah login -->
                     {% if user.is_authenticated %}
-                        <!-- Check if the menu is bookmarked by the user -->
                         {% if menu.id in user_bookmarks %}
-                            <!-- If bookmarked, show Unbookmark button -->
-                            <button id="bookmark-{{ menu.id }}" class="bg-red-500 text-white px-3 py-2 rounded-md bookmark-btn" onclick="toggleBookmark(event, {{ menu.id }})">
+                            <button id="bookmark-{{ menu.id }}" class="bg-red-500 text-white px-3 py-2 rounded-md bookmark-btn" data-id="{{ menu.id }}" onclick="toggleBookmark(event, {{ menu.id }}, false)">
                                 Unbookmark
                             </button>
                         {% else %}
-                            <!-- If not bookmarked, show Bookmark button -->
-                            <button id="bookmark-{{ menu.id }}" class="bg-blue-500 text-white px-3 py-2 rounded-md bookmark-btn" onclick="toggleBookmark(event, {{ menu.id }})">
+                            <button id="bookmark-{{ menu.id }}" class="bg-blue-500 text-white px-3 py-2 rounded-md bookmark-btn" data-id="{{ menu.id }}" onclick="toggleBookmark(event, {{ menu.id }}, false)">
                                 Bookmark
                             </button>
                         {% endif %}
@@ -148,9 +169,27 @@
             </div>
         {% endfor %}
     </div>
-    
 
-    <!-- Sidebar Bookmark -->
+    <!-- Popup for menu details -->
+    <div id="menuPopup" class="hidden">
+        <img id="popupMenuImage" class="w-48 h-48 object-cover rounded-lg mb-4" alt="Menu Image">
+        <h2 id="popupMenuName" class="text-2xl font-bold mb-4"></h2>
+        <p id="popupMenuPrice" class="text-green-500 text-xl font-bold mb-4"></p>
+        <p id="popupMenuRestaurant" class="text-gray-600 text-lg mb-4"></p>
+        <button id="viewRestaurantBtn" class="bg-blue-500 text-white px-4 py-2 rounded-md">View Restaurant Details</button>
+        <button class="bg-red-500 text-white px-4 py-2 rounded-md mt-4" onclick="closeMenuPopup()">Close</button>
+    </div>
+
+    <!-- Popup for restaurant details -->
+    <div id="restaurantPopup" class="hidden">
+        <img id="popupRestaurantImage" src="" alt="Restaurant Image" class="w-full h-48 object-cover mb-4 rounded-lg">
+        <h2 id="popupRestaurantName" class="text-2xl font-bold text-gray-800 mb-2"></h2>
+        <p id="popupRestaurantLocation" class="text-gray-600 mb-2"></p>
+        <p id="popupRestaurantSuasana" class="text-gray-600 mb-2"></p>
+        <p id="popupRestaurantAvgPrice" class="text-green-500 text-lg font-bold mb-4"></p>
+        <button class="bg-red-500 text-white px-4 py-2 rounded-md" onclick="closeRestaurantPopup()">Close</button>
+    </div>
+
     <div id="bookmarkSidebar" class="bookmark-sidebar">
         <h2 class="text-2xl font-bold text-gray-800 mb-4">Your Bookmarks</h2>
         <div id="bookmarkList" class="space-y-4">
@@ -161,9 +200,17 @@
     <div id="bookmarkOverlay" class="bookmark-overlay" onclick="toggleBookmarkSidebar()"></div>
 
     <script>
-        // Toggle bookmark asynchronously
-        function toggleBookmark(event, menuId) {
+        // Fungsi untuk toggle bookmark
+        function toggleBookmark(event, menuId, removeFromSidebar) {
             event.stopPropagation();
+
+            // Jika menuId null, ambil dari atribut data-id di elemen yang diklik
+            if (!menuId) {
+                menuId = event.target.getAttribute('data-id');  // Ambil dari data-id
+                console.log("Menu ID from data-id:", menuId);  // Debugging untuk melihat ID yang diambil
+            }
+
+            console.log("Menu ID:", menuId);  // Debugging untuk memastikan ID
             const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
             fetch(`/toggle_bookmark/${menuId}/`, {
@@ -186,13 +233,18 @@
                     bookmarkButton.textContent = "Bookmark";
                     bookmarkButton.classList.replace("bg-red-500", "bg-blue-500");
                     bookmarkMessage.textContent = "Menu removed from bookmarks!";
+
+                    if (removeFromSidebar) {
+                        const sidebarItem = document.getElementById(`sidebar-bookmark-${menuId}`);
+                        if (sidebarItem) {
+                            sidebarItem.remove();  // Hapus item dari sidebar
+                        }
+                    }
                 }
 
-                // Tampilkan pesan berhasil di UI
                 bookmarkMessage.classList.remove('hidden');
                 bookmarkMessage.style.display = 'block';
 
-                // Sembunyikan pesan setelah 3 detik
                 setTimeout(() => {
                     bookmarkMessage.classList.add('hidden');
                     bookmarkMessage.style.display = 'none';
@@ -201,24 +253,40 @@
             .catch(error => console.error('Error:', error));
         }
 
-        // Toggle bookmark sidebar
+        // Fungsi untuk menampilkan atau menyembunyikan sidebar bookmark
         function toggleBookmarkSidebar() {
             const bookmarkSidebar = document.getElementById('bookmarkSidebar');
             const bookmarkOverlay = document.getElementById('bookmarkOverlay');
 
-            // Fetch bookmark list from server jika sidebar belum terbuka
+            // Cek jika sidebar belum terbuka, lakukan fetch bookmark
             if (!bookmarkSidebar.classList.contains('open')) {
                 fetch('/get_user_bookmarks/')
                     .then(response => response.json())
                     .then(data => {
                         const bookmarkList = document.getElementById('bookmarkList');
-                        bookmarkList.innerHTML = '';  // Clear previous content
+                        bookmarkList.innerHTML = '';
 
+                        // Jika ada bookmark, tampilkan dalam sidebar
                         if (data.bookmarks.length > 0) {
                             data.bookmarks.forEach(bookmark => {
                                 const item = document.createElement('div');
+                                item.id = `sidebar-bookmark-${bookmark.id}`;  // Tambahkan ID pada elemen
+                                item.className = 'bg-white rounded-lg shadow-md p-4 mb-4';  // Styling card
                                 item.innerHTML = `
-                                    <p><strong>${bookmark.name}</strong> - ${bookmark.restaurant} - Rp${bookmark.price}</p>
+                                    <div class="flex items-center">
+                                        <img src="https://i.pinimg.com/236x/15/e7/55/15e7552cce3a3bab8162eec3578ae0e9.jpg" alt="${bookmark.name}" class="w-16 h-16 rounded-md mr-4">
+                                        <div>
+                                            <p class="text-lg font-semibold text-gray-800">${bookmark.name}</p>
+                                            <p class="text-sm text-gray-500">${bookmark.restaurant}</p>
+                                            <p class="text-green-500 font-bold">Rp${bookmark.price}</p>
+                                        </div>
+                                    </div>
+                                    <button id="bookmark-${bookmark.id}" 
+                                            class="bg-red-500 text-white px-3 py-2 rounded-md mt-4 w-full bookmark-btn" 
+                                            data-id="${bookmark.id}" 
+                                            onclick="toggleBookmark(event, ${bookmark.id}, true)">
+                                        Unbookmark
+                                    </button>
                                 `;
                                 bookmarkList.appendChild(item);
                             });
@@ -238,6 +306,60 @@
                 bookmarkOverlay.style.display = 'block';
             }
         }
+
+        // Fungsi untuk membuka popup menu
+        function expandCard(element) {
+            const menuName = element.getAttribute('data-name');
+            const menuPrice = element.getAttribute('data-price');
+            const menuRestaurant = element.getAttribute('data-restaurant');
+            
+
+            document.getElementById('popupMenuName').textContent = menuName;
+            document.getElementById('popupMenuPrice').textContent = 'Rp' + menuPrice;
+            document.getElementById('popupMenuRestaurant').textContent = 'Restaurant: ' + menuRestaurant;
+            document.getElementById('popupMenuImage').src = "https://i.pinimg.com/control/474x/15/e7/55/15e7552cce3a3bab8162eec3578ae0e9.jpg";
+
+            // Buka popup
+            document.getElementById('menuPopup').classList.remove('hidden');
+
+            // Simpan data restoran di tombol "View Restaurant Details"
+            const viewRestaurantBtn = document.getElementById('viewRestaurantBtn');
+            viewRestaurantBtn.setAttribute('data-restaurant', menuRestaurant);
+        }
+
+        // Fungsi untuk menutup popup menu
+        function closeMenuPopup() {
+            document.getElementById('menuPopup').classList.add('hidden');
+        }
+
+        // Fungsi untuk membuka popup restoran
+        function openRestaurantPopup(restaurantName) {
+            fetch(`/get_restaurant_details/${restaurantName}/`)
+                .then(response => response.json())
+                .then(data => {
+                    // Update popup restoran dengan data dari server
+                    document.getElementById('popupRestaurantName').textContent = data.nama_restoran;
+                    document.getElementById('popupRestaurantLocation').textContent = 'Location: ' + data.lokasi;
+                    document.getElementById('popupRestaurantSuasana').textContent = 'Suasana: ' + data.jenis_suasana;
+                    document.getElementById('popupRestaurantAvgPrice').textContent = 'Average Price: Rp' + data.harga_rata_rata_makanan;
+                    document.getElementById('popupRestaurantImage').src = data.gambar;
+
+                    // Buka popup restoran
+                    document.getElementById('restaurantPopup').classList.remove('hidden');
+                })
+                .catch(error => console.error('Error fetching restaurant details:', error));
+        }
+
+        // Fungsi untuk menutup popup restoran
+        function closeRestaurantPopup() {
+            document.getElementById('restaurantPopup').classList.add('hidden');
+        }
+
+        // Event listener untuk tombol "View Restaurant Details"
+        document.getElementById('viewRestaurantBtn').addEventListener('click', function() {
+            const restaurantName = this.getAttribute('data-restaurant');
+            openRestaurantPopup(restaurantName);
+        });
     </script>
 </body>
 </html>

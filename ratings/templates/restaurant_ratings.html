@@ -509,9 +509,6 @@ Ratings | Jogjappetite
 
 
     function deleteRating(ratingId) {
-        // Display a confirmation dialog
-        const confirmation = confirm("Are you sure you want to delete this rating?");
-        if (!confirmation) return;
     
         // Send an AJAX request to delete the rating
         fetch(`${ratingId}/delete/`, {
@@ -524,7 +521,6 @@ Ratings | Jogjappetite
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert(data.message);
                 refreshRatings();  // Refresh the ratings after deletion
             } else {
                 alert('An error occurred: ' + data.message);

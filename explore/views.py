@@ -21,6 +21,7 @@ def toggle_bookmark(request, menu_id):
     user = request.user
     try:
         menu = get_object_or_404(Menu, id=menu_id)
+        
     except Menu.DoesNotExist:
         print("Menu not found")  # Log jika menu tidak ditemukan
         return JsonResponse({'status': 'error', 'message': 'Menu not found'}, status=404)
@@ -83,8 +84,23 @@ def get_user_bookmarks(request):
         {
             'name': bookmark.menu.nama_menu,
             'restaurant': bookmark.menu.restoran.nama_restoran,
-            'price': bookmark.menu.harga
+            'price': bookmark.menu.harga,
+            'id': bookmark.menu.id
         }
         for bookmark in bookmarks
     ]
     return JsonResponse({'bookmarks': bookmarks_data})
+
+def get_restaurant_details(request, restaurant_name):
+    try:
+        restaurant = Restaurant.objects.get(nama_restoran=restaurant_name)
+        data = {
+            'nama_restoran': restaurant.nama_restoran,
+            'lokasi': restaurant.lokasi,
+            'jenis_suasana': restaurant.jenis_suasana,
+            'harga_rata_rata_makanan': restaurant.harga_rata_rata_makanan,
+            'gambar': restaurant.gambar
+        }
+        return JsonResponse(data)
+    except Restaurant.DoesNotExist:
+        return JsonResponse({'error': 'Restaurant not found'}, status=404)
