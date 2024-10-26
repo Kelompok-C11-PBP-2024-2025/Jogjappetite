@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<section class="container mx-auto">
+    <div class="w-full pt-32 px-5 flex justify-between items-center ">
+        <h1 class="text-md md:text-2xl font-medium mb-3">Choose Restaurants</h1>
+        <!-- Tombol Cancel -->
+        <button onclick="history.back()" class="bg-gray-600 text-white px-6 py-2 rounded shadow-md hover:bg-gray-700 transition duration-150 ease-in-out">
+            Cancel
+        </button>
+    </div>
+
+    <div class="flex flex-wrap w-full px-3 md:px-0 gap-6 mt-6">
+        {% for restaurant in restaurants %}
+            <div class="w-full sm:w-1/2 md:w-[30%] lg:w-[23%] bg-white border border-gray-200 rounded-lg shadow-lg flex flex-col justify-between dark:bg-white dark:border-slate-300">
+                <a href="{% url 'restaurant:restaurant_detail' restaurant.pk %}">
+                    <img class="rounded-t-lg w-full h-40 object-cover" src="{{ restaurant.gambar }}" alt="Restaurant Image" />
+                </a>
+                <div class="p-4 flex flex-col gap-2 flex-grow">
+                    <a href="{% url 'restaurant:restaurant_detail' restaurant.pk %}">
+                        <h5 class="mb-2 text-xl font-semibold text-gray-900 dark:text-dark overflow-hidden whitespace-nowrap text-ellipsis">{{ restaurant.nama_restoran }}</h5>
+                    </a>
+
+                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400 overflow-hidden whitespace-nowrap text-ellipsis">
+                        {{ restaurant.lokasi }}</p>
+
+                    <!-- Tombol Add to Favorite -->
+                    <div class="mt-auto flex justify-center">
+                        <button onclick="openAddFavoriteModal({{ restaurant.pk }})" class="w-full inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-2 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-700">
+                            Add This to Favorite
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Modal for adding notes -->
+<div id="addFavoriteModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-lg w-11/12 md:w-1/3 p-6">
+        <h2 class="text-lg font-semibold mb-4">Add Note</h2>
+        <textarea id="notes" class="w-full border border-gray-300 rounded-lg p-2" rows="4" placeholder="Why are you adding this restaurant to your favorite?"></textarea>
+        <input type="hidden" id="restaurantId">
+        <div class="mt-4 flex justify-end gap-2">
+            <button onclick="closeAddFavoriteModal()" class="px-4 py-2 bg-gray-600 text-white rounded-lg">Cancel</button>
+            <button onclick="submitAddToFavorite()" class="px-4 py-2 bg-green-600 text-white rounded-lg">Submit</button>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for AJAX and Modal -->
+<script>
+    function openAddFavoriteModal(restaurantId) {
+        document.getElementById('restaurantId').value = restaurantId;
+        document.getElementById('addFavoriteModal').classList.remove('hidden');
+    }
+
+    function closeAddFavoriteModal() {
+        document.getElementById('addFavoriteModal').classList.add('hidden');
+    }
+
+    function submitAddToFavorite() {
+        const restaurantId = document.getElementById('restaurantId').value;
+        const notes = document.getElementById('notes').value.trim();
+
+        if (!notes) {
+            alert('Please provide a note.');
+            return;
+        }
+
+        fetch("{% url 'favorite:add_to_favorite_ajax' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify({ 
+                restaurant_id: restaurantId, 
+                notes: notes 
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Redirect ke halaman favorite.html
+                window.location.href = data.redirect_url;
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+{% endblock content %}
