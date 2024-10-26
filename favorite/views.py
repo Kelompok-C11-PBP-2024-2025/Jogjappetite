@@ -6,21 +6,31 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
 # View untuk menampilkan daftar restoran dalam halaman favorite
+from django.db.models import Avg, Count
+
 @login_required(login_url="authentication:login")
 def show_main_favorite(request):
-    # Mengambil restoran yang ada di daftar favorit pengguna
-    favorites = Favorite.objects.filter(user=request.user)
+    # Mengambil restoran yang ada di daftar favorit pengguna dengan annotasi untuk rating
+    favorites = Favorite.objects.filter(user=request.user).select_related('restaurant').annotate(
+        average_rating=Avg('restaurant__menu__ratings__rating'),
+        rating_count=Count('restaurant__menu__ratings')
+    )
+
+    # Membuat daftar restoran beserta atribut yang diperlukan
     restaurants = [{
         'restaurant': favorite.restaurant,
         'favorite_id': favorite.id,
         'notes': favorite.notes,
-    } for favorite in favorites]  # Mengambil restoran dari favorit
+        'average_rating': favorite.average_rating or 0.0,  # Jika tidak ada rating, set nilai default ke 0.0
+        'rating_count': favorite.rating_count
+    } for favorite in favorites]
 
     context = {
         'restaurants': restaurants,
     }
 
     return render(request, 'favorite.html', context)
+
 
 @login_required(login_url="authentication:login")
 def list_all_restaurants(request):
