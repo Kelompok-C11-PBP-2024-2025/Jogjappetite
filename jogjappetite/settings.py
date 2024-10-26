@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "naira-shafiqa-jogjappetite.pbp.cs.ui.ac.id"] 
 
-
+CSRF_TRUSTED_ORIGINS = ["http://localhost","http://127.0.0.1","http://naira-shafiqa-jogjappetite.pbp.cs.ui.ac.id", "https://naira-shafiqa-jogjappetite.pbp.cs.ui.ac.id"]
 # Application definition
 
 INSTALLED_APPS = [
