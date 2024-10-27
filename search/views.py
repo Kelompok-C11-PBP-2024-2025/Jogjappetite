@@ -1,12 +1,13 @@
+from .models import SearchHistory
+from ratings.models import Menu, Restaurant
 from django.shortcuts import render, redirect
-from ratings.models import Menu,Restaurant
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import get_object_or_404
-from .models import SearchHistory
+from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-import Levenshtein
+from django.shortcuts import get_object_or_404
 from django.utils import timezone
+import Levenshtein
 
 @login_required
 def get_search_history(request):
