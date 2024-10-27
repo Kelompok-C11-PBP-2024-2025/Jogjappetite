@@ -155,3 +155,4 @@ class FavoriteViewsTest(TestCase):
 
         response = self.client.get(reverse('favorite:list_all_restaurants'))
         self.assertRedirects(response, '/auth/login/?next=/favorite/list-all-restaurants/')
+
