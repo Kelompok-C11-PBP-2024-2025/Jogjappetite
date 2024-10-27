@@ -5,13 +5,48 @@
 
 {% block meta %}
 <title>Favorite | Jogjappetite</title>
+
+<!-- CSS for header -->
+<style>
+    #typewriter-text {
+        overflow: hidden; /* Hide the overflowing text */
+        white-space: nowrap; /* Prevent line break */
+        border-right: 4px solid white; /* Create cursor effect */
+        animation: typing 4s steps(30, end), blink-caret 0.75s step-end infinite;
+        display: block; /* Treat as block to support margin auto centering */
+        width: fit-content; /* Shrink to fit content while typing */
+        margin: 0 auto; /* Center align horizontally */
+        max-width: 100%; /* Prevent overflow */
+    }
+
+    /* Animasi untuk mengetik */
+    @keyframes typing {
+        from { width: 0; }
+        to { width: 100%; }
+    }
+
+    /* Animasi untuk kedipan kursor */
+    @keyframes blink-caret {
+        from, to { border-color: transparent; }
+        50% { border-color: white; }
+    }
+
+    /* Menghilangkan kursor setelah animasi selesai */
+    #typewriter-text.typing-complete {
+        border-right: none; /* Remove cursor */
+    }
+</style>
 {% endblock meta %}
 
 {% block content %}
-<section class="container mx-auto">
-    <div class="w-full pt-32 px-5 flex flex-col items-center">
-        <h1 class="text-3xl md:text-4xl font-bold mb-1">Your Favorite Restaurants</h1>
-        <p class="text-sm md:text-md text-gray-500 mb-3">Keep track of the restaurants you love and leave the reason why</p>
+<div class="relative w-full bg-cover bg-center py-10" style="background-image: url('https://www.indonesia.travel/content/dam/indtravelrevamp/en/trip-ideas/Celebrate-eid-al-fitr-in-indonesia-with-these-10-delicious-food-s/headernew.jpg');">
+    <h1 id="typewriter-text" class="text-3xl md:text-5xl font-bold text-white text-center">Cause every Restaurant has Memories</h1>
+</div>
+
+<section class="container mx-auto mt-6">
+    <h1 class="text-md md:text-2xl font-bold mb-1 text-center">Your Favorite Restaurants</h1>
+    <p class="text-center text-gray-600 mb-4">Keep track of the restaurants you love and leave the reason why</p>
+    <div class="w-full flex justify-center">
         <a href="{% url 'favorite:list_all_restaurants' %}" class="bg-green-500 text-white px-4 py-2 rounded shadow-md hover:bg-green-600 transition duration-150 ease-in-out">
             Add Favorite Restaurant
         </a>
@@ -21,7 +56,7 @@
         {% if restaurants %}
             {% for item in restaurants %}
                 <div class="w-full sm:w-1/2 md:w-[30%] lg:w-[23%] bg-white border border-gray-200 rounded-lg shadow-lg transition-transform transform hover:scale-105 dark:bg-white dark:border-slate-300 relative">
-                    <!-- Tombol "X" untuk Menghapus -->
+                    <!-- Tombol "X" for delete -->
                     <button onclick="openDeleteModal({{ item.favorite_id }})" class="absolute top-2 right-2">
                         <img src="{% static 'image/delete-favorite.png' %}" alt="Delete" class="w-8 h-8">
                     </button>
@@ -35,7 +70,6 @@
                         </a>
 
                         <!-- Debugging favorite ID -->
-                        <!-- <p>ID Favorit: {{ item.favorite_id }}</p> Letakkan di sini -->
 
                         <div class="flex items-center justify-between -mt-3 mb-3">
                             <div class="flex items-center space-x-1 rtl:space-x-reverse">
@@ -81,6 +115,7 @@
                 </div>
             {% endfor %}
         {% else %}
+        <!-- Show Images if there is no Restaurant yet -->
         <div class="flex flex-col items-center justify-center py-16 w-full">
             <img src="{% static 'image/no-food.png' %}" alt="No food" class="w-56 mb-4">
             <p class="text-lg text-gray-600 text-center">There is no favorite restaurant yet.</p>
@@ -113,6 +148,20 @@
     </div>
 </div>
 
+<!-- Animation of Header -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const textElement = document.getElementById('typewriter-text');
+
+        // Menambahkan event listener untuk mendeteksi akhir animasi
+        textElement.addEventListener('animationend', function() {
+            // Menambahkan kelas untuk menghilangkan kursor
+            textElement.classList.add('typing-complete');
+        });
+    });
+</script>
+
+<!-- Edit notes modal -->
 <script>
     let favoriteIdToEdit;
 
@@ -152,6 +201,7 @@
     }
 </script>
 
+<!-- Delete Restaurant from Favorite list -->
 <script>
     let favoriteIdToDelete;
 

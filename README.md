@@ -140,6 +140,9 @@ Platform ini dapat memanfaatkan dataset seperti yang tersedia di Kaggle - Places
 
 [Kaggle - Places to Eat in Jogja Region](https://www.kaggle.com/datasets/yudhaislamisulistya/places-to-eat-in-the-jogja-region?resource=download)
 
+Dari data tersebut, kami menambahkan gambar pada restoran dan memisahkan data antara restoran dan makanan. Setiap restoran memiliki dua menu makanan yang diambil dari data ini. Untuk lebih lengkapnya, berikut adalah tautan ke data tersebut: 
+
+[Dataset Jogjappetite](https://docs.google.com/spreadsheets/d/e/2PACX-1vSmm_tFaR7Mjc19v8WzGaQu1ucZgURQaRw8eIsE3wdsfRevc6pBAqwhcPczueQg_MxzZozfXB-s16dH/pubhtml)
 
 ## Jenis Pengguna (Role)
 Pada aplikasi kami, terdapat tiga jenis penggunanya, yaitu:

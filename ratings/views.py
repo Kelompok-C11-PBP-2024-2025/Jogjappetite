@@ -54,27 +54,42 @@ def edit_rating(request, id, rating_id):
     rating = get_object_or_404(Ratings, id=rating_id, restaurant_review_id=id)
     restaurant = get_object_or_404(Restaurant, id=id)
 
-    # Hanya izinkan user yang membuat rating untuk mengeditnya
+    # Only allow the user who created the rating to edit it
     if request.user != rating.user:
-        return HttpResponseForbidden('You are not allowed to edit this rating.')
+        return JsonResponse({'success': False, 'message': 'You are not allowed to edit this rating.'}, status=403)
 
     if request.method == 'POST':
-        form = AddRatingForm(request.POST, instance=rating)
+        form = AddRatingForm(request.POST, instance=rating, restaurant=restaurant)
         if form.is_valid():
             form.save()
-            return redirect('ratings:get_restaurant_ratings_by_id', id=id)
+            return JsonResponse({
+                'success': True, 
+                'message': 'Your rating has been successfully updated.',
+                'updated_data': {
+                    'rating': rating.rating,
+                    'pesan_rating': rating.pesan_rating,
+                    'menu_review': rating.menu_review.nama_menu,
+                    'date': rating.created_at.strftime('%Y-%m-%d %H:%M')
+                }
+            })
+        else:
+            # Sending form errors back as JSON
+            errors = {field: error[0] for field, error in form.errors.items()}
+            return JsonResponse({'success': False, 'message': 'Please correct the errors below.', 'errors': errors}, status=400)
     else:
-        form = AddRatingForm(instance=rating)
+        # For a GET request, return the initial form data if needed for pre-filling
+        form = AddRatingForm(instance=rating, restaurant=restaurant)
+        reviewed_menus = Menu.objects.filter(restoran=restaurant)
+        return render(request, 'edit_rating.html', {
+            'form': form, 
+            'restaurant': restaurant, 
+            'rating': rating, 
+            'reviewed_menus': reviewed_menus
+        })
 
-    reviewed_menus = Menu.objects.filter(restoran=restaurant)
-    return render(request, 'edit_rating.html', {
-        'form': form, 
-        'restaurant': restaurant, 
-        'rating': rating, 
-        'reviewed_menus': reviewed_menus
-    })
 
-
+from django.core.exceptions import ValidationError
+@login_required
 @csrf_exempt 
 @require_POST  
 def add_rating_ajax(request):
@@ -83,8 +98,18 @@ def add_rating_ajax(request):
     menu_ids = request.POST.getlist('menu_review')  
     restaurant_id = request.POST.get('restaurant_id') 
 
+    # Check if any required field is missing
     if not (rating_value and pesan_rating and menu_ids and restaurant_id):
         return JsonResponse({'success': False, 'error': 'Missing fields'}, status=400)
+
+    # Validate rating_value as an integer and in the valid range
+    try:
+        rating_value = int(rating_value)
+    except (ValueError, TypeError):
+        return JsonResponse({'success': False, 'error': 'Invalid rating value'}, status=400)
+
+    if not 1 <= rating_value <= 5:
+        return JsonResponse({'success': False, 'error': 'Rating must be between 1 and 5'}, status=400)
 
     user = request.user
     if not user.is_authenticated:
@@ -113,6 +138,8 @@ def add_rating_ajax(request):
     }, status=201)
 
 
+
+
 def show_json(request, restaurant_id):
     restaurant = Restaurant.objects.get(id=restaurant_id)
     
@@ -133,9 +160,6 @@ def show_json(request, restaurant_id):
 
     return JsonResponse(data, safe=False)
 
-
-
-
 def show_main_page(request):
     latest_ratings = Ratings.objects.order_by('-created_at')[:8]
     
@@ -152,12 +176,6 @@ def show_main_page(request):
         'highest_rated_restaurants': highest_rated_restaurants,  
     }
     return render(request, 'ratings_main_page.html', context)
-
-def restaurant_detail(request, id):
-    restaurant = get_object_or_404(Restaurant, id=id)
-    return render(request, 'restaurant_detail.html', {'restaurant': restaurant})
-
-
 @login_required
 def user_ratings_all(request):
     user_ratings = Ratings.objects.filter(user=request.user)
