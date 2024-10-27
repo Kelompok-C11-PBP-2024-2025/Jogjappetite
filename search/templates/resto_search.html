@@ -1,9 +1,81 @@
 {% extends 'base.html' %}
-
+{% load humanize %}
 {% block meta %}
 <title>Resto Search | Jogjappetite</title>
 {% endblock meta %}
 
 {% block content %}
-{% include 'search_bar.html' %}
+<section class="container mx-auto max-w-screen-xl">
+    {% if found == 2 %}
+        <h1 class="text-md md:text-2xl font-medium mb-3">Search Result for {{ search }}</h1>
+    {% elif found == 1 %}
+        <h1 class="text-md md:text-2xl font-medium mb-3">Can't Find Any Restaurant for {{ search }}</h1>
+        <h1 class="text-md md:text-2xl font-medium mb-3">Our Recommendation for You</h1>
+    {% elif found == 0 %}
+        <h1 class="text-md md:text-2xl font-medium mb-3">No Restaurant Found for {{ search }}</h1>
+    {% elif found == -1 %}
+        <h1 class="text-md md:text-2xl font-medium mb-3">No Restaurant Found</h1>
+    {% endif %}
+
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="flex flex-wrap w-full px-8 md:px-0 gap-6 mt-6">
+    {% for restaurant in restaurants %}
+    <div class="w-full sm:w-1/2 md:w-[30%] lg:w-[23%] bg-white border border-gray-200 rounded-lg shadow-lg transition-transform transform hover:scale-105 dark:bg-white dark:border-slate-300">
+        <div>
+            <img class="rounded-t-lg w-full h-40 object-cover" src="{{ restaurant.gambar }}" alt="Restaurant Image" />
+        </div>
+        <div class="p-4 flex flex-col gap-2">
+            <div>
+                <h5 class="mb-2 text-xl font-semibold text-gray-900 dark:text-dark overflow-hidden whitespace-nowrap text-ellipsis">{{ restaurant.nama_restoran }}</h5>
+            </div>
+            
+            <div class="flex items-center justify-between -mt-3 mb-3">
+                <div class="flex items-center space-x-1 rtl:space-x-reverse">
+                    {% with restaurant.average_rating as avg_rating %}
+                    {% for i in "12345"|make_list %}
+                    {% if i|add:0 <= avg_rating %}
+                    <svg class="w-5 h-5 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                    {% elif i|add:0 == avg_rating %}
+                    <svg class="w-5 h-5 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                    {% else %}
+                    <svg class="w-5 h-5 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                    </svg>
+                    {% endif %}
+                    {% endfor %}
+                    {% endwith %}
+                    <p class="ml-1 text-sm font-medium text-gray-500 dark:text-gray-400">({{ restaurant.average_rating|default:"0.0" }})</p>
+                </div>
+                <div>
+                    <p class="ml-1 text-sm font-medium text-gray-500 dark:text-gray-400">{{ restaurant.rating_count }} reviews</p>
+                </div>
+            </div>
+            
+            <div class="flex justify-between -mt-3">
+                <span class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ restaurant.ayce_atau_alacarte }}</span>
+                <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Rp.{{ restaurant.harga_rata_rata_makanan|intcomma }}</span>
+            </div>
+            <p class="text-sm font-medium text-gray-500 flex items-center dark:text-gray-400 overflow-hidden whitespace-nowrap text-ellipsis">
+                {{ restaurant.lokasi }}</p>
+            <a class="inline-flex items-center w-full justify-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-2 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-700"
+            href="{% url 'ratings:get_restaurant_ratings_by_id' restaurant.id %}">
+                Read more
+                <svg class="rtl:rotate-180 w-4 h-4 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+</section>
 {% endblock content %}

@@ -23,8 +23,10 @@
         {% elif found == 1 %}
             <h1 class="text-3xl font-bold mb-6">Can't Find Anything for {{ search }}</h1>
             <h1 class="text-3xl font-bold mb-6">Our Recommendation for You</h1>
-        {% else %}
+        {% elif found == 0 %}
             <h1 class="text-3xl font-bold mb-6">No Result Found for {{ search }}</h1>
+        {% elif found == -1 %}
+            <h1 class="text-3xl font-bold mb-6">No Result Found</h1>
         {% endif %}
         <!-- Results Section -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 container mx-auto px-4">
