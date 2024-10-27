@@ -1,12 +1,13 @@
+from .models import SearchHistory
+from ratings.models import Menu, Restaurant
 from django.shortcuts import render, redirect
-from ratings.models import Menu,Restaurant
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import get_object_or_404
-from .models import SearchHistory
+from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-import Levenshtein
+from django.shortcuts import get_object_or_404
 from django.utils import timezone
+import Levenshtein
 
 @login_required
 def get_search_history(request):
@@ -91,6 +92,7 @@ def food_search(request):
                 found = 0
         else:
             matching_menus = []
+            found = -1
 
         context = {
             'menus': matching_menus,
@@ -107,35 +109,47 @@ def resto_search(request):
         search = request.GET.get('search_query', '').strip().lower()
         if search:
             all_restaurants = Restaurant.objects.all()
-            matching_restaurants = []
-
-            # Split the search query into individual words
-            query_words = search.split()
+            matching_restaurants = list(Restaurant.objects.filter(nama_restoran__icontains=search))
+            found = 2
 
             for restaurant in all_restaurants:
-                # Split the restaurant name into individual words
-                restaurant_words = restaurant.name.lower().split()
+                distance = Levenshtein.distance(search.lower(), restaurant.nama_restoran.lower())
+                if distance <= max(1, len(search) / 3):
+                    matching_restaurants.append(restaurant)
 
-                # Check for close matches between query words and restaurant words
-                found_match = False
-                for query_word in query_words:
-                    for restaurant_word in restaurant_words:
-                        distance = Levenshtein.distance(query_word, restaurant_word)
-                        if distance <= 3:  # Adjust threshold as needed
-                            matching_restaurants.append(restaurant)
-                            found_match = True
+            if matching_restaurants == []:
+                found = 1
+                query_words = search.split()
+
+                for restaurant in all_restaurants:
+                    restaurant_words = restaurant.nama_restoran.lower().split()
+
+                    found_match = False
+                    for query_word in query_words:
+                        if len(query_word) == 1:
+                            continue
+                        for restaurant_word in restaurant_words:
+                            if len(restaurant_word) == 1:
+                                continue
+                            distance = Levenshtein.distance(query_word, restaurant_word)
+                            if distance <= max(1, len(query_word) / 2 - 1):
+                                matching_restaurants.append(restaurant)
+                                found_match = True
+                                break
+                        if found_match:
                             break
-                    if found_match:
-                        break
 
-            # Remove duplicates if any were added multiple times
             matching_restaurants = list(set(matching_restaurants))
+            if matching_restaurants == []:
+                found = 0
         else:
             matching_restaurants = []
+            found = -1
 
         context = {
             'restaurants': matching_restaurants,
-            'search': search
+            'search': search,
+            'found': found
         }
 
         return render(request, 'resto_search.html', context)
