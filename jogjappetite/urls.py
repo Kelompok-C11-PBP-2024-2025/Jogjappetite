@@ -22,8 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('ratings/', include('ratings.urls')),   # Mengarahkan ke URLs di aplikasi 'ratings'
     path('favorite/', include('favorite.urls')),  # Mengarahkan URLs di aplikasi 'favorite'
-     path('restaurant/', include('restaurant.urls')), # mengarahkan ke URLs di aplikasi 'restaurant'
-
+    path('restaurant/', include('restaurant.urls')), # mengarahkan ke URLs di aplikasi 'restaurant'
+    path('search/', include('search.urls')),  # Mengarahkan ke URLs di aplikasi 'search'
     path('', include('explore.urls')),  
     path('auth/', include('authentication.urls')),
 ]

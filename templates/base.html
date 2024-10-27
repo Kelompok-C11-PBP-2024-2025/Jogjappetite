@@ -12,8 +12,10 @@
 
 <body>
     {% include "navbar.html" %}
-    {% block content %}
-    {% endblock content %}
+    <div class="pt-24 md:pt-18"> <!-- Adjust this padding-top value to match the navbar height -->
+        {% block content %}{% endblock %}
+    </div>
+    {% comment %} {% include "footer.html" %} {% endcomment %}
 </body>
 {% block script %}
 {% endblock script %}

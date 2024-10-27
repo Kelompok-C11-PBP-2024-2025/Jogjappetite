@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'ratings',
     'explore',
+    'search',
     'authentication',
     'favorite',
     'restaurant'

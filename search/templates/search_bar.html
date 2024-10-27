@@ -1,0 +1,278 @@
+<form method="GET" class="max-w-md mx-auto" data-user-is-authenticated="{{ request.user.is_authenticated }}">
+    <!-- Label for Screen Readers -->
+    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+
+    <!-- Container for Search Input and Buttons -->
+    <div class="relative flex items-center bg-gray-100 rounded-lg p-1 px-2 space-x-2">
+        <!-- Search Icon -->
+        <div class="flex items-center ps-3 pointer-events-none">
+            <svg class="w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+            </svg>
+        </div>
+
+        <!-- Search Input -->
+        <input type="search" id="default-search" name="search_query" placeholder="Search Foods or Restos..." required
+            class="w-full p-2 text-sm text-gray-900 border border-transparent rounded-lg bg-gray-100 focus:ring-blue-500 focus:border-blue-500 bg-gray-100 placeholder-gray-700 text-red-800"
+            autocomplete="off" onfocus="showSearchHistory()" onblur="hideSearchHistory()" />
+
+        <!-- Search History Container with Updated Styles -->
+        <div id="search-history" 
+            class="absolute top-full left-0 w-full bg-white text-black mt-1 rounded-lg shadow-lg z-50 hidden"
+            style="width: 100%; max-width: inherit; border: 1px solid #ddd;" 
+            data-delete-url="{% url 'search:delete_search_history' 0 %}">
+            {% for history in user_history %}
+                <div class="flex items-center justify-between p-3 hover:bg-gray-200 cursor-pointer border-b last:border-b-0"
+                    onclick="selectHistory('{{ history.query }}')" 
+                    data-history-id="{{ history.id }}">
+                    <span>{{ history.query }}</span>
+                    <button class="text-red-500 ml-2" onclick="deleteHistory(event, '{{ history.id }}')" type="button">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Food Search Button (Icon Only) -->
+        <button type="submit" formaction="{% url 'search:food_search' %}" 
+                class="flex items-center justify-center p-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800">
+            <!-- Food Icon -->
+            <div class="icon-wrapper">
+                <i id="foodIcon" class="fa-solid fa-drumstick-bite w-4 h-4 icon active"></i>
+            </div>
+        </button>
+        
+        <!-- Resto Search Button (Icon Only) -->
+        <button type="submit" formaction="{% url 'search:resto_search' %}" 
+                class="flex items-center justify-center p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+            <!-- Resto Icon -->
+            <i class="fa-solid fa-utensils w-4 h-4"></i>
+        </button>
+
+    </div>
+</form>
+
+<!-- JavaScript to Rotate Icons -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Array of Font Awesome classes for the food icons
+        const icons = [
+            'fa-solid fa-drumstick-bite',
+            'fa-solid fa-burger',
+            'fa-solid fa-mug-hot',
+            'fa-solid fa-pizza-slice',
+            'fa-solid fa-bread-slice',
+            'fa-solid fa-ice-cream',
+            'fa-solid fa-hotdog',
+            'fa-solid fa-martini-glass',
+            'fa-solid fa-shrimp'
+        ];
+
+        let currentIndex = 0;
+        const iconWrapper = document.querySelector('.icon-wrapper');
+        let currentIcon = document.getElementById('foodIcon');
+
+        function rotateIcon() {
+            // Create a new icon element
+            let newIcon = document.createElement('i');
+            newIcon.className = icons[(currentIndex + 1) % icons.length] + ' w-4 h-4 icon in';
+
+            // Append the new icon to the wrapper
+            iconWrapper.appendChild(newIcon);
+
+            // Start animation for current and new icon
+            currentIcon.classList.remove('active');
+            currentIcon.classList.add('out');
+            
+            // Delay setting the new icon to active to allow for smoother transition
+            setTimeout(() => {
+                currentIcon.remove(); // Remove the old icon
+                newIcon.classList.remove('in');
+                newIcon.classList.add('active');
+
+                // Update the reference to currentIcon
+                currentIcon = newIcon;
+            }, 500);
+
+            // Update index
+            currentIndex = (currentIndex + 1) % icons.length;
+        }
+
+        // Run the icon rotation when the page is loaded
+        setInterval(rotateIcon, 2000); // Adjust the interval as needed for smoother appearance
+    });
+
+    // Search History Dropdown
+    function showSearchHistory() {
+        fetchSearchHistory(); // Fetch and update search history before showing
+        const historyElement = document.getElementById('search-history');
+        historyElement.style.transition = 'opacity 0.2s ease-in-out';
+        historyElement.classList.remove('hidden');
+        historyElement.style.opacity = '1';    }
+
+    function hideSearchHistory() {
+        const historyElement = document.getElementById('search-history');
+        setTimeout(() => {
+            if (!document.activeElement.closest('#search-history')) {
+                historyElement.style.opacity = '0'; // Fade out effect
+                setTimeout(() => historyElement.classList.add('hidden'), 200); // Delay hiding
+            }
+        }, 200);
+    }
+
+    function selectHistory(query) {
+        // Set the input value to the selected history query and hide the dropdown
+        const searchInput = document.getElementById('default-search');
+        searchInput.value = query;
+
+        // Keep the dropdown visible until the user interacts otherwise (e.g., clicks away)
+        hideSearchHistory(); 
+    }
+
+    function deleteHistory(event, historyId) {
+        event.stopPropagation(); // Prevent the click from interacting with other elements
+        event.preventDefault(); // Prevent any default behavior
+
+        // Retrieve the delete URL dynamically from the button's data attribute
+        const deleteButton = event.currentTarget;
+        const deleteUrl = deleteButton.getAttribute('data-delete-url');
+
+        // Send AJAX request to delete the history
+        fetch(deleteUrl, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Remove the deleted history item from the UI
+                const historyItem = document.querySelector(`[data-history-id="${historyId}"]`);
+                if (historyItem) {
+                    historyItem.remove();
+                }
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    document.querySelectorAll('button[type="submit"]').forEach(button => {
+        button.addEventListener('click', function(event) {
+            // Prevent immediate form submission
+            event.preventDefault();
+
+            // Get the search query
+            const searchQuery = document.getElementById('default-search').value.trim();
+
+            // Reference to the form and the intended action
+            const form = this.closest('form');
+            const action = this.getAttribute('formaction'); // Get the button's formaction
+
+            // Check if the user is authenticated using the data attribute
+            const isAuthenticated = form.getAttribute('data-user-is-authenticated') === 'True';
+
+            if (searchQuery) {
+                if (isAuthenticated) {
+                // Save search history only if the user is logged in
+                fetch(`/search/save-search/?search_query=${searchQuery}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        fetchSearchHistory();
+                        form.setAttribute('action', action);
+                        form.submit();
+                        } else {
+                            console.error('Error saving search history:', data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                } else {
+                    // Directly submit the form if the user is not authenticated
+                    form.setAttribute('action', action);
+                    form.submit();
+                }
+            } else {
+                // If no search query, directly set the action and submit
+                form.setAttribute('action', action);
+                form.submit();
+            }
+        });
+    });
+
+    // Function to dynamically fetch and update search history
+    function fetchSearchHistory() {
+        fetch('/search/get-search-history/', {
+            method: 'GET',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const searchHistoryContainer = document.getElementById('search-history');
+                searchHistoryContainer.innerHTML = ''; // Clear existing history
+
+                // Re-populate with updated history
+                const deleteUrlTemplate = searchHistoryContainer.getAttribute('data-delete-url'); // Get base delete URL
+                data.history.forEach(history => {
+                    const historyDiv = document.createElement('div');
+                    historyDiv.classList.add('flex', 'items-center', 'justify-between', 'p-3', 'hover:bg-gray-200', 'cursor-pointer', 'border-b', 'last:border-b-0');
+                    historyDiv.setAttribute('onclick', `selectHistory('${history.query}')`);
+                    historyDiv.setAttribute('data-history-id', history.id);
+
+                    const historySpan = document.createElement('span');
+                    historySpan.innerText = history.query;
+
+                    const deleteButton = document.createElement('button');
+                    deleteButton.classList.add('text-red-500', 'ml-2');
+                    deleteButton.setAttribute('type', 'button'); // Ensure it's not a submit button
+                    deleteButton.setAttribute('onclick', `deleteHistory(event, '${history.id}')`);
+
+                    // Generate the correct delete URL using the template
+                    const deleteUrl = deleteUrlTemplate.replace('0', history.id);
+                    deleteButton.setAttribute('data-delete-url', deleteUrl);
+
+                    const deleteIcon = document.createElement('i');
+                    deleteIcon.classList.add('fas', 'fa-times');
+                    deleteButton.appendChild(deleteIcon);
+
+                    historyDiv.appendChild(historySpan);
+                    historyDiv.appendChild(deleteButton);
+                    searchHistoryContainer.appendChild(historyDiv);                });
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching search history:', error);
+        });
+    }
+
+    // Function to get CSRF token from cookies
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
