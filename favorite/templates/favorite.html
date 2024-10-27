@@ -5,13 +5,46 @@
 
 {% block meta %}
 <title>Favorite | Jogjappetite</title>
+<style>
+    #typewriter-text {
+        overflow: hidden; /* Hide the overflowing text */
+        white-space: nowrap; /* Prevent line break */
+        border-right: 4px solid white; /* Create cursor effect */
+        animation: typing 4s steps(30, end), blink-caret 0.75s step-end infinite;
+        display: block; /* Treat as block to support margin auto centering */
+        width: fit-content; /* Shrink to fit content while typing */
+        margin: 0 auto; /* Center align horizontally */
+        max-width: 100%; /* Prevent overflow */
+    }
+
+    /* Animasi untuk mengetik */
+    @keyframes typing {
+        from { width: 0; }
+        to { width: 100%; }
+    }
+
+    /* Animasi untuk kedipan kursor */
+    @keyframes blink-caret {
+        from, to { border-color: transparent; }
+        50% { border-color: white; }
+    }
+
+    /* Menghilangkan kursor setelah animasi selesai */
+    #typewriter-text.typing-complete {
+        border-right: none; /* Remove cursor */
+    }
+</style>
 {% endblock meta %}
 
 {% block content %}
-<section class="container mx-auto">
-    <div class="w-full pt-32 px-5 flex flex-col items-center">
-        <h1 class="text-3xl md:text-4xl font-bold mb-1">Your Favorite Restaurants</h1>
-        <p class="text-sm md:text-md text-gray-500 mb-3">Keep track of the restaurants you love and leave the reason why</p>
+<div class="relative w-full bg-cover bg-center py-10" style="background-image: url('https://www.indonesia.travel/content/dam/indtravelrevamp/en/trip-ideas/Celebrate-eid-al-fitr-in-indonesia-with-these-10-delicious-food-s/headernew.jpg');">
+    <h1 id="typewriter-text" class="text-3xl md:text-5xl font-bold text-white text-center">Cause every Restaurant has Memories</h1>
+</div>
+
+<section class="container mx-auto mt-6">
+    <h1 class="text-md md:text-2xl font-bold mb-1 text-center">Your Favorite Restaurants</h1>
+    <p class="text-center text-gray-600 mb-4">Keep track of the restaurants you love and leave the reason why</p>
+    <div class="w-full flex justify-center">
         <a href="{% url 'favorite:list_all_restaurants' %}" class="bg-green-500 text-white px-4 py-2 rounded shadow-md hover:bg-green-600 transition duration-150 ease-in-out">
             Add Favorite Restaurant
         </a>
@@ -112,6 +145,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const textElement = document.getElementById('typewriter-text');
+
+        // Menambahkan event listener untuk mendeteksi akhir animasi
+        textElement.addEventListener('animationend', function() {
+            // Menambahkan kelas untuk menghilangkan kursor
+            textElement.classList.add('typing-complete');
+        });
+    });
+</script>
 
 <script>
     let favoriteIdToEdit;
