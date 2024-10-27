@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from ratings.models import Restaurant
 from favorite.models import Favorite
-import json  # Tambahkan impor ini
+import json
 
 class FavoriteTests(TestCase):
     def setUp(self):
