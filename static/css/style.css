@@ -38,3 +38,20 @@ body {
 .animate-pulse {
     animation: pulse 1.5s infinite;
 }
+
+#typewriter-text {
+    overflow: hidden; /* Hide the overflowing text */
+    white-space: nowrap; /* Prevent line break */
+    border-right: 4px solid white; /* Create cursor effect */
+    animation: typing 4s steps(30, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: white; }
+}
