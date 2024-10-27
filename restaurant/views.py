@@ -10,7 +10,6 @@ from .decorators import user_is_owner, user_is_customer
 from django.http import JsonResponse
 
 
-
 @login_required
 @user_is_customer
 def customer_restaurant_list(request):
