@@ -163,13 +163,6 @@ Ratings | Jogjappetite
       <h3 class="text-xl font-semibold text-gray-900">
         Add New Rating
       </h3>
-
-
-
-
-
-
-
       <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" id="closeModalBtn">
         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -242,22 +235,86 @@ Ratings | Jogjappetite
 
 
 
+<div id="editRatingModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-800 bg-opacity-50 overflow-x-hidden overflow-y-auto transition-opacity duration-300 ease-out">
+    <div id="editRatingModalContent" class="relative bg-white rounded-lg shadow-lg w-5/6 sm:w-3/4 md:w-1/2 lg:w-1/3 mx-4 sm:mx-0 transform scale-95 opacity-0 transition-transform transition-opacity duration-300 ease-out">
+      <!-- Modal header -->
+      <div class="flex items-center justify-between p-4 border-b rounded-t">
+        <h3 class="text-xl font-semibold text-gray-900">
+          Edit Rating
+        </h3>
+        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" id="closeEditModalBtn">
+          <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <!-- Modal body -->
+      <div class="px-6 py-4 space-y-6 form-style">
+          <form id="editRatingForm" method="POST">
+              {% csrf_token %}
+              <!-- Menu Review (Dropdown) -->
+              <div class="mb-4">
+                  <label for="menuReview" class="block text-sm font-medium text-gray-700">What menu did you try?</label>
+                  
+                  <select id="menuReview" name="menu_review" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-red-700" required>
+                      {% for menu in reviewed_menus %}
+                      <option value="{{ menu.id }}">{{ menu.nama_menu }}</option>
+                      {% endfor %}
+                  </select>
+              </div>
+          
+              <!-- Star Rating (1-5) -->
+            <div class="mb-4">
+                <label for="rating-edit" class="block text-sm font-medium text-gray-700">How would you rate your experience?</label>
+                <div class="flex items-center space-x-2" id="star-rating-edit">
+                    <input type="hidden" id="rating-edit" name="rating" required>
+                    
+                    <!-- Individual star elements -->
+                    <svg class="star w-8 h-8 text-gray-400 cursor-pointer" data-value="1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                    <svg class="star w-8 h-8 text-gray-400 cursor-pointer" data-value="2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                    <svg class="star w-8 h-8 text-gray-400 cursor-pointer" data-value="3" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                    <svg class="star w-8 h-8 text-gray-400 cursor-pointer" data-value="4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                    <svg class="star w-8 h-8 text-gray-400 cursor-pointer" data-value="5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                </div>
+            </div>
 
-
-
-
-
-
-
-
-
-
-
-
+          
+              <!-- Pesan Rating (Textarea) -->
+              <div class="mb-4">
+                  <label for="pesanRating" class="block text-sm font-medium text-gray-700">Review Message</label>
+                  <textarea id="pesanRating" name="pesan_rating" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-red-700" placeholder="Write your review here" required></textarea>
+              </div>
+          
+              <!-- Submit Button -->
+              <div class="mb-4">
+                  <button type="submit" class="w-full bg-red-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-red-700 transition duration-300">
+                      Submit Changes
+                  </button>
+              </div>
+          </form>
+  
+        </div>
+        
+      <!-- Modal footer -->
+      <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2 p-6 border-t border-gray-200 rounded-b justify-center md:justify-end">
+        <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg" id="cancelEditButton">Cancel</button>
+      </div>
+    </div>
+  </div>
 
 
 <div class="flex justify-between items-center mt-4">
-    <!-- Previous button: only show if the current restaurant is not the first one -->
     {% if restaurant.id > 1 %}
     <a href="{% url 'ratings:get_restaurant_ratings_by_id' restaurant.id|add:-1 %}" class="btn bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out">
         &lt; Previous
@@ -266,7 +323,6 @@ Ratings | Jogjappetite
     <button class="btn bg-gray-300 text-white font-bold py-2 px-4 rounded" disabled>&lt; Previous</button>
     {% endif %}
     
-    <!-- Next button: simply add +1 to the restaurant id -->
     <a href="{% url 'ratings:get_restaurant_ratings_by_id' restaurant.id|add:1 %}" class="btn bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out">
         Next &gt;
     </a>
@@ -302,7 +358,7 @@ Ratings | Jogjappetite
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            return await response.json();  // Mengembalikan hasil JSON
+            return await response.json(); 
         }
 
     
@@ -313,13 +369,12 @@ Ratings | Jogjappetite
             document.getElementById("rating_cards").className = "";
         
             try {
-                const customerRatings = await getRatings();  // Ambil data dari API JSON
-                console.log(customerRatings);  // Log untuk melihat data JSON di konsol
+                const customerRatings = await getRatings(); 
+                console.log(customerRatings);  
         
                 let htmlString = "";
                 let classNameString = "";
         
-                // Get the logged-in user's username (passed from Django)
                 const loggedInUser = "{{ request.user.username }}";
                 const isAuthenticated = "{{ request.user.is_authenticated }}";
 
@@ -329,36 +384,30 @@ Ratings | Jogjappetite
                     classNameString = "flex justify-center items-center h-40 bg-gray-100 rounded-lg shadow-md p-4 mx-4 mb-6";
                     htmlString = "<p>No ratings available.</p>";
                 } else {
-                    classNameString = "space-y-4";  // Tambahkan spasi antar item
+                    classNameString = "space-y-4";  
         
                     customerRatings.forEach((item) => {
-                        // Dapatkan inisial dari user atau default '?'
                         const initials = item.user_initials || '?';  
                         
-                        // Dapatkan username dari user atau default 'Anonymous'
                         const username = item.username || 'Anonymous';  
                         
-                        // Rating, pesan, dan tanggal
                         const rating = item.rating || 0;
                         const pesanRating = item.pesan_rating || 'No message provided.';
                         const date = item.created_at || 'Unknown date';
                         const menu_review = item.menu_review || 'Menu not specified'; // Additional menu information
         
-                        // Check if the logged-in user is the owner of this rating
                         const canEditOrDelete = isAuthenticated && loggedInUser === username;
                         
                                         
 
         
-                        // Conditionally display Edit and Delete buttons
                         const editButton = canEditOrDelete ? `
-                            <a href="${item.id}/edit/" 
-                            class="border border-blue-500 text-blue-500 font-semibold py-1 px-3 rounded-full transition duration-200 ease-in-out hover:bg-blue-50 flex items-center space-x-2">
-                                    
-                                <img src="{% static 'image/edit_logo.svg' %}" alt="Edit Icon" class="w-4 h-4 inline" />
-                                <span>Edit</span>
-
-                            </a>` : '';
+                        <a onclick="showEditModal('${item.id}', '${item.menu_review.id}', '${item.rating}', '${item.pesan_rating}');"
+                           class="border border-blue-500 text-blue-500 font-semibold py-1 px-3 rounded-full transition duration-200 ease-in-out hover:bg-blue-50 flex items-center space-x-2">
+                            <img src="{% static 'image/edit_logo.svg' %}" alt="Edit Icon" class="w-4 h-4 inline" />
+                            <span>Edit</span>
+                        </a>` : '';
+                    
         
                         const deleteButton = canEditOrDelete ? `
                             <a href="" onclick="event.preventDefault(); deleteRating(${item.id});" 
@@ -367,7 +416,6 @@ Ratings | Jogjappetite
                                 <span>Delete</span>
                             </a>` : '';
 
-                                // Generate stars based on rating value using a for loop
 
                         const fullStars = `<svg class="w-6 h-6 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
                                 <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
@@ -381,7 +429,7 @@ Ratings | Jogjappetite
         
                         // Membuat HTML untuk setiap rating
                         htmlString += `
-                        <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-4 mx-1">
+                        <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-4 mx-4">
                             <div class="flex items-start">
                                 <!-- Profile with initials -->
                                 <div class="flex-shrink-0">
@@ -427,21 +475,9 @@ Ratings | Jogjappetite
                         </div>
                     `;
                     
-
-
-
-
-
-
-
-
-
-
-
                     });
                 }
         
-                // Perbarui kelas dan HTML elemen rating_cards
                 document.getElementById("rating_cards").className = classNameString;
                 document.getElementById("rating_cards").innerHTML = htmlString;
         
@@ -450,17 +486,9 @@ Ratings | Jogjappetite
             }
         }
         
-    // Jalankan refreshRatings untuk memperbarui tampilan rating
     refreshRatings();
     
-    
 
-
-
-    const modal = document.getElementById('ratingModal');
-    const modalContent = document.getElementById('ratingModalContent');
-  
-    // Fungsi untuk menampilkan modal
     function showModal() {
         const modal = document.getElementById('ratingModal');
         const modalContent = document.getElementById('ratingModalContent');
@@ -472,7 +500,6 @@ Ratings | Jogjappetite
         }, 50);
     }
 
-    // Fungsi untuk menyembunyikan modal
     function hideModal() {
         const modal = document.getElementById('ratingModal');
         const modalContent = document.getElementById('ratingModalContent');
@@ -491,14 +518,14 @@ Ratings | Jogjappetite
 
     function addRating() {
         const formData = new FormData(document.querySelector('#addRatingForm'));
-        formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);  // Pastikan CSRF token ada
-        formData.append('restaurant_id', {{ restaurant.id }});  // Tambahkan restaurant_id ke form data
+        formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);  
+        formData.append('restaurant_id', {{ restaurant.id }});  
     
         fetch("{% url 'ratings:add_rating_ajax' %}", {
             method: "POST",
             body: formData,
             headers: {
-                'X-Requested-With': 'XMLHttpRequest',  // Menandakan ini adalah request AJAX
+                'X-Requested-With': 'XMLHttpRequest',  
             }
         })
         .then(response => {
@@ -508,7 +535,7 @@ Ratings | Jogjappetite
             return response.json();
         })
         .then(data => {
-            refreshRatings();  // Update daftar ratings setelah sukses
+            refreshRatings();  
         })
         .catch(error => {
             console.error('Fetch error:', error);
@@ -524,14 +551,13 @@ Ratings | Jogjappetite
 
     document.getElementById("addRatingForm").addEventListener("submit", (e) => {
         e.preventDefault();
-        addRating();  // Panggil fungsi addRating via AJAX
+        addRating(); 
     });
 
 
 
     function deleteRating(ratingId) {
     
-        // Send an AJAX request to delete the rating
         fetch(`${ratingId}/delete/`, {
             method: 'POST',
             headers: {
@@ -552,23 +578,6 @@ Ratings | Jogjappetite
         });
     }
     
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     document.addEventListener("DOMContentLoaded", () => {
         const stars = document.querySelectorAll(".star");
@@ -576,20 +585,20 @@ Ratings | Jogjappetite
     
         stars.forEach(star => {
             star.addEventListener("mouseover", () => {
-                resetStars(); // Reset all stars
+                resetStars();
                 const value = star.getAttribute("data-value");
-                highlightStars(value); // Highlight stars up to the one hovered
+                highlightStars(value); 
             });
     
             star.addEventListener("click", () => {
                 const value = star.getAttribute("data-value");
-                ratingInput.value = value; // Set the hidden input value to the selected rating
+                ratingInput.value = value; 
             });
     
             star.addEventListener("mouseleave", () => {
-                resetStars(); // Reset stars after mouse leaves
+                resetStars(); 
                 if (ratingInput.value) {
-                    highlightStars(ratingInput.value); // Re-highlight the stars up to the selected rating
+                    highlightStars(ratingInput.value); 
                 }
             });
         });
@@ -609,28 +618,182 @@ Ratings | Jogjappetite
         }
     });
 
-    
 
-
-
-
-
-
-
-
-
-
-
-// Function to format a number as Indonesian Rupiah
 function formatRupiah(number) {
     return 'Rp ' + Number(number).toLocaleString('id-ID');
 }
 
-// Select the price element
 const priceElement = document.getElementById('price');
 
-// Format the text content of the price element
 priceElement.textContent = formatRupiah(priceElement.textContent);
+
+
+
+
+
+
+function showEditModal(ratingId, menuReviewId, ratingValue, reviewMessage) {
+    console.log(ratingId)
+    const editModal = document.getElementById('editRatingModal');
+    const editModalContent = document.getElementById('editRatingModalContent');
+
+    document.getElementById('editRatingForm').rating.value = ratingValue;
+    const editForm = document.getElementById('editRatingForm');
+    editForm.dataset.ratingId = ratingId; //
+
+    const editStars = document.querySelectorAll('#star-rating-edit .star');
+    const ratingInput = document.getElementById('rating-edit');
+
+
+    document.getElementById('editRatingForm').menu_review.value = menuReviewId;
+    document.getElementById('editRatingForm').pesan_rating.value = reviewMessage;
+
+    editModal.classList.remove('hidden');
+    setTimeout(() => {
+        editModalContent.classList.remove('opacity-0', 'scale-95');
+        editModalContent.classList.add('opacity-100', 'scale-100');
+    }, 50);
+}
+
+  
+  function hideEditModal() {
+    const editModal = document.getElementById('editRatingModal');
+    const editModalContent = document.getElementById('editRatingModalContent');
+  
+    editModalContent.classList.remove('opacity-100', 'scale-100');
+    editModalContent.classList.add('opacity-0', 'scale-95');
+  
+    setTimeout(() => {
+        editModal.classList.add('hidden');
+    }, 150);
+  }
+  
+  
+  document.getElementById("cancelEditButton").addEventListener("click", hideEditModal);
+  document.getElementById("closeEditModalBtn").addEventListener("click", hideEditModal);
+  
+  
+  function editRating() {
+    const editForm = document.getElementById('editRatingForm');
+    const ratingId = editForm.dataset.ratingId; 
+
+    const formData = new FormData(editForm);
+    formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+
+    fetch(`/ratings/restaurants/${restaurantId}/${ratingId}/edit/`, {
+        method: "POST",
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest' 
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            refreshRatings(); 
+            hideEditModal(); 
+        } else {
+            alert('Error updating rating: ' + data.message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
+  document.getElementById("editRatingForm").addEventListener("submit", function(e) {
+    e.preventDefault();    
+    editRating();  
+});
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const editStarContainer = document.getElementById("star-rating-edit");
+    const editRatingInput = document.getElementById("rating-edit");
+    
+    if (editStarContainer) {
+        const editStars = editStarContainer.querySelectorAll(".star");
+
+        editStars.forEach(star => {
+            star.addEventListener("mouseover", () => {
+                resetEditStars();
+                const value = star.getAttribute("data-value");
+                highlightEditStars(value); 
+            });
+
+            star.addEventListener("click", () => {
+                const value = star.getAttribute("data-value");
+                editRatingInput.value = value; 
+                highlightEditStars(value); 
+            });
+
+            star.addEventListener("mouseleave", () => {
+                resetEditStars(); 
+                if (editRatingInput.value) {
+                    highlightEditStars(editRatingInput.value); 
+                }
+            });
+        });
+
+        function highlightEditStars(value) {
+            for (let i = 0; i < value; i++) {
+                editStars[i].classList.add("text-yellow-400");
+                editStars[i].classList.remove("text-gray-400");
+            }
+        }
+
+        function resetEditStars() {
+            editStars.forEach(star => {
+                star.classList.remove("text-yellow-400");
+                star.classList.add("text-gray-400");
+            });
+        }
+    }
+});
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
