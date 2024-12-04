@@ -1,7 +1,8 @@
 from .models import SearchHistory
 from ratings.models import Menu, Restaurant
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
+from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
@@ -155,3 +156,8 @@ def resto_search(request):
         return render(request, 'resto_search.html', context)
     else:
         return render(request, 'resto_search.html', {'restaurants': []})
+
+@login_required
+def show_json(request):
+    data = SearchHistory.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
