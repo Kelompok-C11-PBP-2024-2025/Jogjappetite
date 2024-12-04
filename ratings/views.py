@@ -87,8 +87,6 @@ def edit_rating(request, id, rating_id):
             'reviewed_menus': reviewed_menus
         })
 
-
-from django.core.exceptions import ValidationError
 @login_required
 @csrf_exempt 
 @require_POST  
@@ -176,6 +174,8 @@ def show_main_page(request):
         'highest_rated_restaurants': highest_rated_restaurants,  
     }
     return render(request, 'ratings_main_page.html', context)
+
+
 @login_required
 def user_ratings_all(request):
     user_ratings = Ratings.objects.filter(user=request.user)
