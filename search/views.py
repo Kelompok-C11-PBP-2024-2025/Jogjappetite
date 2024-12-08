@@ -41,11 +41,9 @@ def save_search_history(request):
     return JsonResponse({"success": True, "message": "Search history saved successfully."})
 
 @csrf_exempt
-@login_required
 def save_search_history_flutter(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        query = data.get('search_query', '').strip()
+        query = request.POST.get('search_query').strip()
         if query:
             user = request.user
             user_history = SearchHistory.objects.filter(user=user).order_by('-created_at')
@@ -67,7 +65,6 @@ def save_search_history_flutter(request):
         return JsonResponse({"success": False, "message": "Invalid request method."})
 
 @csrf_exempt
-@login_required
 def delete_search_history(request, history_id):
     if request.method == "POST":
         # Find the history item that matches the given ID and belongs to the logged-in user
@@ -193,23 +190,22 @@ def food_search_flutter(request):
         search_query = data.get('search_query', '')
         matching_menus, search, found = search_food_items(search_query)
 
+        # Serialize the menus into dictionaries
         menus_data = []
         for menu in matching_menus:
             menus_data.append({
                 'id': menu.id,
                 'nama_menu': menu.nama_menu,
-                'description': menu.deskripsi_menu,
-                'price': menu.harga_menu,
-                # Add other fields as needed
+                'harga': menu.harga,
+                'categories': [cluster.strip("[]' ") for cluster in menu.get_clusters()]
             })
 
-        response_data = {
+        context = {
             'menus': menus_data,
             'search': search,
             'found': found
         }
-
-        return JsonResponse(response_data)
+        return JsonResponse(context)
     else:
         return JsonResponse({'error': 'Invalid request method.'}, status=405)
 
@@ -220,23 +216,28 @@ def resto_search_flutter(request):
         search_query = data.get('search_query', '')
         matching_restaurants, search, found = search_restaurants(search_query)
 
+        # Serialize the restaurants into dictionaries
         restaurants_data = []
         for restaurant in matching_restaurants:
             restaurants_data.append({
                 'id': restaurant.id,
                 'nama_restoran': restaurant.nama_restoran,
-                'address': restaurant.alamat_restoran,
-                'phone': restaurant.nomor_telepon,
-                # Add other fields as needed
+                'lokasi': restaurant.lokasi,
+                'jenis_suasana': restaurant.jenis_suasana,
+                'keramaian_restoran': restaurant.keramaian_restoran,
+                'jenis_penyajian': restaurant.jenis_penyajian,
+                'ayce_atau_alacarte': restaurant.ayce_atau_alacarte,
+                'harga_rata_rata_makanan': restaurant.harga_rata_rata_makanan,
+                'gambar': restaurant.gambar,
             })
 
-        response_data = {
+        context = {
             'restaurants': restaurants_data,
             'search': search,
             'found': found
         }
 
-        return JsonResponse(response_data)
+        return JsonResponse(context)
     else:
         return JsonResponse({'error': 'Invalid request method.'}, status=405)
 
