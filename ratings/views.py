@@ -10,6 +10,7 @@ from django.views.decorators.http import require_POST
 from django.utils.html import strip_tags
 import logging
 from django.http import HttpResponseForbidden
+from django.views.decorators.http import require_http_methods
 
 
 
@@ -35,6 +36,54 @@ def get_restaurant_ratings_by_id(request, id):
     }
     
     return render(request, 'restaurant_ratings.html', context)
+
+
+def get_restaurant_ratings_by_id_flutter(request, id):
+    restaurant = get_object_or_404(Restaurant, id=id)
+    restaurant_ratings = Ratings.objects.filter(restaurant_review=restaurant)
+    reviewed_menus = Menu.objects.filter(restoran=restaurant)
+
+    average_rating = restaurant_ratings.aggregate(Avg('rating'))['rating__avg'] or 0
+    reviews_count = restaurant_ratings.count()
+
+    # Format restaurant data
+    response_data = {
+        'restaurant': {
+            'id': restaurant.id,
+            'nama_restoran': restaurant.nama_restoran,
+            'lokasi': restaurant.lokasi,
+            'jenis_suasana': restaurant.jenis_suasana,
+            'keramaian_restoran': restaurant.keramaian_restoran,
+            'jenis_penyajian': restaurant.jenis_penyajian,
+            'ayce_atau_alacarte': restaurant.ayce_atau_alacarte,
+            'harga_rata_rata_makanan': restaurant.harga_rata_rata_makanan,
+            'gambar': restaurant.gambar,
+        },
+        'menus': [
+            {
+                'id': menu.id,
+                'nama_menu': menu.nama_menu,
+                'harga': menu.harga,
+                'categories': [cluster.strip("[]' ") for cluster in menu.get_clusters()]
+            } for menu in reviewed_menus
+        ],
+        'ratings': [
+            {
+                'id': rating.id,
+                'user_initials': rating.user.username[:2].upper(),
+                'username': rating.user.username,
+                'menu_review': rating.menu_review.nama_menu,
+                'rating': rating.rating,
+                'pesan_rating': rating.pesan_rating or '',
+                'created_at': rating.created_at.strftime('%B %d, %Y')
+            } for rating in restaurant_ratings
+        ],
+        'average_rating': float(average_rating),
+        'reviews_count': reviews_count
+    }
+
+    return JsonResponse(response_data)
+
 
 # Hapus rating
 @login_required
@@ -136,7 +185,85 @@ def add_rating_ajax(request):
     }, status=201)
 
 
+@csrf_exempt 
+def add_rating_flutter(request):
+    try:
+        # Extract data from request
+        rating_value = request.POST.get('rating')
+        pesan_rating = strip_tags(request.POST.get('pesan_rating'))
+        menu_id = request.POST.get('menu_review')  # Single menu_id instead of list
+        restaurant_id = request.POST.get('restaurant_id')
 
+        # Validate required fields
+        if not all([rating_value, pesan_rating, menu_id, restaurant_id]):
+            return JsonResponse({
+                'success': False,
+                'error': 'All fields are required: rating, pesan_rating, menu_review, restaurant_id'
+            }, status=400)
+
+        # Validate rating value
+        try:
+            rating_value = int(rating_value)
+            if not 1 <= rating_value <= 5:
+                raise ValueError
+        except (ValueError, TypeError):
+            return JsonResponse({
+                'success': False,
+                'error': 'Rating must be an integer between 1 and 5'
+            }, status=400)
+
+        # Get restaurant and menu objects
+        try:
+            restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+            menu = get_object_or_404(Menu, id=menu_id)
+        except:
+            return JsonResponse({
+                'success': False,
+                'error': 'Invalid restaurant or menu ID'
+            }, status=404)
+
+        # Check if user has already rated this menu
+        existing_rating = Ratings.objects.filter(
+            user=request.user,
+            menu_review=menu
+        ).first()
+
+        if existing_rating:
+            return JsonResponse({
+                'success': False,
+                'error': 'You have already rated this menu item'
+            }, status=400)
+
+        # Create new rating
+        new_rating = Ratings.objects.create(
+            user=request.user,
+            menu_review=menu,
+            restaurant_review=restaurant,
+            rating=rating_value,
+            pesan_rating=pesan_rating
+        )
+
+        # Return success response with rating details
+        return JsonResponse({
+            'success': True,
+            'rating': {
+                'id': new_rating.id,
+                'rating': rating_value,
+                'pesan_rating': pesan_rating,
+                'user_initials': request.user.username[:2].upper(),
+                'username': request.user.username,
+                'menu_review': menu.nama_menu,
+                'created_at': new_rating.created_at.strftime('%B %d, %Y'),
+            }
+        }, status=201)
+
+    except Exception as e:
+        # Log the error here if needed
+        print(f"Error in add_rating_flutter: {str(e)}")
+        return JsonResponse({
+            'success': False,
+            'error': 'An unexpected error occurred'
+        }, status=500)
 
 def show_json(request, restaurant_id):
     restaurant = Restaurant.objects.get(id=restaurant_id)
@@ -176,6 +303,69 @@ def show_main_page(request):
     return render(request, 'ratings_main_page.html', context)
 
 
+def show_main_page_flutter(request):
+    try:
+        # Get latest 8 ratings
+        latest_ratings = Ratings.objects.order_by('-created_at')[:8]
+        latest_ratings_data = [{
+            'id': rating.id,
+            'user_initials': rating.user.username[:2].upper(),
+            'username': rating.user.username,
+            'menu_review': rating.menu_review.nama_menu,
+            'restaurant_review': rating.restaurant_review.nama_restoran if rating.restaurant_review else None,
+            'rating': rating.rating,
+            'pesan_rating': rating.pesan_rating or 'No message provided.',
+            'created_at': rating.created_at.strftime('%Y-%m-%d %H:%M:%S')
+        } for rating in latest_ratings]
+
+        # Get user ratings if authenticated
+        user_ratings_data = None
+        if request.user.is_authenticated:
+            user_ratings = Ratings.objects.filter(user=request.user)
+            user_ratings_data = [{
+                'id': rating.id,
+                'user_initials': rating.user.username[:2].upper(),
+                'username': rating.user.username,
+                'menu_review': rating.menu_review.nama_menu,
+                'restaurant_review': rating.restaurant_review.nama_restoran if rating.restaurant_review else None,
+                'rating': rating.rating,
+                'pesan_rating': rating.pesan_rating or 'No message provided.',
+                'created_at': rating.created_at.strftime('%Y-%m-%d %H:%M:%S')
+            } for rating in user_ratings]
+
+        # Get top 6 highest rated restaurants
+        highest_rated_restaurants = Restaurant.objects.annotate(
+            average_rating=Avg('ratings__rating')
+        ).order_by('-average_rating')[:6]
+
+        highest_rated_data = [{
+            'id': restaurant.id,
+            'nama_restoran': restaurant.nama_restoran,
+            'lokasi': restaurant.lokasi,
+            'gambar': restaurant.gambar,
+            'jenis_suasana': restaurant.jenis_suasana,
+            'keramaian_restoran': restaurant.keramaian_restoran,
+            'jenis_penyajian': restaurant.jenis_penyajian,
+            'ayce_atau_alacarte': restaurant.ayce_atau_alacarte,
+            'harga_rata_rata_makanan': restaurant.harga_rata_rata_makanan,
+            'average_rating': float(restaurant.average_rating) if restaurant.average_rating else 0.0
+        } for restaurant in highest_rated_restaurants]
+
+        response_data = {
+            'latest_ratings': latest_ratings_data,
+            'user_ratings': user_ratings_data,
+            'highest_rated_restaurants': highest_rated_data,
+            'is_authenticated': request.user.is_authenticated
+        }
+
+        return JsonResponse(response_data, safe=False)
+
+    except Exception as e:
+        return JsonResponse({
+            'error': str(e)
+        }, status=500)
+    
+
 @login_required
 def user_ratings_all(request):
     user_ratings = Ratings.objects.filter(user=request.user)
@@ -186,3 +376,5 @@ def user_ratings_all(request):
     }
 
     return render(request, 'user_ratings_all.html', context)
+
+
