@@ -10,5 +10,6 @@ urlpatterns = [
 
     # untuk flutter
     path('login-flutter/', login_flutter, name='login-flutter'), 
-    path('register-flutter/', register_flutter, name='register-flutter')
+    path('register-flutter/', register_flutter, name='register-flutter'),
+    path('get-user-type/', get_user_type, name='get-user-type'),
 ]

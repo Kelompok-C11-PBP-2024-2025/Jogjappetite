@@ -8,6 +8,7 @@ from .forms import SignUpForm
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 def login_user(request):
     if request.method == "POST":
@@ -158,3 +159,19 @@ def register_flutter(request):
             "status": False,
             "message": "Invalid request method."
         }, status=400)
+@login_required
+def get_user_type(request):
+    try:
+        user_type = request.user.userprofile.user_type
+        return JsonResponse({
+            'status': 'success',
+            'user_type': user_type,
+            'is_authenticated': True
+        })
+    except AttributeError:
+        return JsonResponse({
+            'status': 'error',
+            'user_type': None,
+            'is_authenticated': False,
+            'message': 'User profile not found'
+        })
