@@ -12,5 +12,6 @@ urlpatterns = [
     path('save-search-history-flutter/', save_search_history_flutter, name='save_search_history_flutter'),
     path('delete-history/<int:history_id>/', delete_search_history, name='delete_search_history'),
     path('get-search-history/', get_search_history, name='get-search-history'),
+    path('get-random-restaurant-flutter/', get_random_restaurant_flutter, name='get_random_restaurant_flutter'), 
     path('json/', show_json, name='show_json'),
 ]
