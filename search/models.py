@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ratings.models import Menu
 
 class SearchHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
