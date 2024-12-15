@@ -9,6 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .decorators import user_is_owner, user_is_customer
 from django.http import JsonResponse
 from authentication.models import UserProfile
+from django.views.decorators.csrf import csrf_exempt
 
 @login_required
 @user_is_customer
@@ -123,19 +124,26 @@ def restaurant_detail(request,pk):
     })
 
 # API List restoran untuk owner
-@login_required
 def api_restaurant_list(request):
     per_page = request.GET.get('per_page', 12)
-    restaurants = Restaurant.objects.all().annotate(
-        average_rating=Avg('menu__ratings__rating'),
-        rating_count=Count('menu__ratings')
-    )
-
-    user_profile = UserProfile.objects.get(user=request.user)
-    if user_profile.user_type == 'restaurant':
-        profile_type = 'owner'
+    find_restaurant = request.GET.get('search', None)
+    if find_restaurant:
+        restaurants = Restaurant.objects.filter(nama_restoran__icontains=find_restaurant).annotate(
+            average_rating=Avg('menu__ratings__rating'),
+            rating_count=Count('menu__ratings'))
     else:
-        profile_type = 'customer'
+        restaurants = Restaurant.objects.all().annotate(
+            average_rating=Avg('menu__ratings__rating'),
+            rating_count=Count('menu__ratings'))
+
+    if request.user.is_authenticated:
+        user_profile = UserProfile.objects.get(user=request.user)
+        if user_profile.user_type == 'restaurant':
+            profile_type = 'owner'
+        else:
+            profile_type = 'customer'
+    else:
+        profile_type = 'guest'
 
     paginator = Paginator(restaurants, per_page)
     page_number = request.GET.get('page')
@@ -161,7 +169,7 @@ def api_restaurant_list(request):
         'profile_type': profile_type,
         'restaurants': data,
         'per_page': int(per_page),
-        'page': int(page_number),
+        'page': page_number,
         'total_pages': paginator.num_pages,
         'total_restaurants': paginator.count,
         'statusCode': 200
@@ -170,10 +178,14 @@ def api_restaurant_list(request):
 # API Menambahkan Restoran Baru
 @login_required
 @user_is_owner
+@csrf_exempt
 def api_add_restaurant(request):
+    print("add")
     if request.method == 'POST':
+        print("post")
         form = RestaurantForm(request.POST)
         if form.is_valid():
+            print("valid")
             form.save()
             return JsonResponse({'success': True, 'message': 'Restaurant added successfully!'})
         else:
@@ -184,6 +196,7 @@ def api_add_restaurant(request):
 # API Menghapus Restoran
 @login_required
 @user_is_owner
+@csrf_exempt
 def api_delete_restaurant(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
     if request.method == 'POST':
@@ -194,6 +207,7 @@ def api_delete_restaurant(request, pk):
 # API Mengedit Restoran
 @login_required
 @user_is_owner
+@csrf_exempt
 def api_edit_restaurant(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
     if request.method == 'POST':
@@ -207,8 +221,6 @@ def api_edit_restaurant(request, pk):
     return JsonResponse({'success': False, 'message': 'Invalid request method.'}, status=405)
 
 # API Melihat Statistik Restoran
-@login_required
-@user_is_owner
 def api_restaurant_detail(request, pk):
     restaurant = Restaurant.objects.filter(pk=pk).annotate(
         average_rating=Avg('menu__ratings__rating'),
@@ -217,6 +229,15 @@ def api_restaurant_detail(request, pk):
 
     if not restaurant:
         return JsonResponse({'success': False, 'message': 'Restaurant not found.'}, status=404)
+
+    if request.user.is_authenticated:
+        user_profile = UserProfile.objects.get(user=request.user)
+        if user_profile.user_type == 'restaurant':
+            profile_type = 'owner'
+        else:
+            profile_type = 'customer'
+    else:
+        profile_type = 'guest'
 
     reviews = Ratings.objects.filter(menu_review__restoran__pk=pk).select_related('menu_review', 'user').all()
 
@@ -245,4 +266,10 @@ def api_restaurant_detail(request, pk):
         'reviews': reviews_data
     }
 
-    return JsonResponse({'success': True, 'restaurant': data})
+    context = {
+        'profile_type': profile_type,
+        'restaurant': data,
+        'success': True
+    }
+
+    return JsonResponse(context)
