@@ -263,13 +263,13 @@ def api_restaurant_detail(request, pk):
         'gambar': restaurant.gambar,
         'average_rating': float(restaurant.average_rating) if restaurant.average_rating else 0.0,
         'rating_count': restaurant.rating_count,
-        'reviews': reviews_data
     }
 
     context = {
         'profile_type': profile_type,
         'restaurant': data,
-        'success': True
+        'reviews': reviews_data,
+        'success': True,
     }
 
     return JsonResponse(context)
