@@ -19,5 +19,16 @@ urlpatterns = [
     path('restaurants/flutter/<int:id>/', views.get_restaurant_ratings_by_id_flutter, name='get_restaurant_ratings_by_id_flutter'),
     path('api/main-page/', views.show_main_page_flutter, name='show_main_page_flutter'),
     path('add-rating-flutter/', views.add_rating_flutter, name='add_rating_flutter'),
+    path(
+        'edit-rating-flutter/<int:restaurant_id>/<int:rating_id>/',
+        views.edit_rating_flutter,
+        name='edit_rating_flutter',
+    ),
+    path(
+        'delete-rating-flutter/<int:restaurant_id>/<int:rating_id>/',
+        views.delete_rating_flutter,
+        name='delete_rating_flutter',
+    )
+
 
 ]
