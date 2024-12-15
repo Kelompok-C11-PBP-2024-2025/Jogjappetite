@@ -1,3 +1,4 @@
+import json
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.core import serializers
@@ -377,4 +378,78 @@ def user_ratings_all(request):
 
     return render(request, 'user_ratings_all.html', context)
 
+@csrf_exempt
+def edit_rating_flutter(request, restaurant_id, rating_id):
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Only POST requests are allowed.'}, status=405)
+    
+    # Since we are sending data as form-data, we use request.POST
+    rating_value = request.POST.get('rating')
+    pesan_rating = strip_tags(request.POST.get('pesan_rating', ''))
+    menu_id = request.POST.get('menu_review')
 
+    # Validate required fields
+    if rating_value is None or pesan_rating is None or menu_id is None:
+        return JsonResponse({
+            'success': False,
+            'error': 'Missing fields: rating, pesan_rating, and menu_review are required.'
+        }, status=400)
+
+    # Validate rating value
+    try:
+        rating_value = int(rating_value)
+        if not 1 <= rating_value <= 5:
+            return JsonResponse({
+                'success': False,
+                'error': 'Rating must be an integer between 1 and 5.'
+            }, status=400)
+    except (ValueError, TypeError):
+        return JsonResponse({
+            'success': False,
+            'error': 'Rating must be a valid integer.'
+        }, status=400)
+
+    # Get the rating object
+    rating = get_object_or_404(Ratings, id=rating_id, restaurant_review_id=restaurant_id)
+
+    # Ensure the logged-in user owns this rating (you need to ensure request.user is correctly set)
+    if request.user != rating.user:
+        return JsonResponse({
+            'success': False,
+            'error': 'You are not allowed to edit this rating.'
+        }, status=403)
+
+    # Verify that the menu belongs to the given restaurant
+    menu = get_object_or_404(Menu, id=menu_id)
+    if menu.restoran_id != restaurant_id:
+        return JsonResponse({'success': False, 'error': 'The selected menu does not belong to the given restaurant.'}, status=400)
+
+    # Update the rating object
+    rating.rating = rating_value
+    rating.pesan_rating = pesan_rating
+    rating.menu_review = menu
+    rating.save()
+
+    # Return success response with updated data
+    return JsonResponse({
+        'success': True,
+        'message': 'Rating successfully updated.',
+        'updated_data': {
+            'id': rating.id,
+            'rating': rating.rating,
+            'pesan_rating': rating.pesan_rating,
+            'menu_review': rating.menu_review.nama_menu,
+            'date': rating.created_at.strftime('%Y-%m-%d %H:%M'),
+            'user_initials': rating.user.username[:2].upper(),
+            'username': rating.user.username,
+        }
+    }, status=200)
+
+
+@csrf_exempt
+def delete_rating_flutter(request, restaurant_id, rating_id):
+    rating = get_object_or_404(Ratings, id=rating_id, restaurant_review_id=restaurant_id)
+
+    # Delete the rating
+    rating.delete()
+    return JsonResponse({'success': True, 'message': 'Rating deleted successfully.'}, status=200)

@@ -159,6 +159,7 @@ def register_flutter(request):
             "status": False,
             "message": "Invalid request method."
         }, status=400)
+    
 @login_required
 def get_user_type(request):
     try:
@@ -175,3 +176,53 @@ def get_user_type(request):
             'is_authenticated': False,
             'message': 'User profile not found'
         })
+    
+
+@login_required
+def get_user_data(request):
+    try:
+        user = request.user
+        user_profile = user.userprofile
+
+        user_data = {
+            'status': 'success',
+            'is_authenticated': True,
+            'user': {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'full_name': user_profile.full_name,
+                'user_type': user_profile.user_type,
+                'date_joined': user.date_joined.isoformat(),
+                'last_login': user.last_login.isoformat() if user.last_login else None,
+            }
+        }
+        return JsonResponse(user_data)
+    except AttributeError:
+        return JsonResponse({
+            'status': 'error',
+            'is_authenticated': False,
+            'message': 'User profile not found'
+        }, status=404)
+    except Exception as e:
+        return JsonResponse({
+            'status': 'error',
+            'is_authenticated': False,
+            'message': str(e)
+        }, status=500)
+    
+
+
+@csrf_exempt
+def logout_flutter(request):
+    try:
+        logout(request)
+        return JsonResponse({
+            "status": "success",
+            "message": "Logout successful!"
+        }, status=200)
+    except Exception as e:
+        return JsonResponse({
+            "status": "error",
+            "message": str(e)
+        }, status=401)
