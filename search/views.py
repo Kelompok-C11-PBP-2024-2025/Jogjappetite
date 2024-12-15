@@ -244,3 +244,23 @@ def resto_search_flutter(request):
 def show_json(request):
     data = SearchHistory.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def get_random_restaurant_flutter(request):
+    Restaurant.objects.all()
+    # randomize 6 restaurants
+    random_restaurants = Restaurant.objects.order_by('?')[:6]
+    response_data = []
+    for restaurant in random_restaurants:
+        response_data.append({
+            'id': restaurant.id,
+            'nama_restoran': restaurant.nama_restoran,
+            'lokasi': restaurant.lokasi,
+            'jenis_suasana': restaurant.jenis_suasana,
+            'keramaian_restoran': restaurant.keramaian_restoran,
+            'jenis_penyajian': restaurant.jenis_penyajian,
+            'ayce_atau_alacarte': restaurant.ayce_atau_alacarte,
+            'harga_rata_rata_makanan': restaurant.harga_rata_rata_makanan,
+            'gambar': restaurant.gambar,
+        })
+
+    return JsonResponse(response_data, safe=False)
