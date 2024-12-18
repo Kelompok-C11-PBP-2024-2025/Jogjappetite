@@ -58,7 +58,20 @@ def show_menus_explore(request, cluster_name):
     
     return render(request, 'menu_by_cluster.html', context)
 
-
+def cluster_menus(request, cluster_name):
+    try:
+        # Sesuaikan dengan field yang ada di model Menu Anda
+        menus = Menu.objects.filter(cluster__icontains=cluster_name.lower())
+        data = [{
+            'id': menu.id,
+            'name': menu.nama_menu,
+            'restaurant': menu.restoran.nama_restoran,
+            'price': menu.harga,
+            # 'image_url': menu.image_url jika ada
+        } for menu in menus]
+        return JsonResponse(data, safe=False)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 # New view to handle AJAX requests for menu details
 def menu_details(request, menu_id):
     try:
