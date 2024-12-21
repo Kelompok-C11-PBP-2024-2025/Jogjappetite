@@ -28,7 +28,11 @@ urlpatterns = [
         'delete-rating-flutter/<int:restaurant_id>/<int:rating_id>/',
         views.delete_rating_flutter,
         name='delete_rating_flutter',
+    ),
+    path(
+        'api/user-ratings-flutter/',
+        views.user_ratings_flutter,
+        name='user_ratings_flutter',
     )
-
 
 ]
