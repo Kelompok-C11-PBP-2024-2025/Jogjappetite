@@ -4,6 +4,11 @@ from favorite.models import Favorite
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from django.http import HttpResponse, JsonResponse
+from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
+import json
 
 # View untuk menampilkan daftar restoran dalam halaman favorite
 from django.db.models import Avg, Count
@@ -133,3 +138,111 @@ def edit_favorite_notes(request):
     else:
         return JsonResponse({'success': False, 'message': 'Invalid request method.'})
     
+def show_json(request):
+    # Pastikan user login
+    favorites = Favorite.objects.filter(user=request.user).select_related('restaurant')
+    
+    # Format data agar sesuai dengan model di Flutter
+    data = [
+        {
+            "model": "favorite.favorite",
+            "pk": favorite.id,
+            "fields": {
+                "user": favorite.user.id,
+                "restaurant": favorite.restaurant.id,
+                "notes": favorite.notes,
+                "created_at": favorite.created_at.isoformat()
+            }
+        }
+        for favorite in favorites
+    ]
+    
+    return JsonResponse(data, safe=False)
+
+@csrf_exempt
+def show_main_favorite_flutter(request):
+    favorites = Favorite.objects.filter(user=request.user).select_related('restaurant')
+    data = [
+        {
+            "id": fav.id,
+            "user": fav.user.username,
+            "restaurant": {
+                "id": fav.restaurant.id,
+                "nama_restoran": fav.restaurant.nama_restoran,
+                "lokasi": fav.restaurant.lokasi,
+                "average_rating": fav.restaurant.ratings_set.aggregate(avg_rating=Avg('rating'))['avg_rating'] or 0.0,
+                "gambar": fav.restaurant.gambar,
+            },
+            "notes": fav.notes,
+            "created_at": fav.created_at,
+        }
+        for fav in favorites
+    ]
+    return JsonResponse(data, safe=False)
+
+def show_all_restaurants_flutter(request):
+    restaurants = Restaurant.objects.annotate(
+        average_rating=Avg('ratings__rating')
+    )
+    data = [
+        {
+            "id": restaurant.id,
+            "nama_restoran": restaurant.nama_restoran,
+            "lokasi": restaurant.lokasi,
+            "gambar": restaurant.gambar or "",
+            "average_rating": restaurant.average_rating or 0.0,
+        }
+        for restaurant in restaurants
+    ]
+    return JsonResponse(data, safe=False)
+
+@csrf_exempt
+@login_required(login_url="authentication:login")  # Pastikan user login terlebih dahulu
+def add_favorite_flutter(request):
+    if request.method == "POST":
+        try:
+            # Ambil data JSON dari request
+            data = json.loads(request.body)
+
+            restaurant_id = data.get('restaurant_id')  # ID restoran yang akan ditambahkan
+            notes = data.get('notes')  # Catatan dari user
+
+            # Validasi data
+            if not restaurant_id or not notes:
+                return JsonResponse(
+                    {"success": False, "message": "Restaurant ID and notes are required."},
+                    status=400,
+                )
+
+            # Ambil restoran dari database
+            restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+
+            # Cek apakah restoran sudah ada di daftar favorit pengguna
+            if Favorite.objects.filter(user=request.user, restaurant=restaurant).exists():
+                return JsonResponse(
+                    {"success": False, "message": "Restaurant already added to favorites."},
+                    status=400,
+                )
+
+            # Tambahkan restoran ke daftar favorit
+            Favorite.objects.create(
+                user=request.user,
+                restaurant=restaurant,
+                notes=notes,
+            )
+
+            return JsonResponse(
+                {"success": True, "message": "Favorite berhasil ditambahkan!"},
+                status=201,
+            )
+
+        except json.JSONDecodeError:
+            return JsonResponse(
+                {"success": False, "message": "Invalid JSON data."},
+                status=400,
+            )
+    else:
+        return JsonResponse(
+            {"success": False, "message": "Invalid request method."},
+            status=405,
+        )

@@ -10,4 +10,8 @@ urlpatterns = [
     path('add-to-favorite-ajax/', views.add_to_favorite_ajax, name='add_to_favorite_ajax'),
     path('delete-favorite/', views.delete_favorite, name='delete_favorite'),
     path('edit/', views.edit_favorite_notes, name='edit_favorite_notes'),
+    path('json/',views.show_json, name='show_json'),
+    path('flutter/', views.show_main_favorite_flutter, name='show_main_favorite_flutter'),
+    path('all-restaurants/flutter/', views.show_all_restaurants_flutter, name='show_all_restaurants_flutter'),
+    path('add-favorite-flutter/', views.add_favorite_flutter, name='add_favorite_flutter'),
 ]
