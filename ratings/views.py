@@ -314,10 +314,12 @@ def show_main_page_flutter(request):
             'username': rating.user.username,
             'menu_review': rating.menu_review.nama_menu,
             'restaurant_review': rating.restaurant_review.nama_restoran if rating.restaurant_review else None,
+            'restaurant_id': rating.restaurant_review.id if rating.restaurant_review else None,  # Tambahkan ini
             'rating': rating.rating,
             'pesan_rating': rating.pesan_rating or 'No message provided.',
             'created_at': rating.created_at.strftime('%Y-%m-%d %H:%M:%S')
         } for rating in latest_ratings]
+
 
         # Get user ratings if authenticated
         user_ratings_data = None
@@ -453,3 +455,39 @@ def delete_rating_flutter(request, restaurant_id, rating_id):
     # Delete the rating
     rating.delete()
     return JsonResponse({'success': True, 'message': 'Rating deleted successfully.'}, status=200)
+
+
+@csrf_exempt
+def user_ratings_flutter(request):
+    try:
+        if not request.user.is_authenticated:
+            return JsonResponse({
+                'success': False,
+                'error': 'User is not authenticated.'
+            }, status=401)
+
+        # Ambil data rating berdasarkan pengguna yang login
+        ratings = Ratings.objects.filter(user=request.user).select_related('menu_review', 'restaurant_review')
+
+        # Format data ratings
+        ratings_data = [
+            {
+                'id': rating.id,
+                'restaurant_id': rating.restaurant_review.id,
+                'restaurant_name': rating.restaurant_review.nama_restoran,  # Ganti 'nama' ke 'nama_restoran'
+                'rating': rating.rating,
+                'pesan_rating': rating.pesan_rating,
+                'menu_review': rating.menu_review.nama_menu if rating.menu_review else None,
+                'date': rating.created_at.strftime('%Y-%m-%d %H:%M'),
+                'user_initials': request.user.username[:2].upper(),
+                'username': request.user.username,
+            }
+            for rating in ratings
+        ]
+
+        return JsonResponse({'success': True, 'ratings': ratings_data}, status=200)
+
+    except Exception as e:
+        print("Error in user_ratings_flutter: ", e)
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
