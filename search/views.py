@@ -17,6 +17,29 @@ def get_search_history(request):
         user_history = SearchHistory.objects.filter(user=request.user).order_by('-created_at')[:5]
         history_data = [{'id': item.id, 'query': item.query} for item in user_history]
         return JsonResponse({'success': True, 'history': history_data})
+    
+def get_search_history_flutter(request):
+    if request.method == 'GET':
+        user_history = SearchHistory.objects.filter(user=request.user).order_by('-created_at')[:5]
+
+        # Construct a list that matches your Dart model's expected structure
+        history_data = []
+        for item in user_history:
+            history_data.append({
+                "model": "search.searchhistory",
+                "pk": item.id,
+                "fields": {
+                    "user": item.user.id,
+                    "query": item.query,
+                    "created_at": item.created_at.isoformat(),
+                }
+            })
+
+        return JsonResponse({
+            'success': True,
+            'history': history_data
+        })
+
 
 @login_required
 def save_search_history(request):
