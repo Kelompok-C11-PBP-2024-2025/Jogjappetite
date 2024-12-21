@@ -160,7 +160,6 @@ def register_flutter(request):
             "message": "Invalid request method."
         }, status=400)
     
-@login_required
 def get_user_type(request):
     try:
         user_type = request.user.userprofile.user_type
@@ -178,7 +177,6 @@ def get_user_type(request):
         })
     
 
-@login_required
 def get_user_data(request):
     try:
         user = request.user
