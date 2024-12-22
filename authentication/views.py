@@ -68,18 +68,18 @@ def login_flutter(request):
 
         if user is not None:
             login(request, user)
-            # Di sini, user.user_type tidak ada (karena milik UserProfile),
-            # maka kita gunakan user.userprofile.user_type
             return JsonResponse({
                 "status": "success",
                 "message": "Successfully logged in!",
                 "user_type": user.userprofile.user_type,
+                "username": user.username,  # <-- Tambahkan ini
             })
         else:
             return JsonResponse({
                 "status": "error",
                 "message": "Invalid username/password.",
             }, status=401)
+
 
 
     
