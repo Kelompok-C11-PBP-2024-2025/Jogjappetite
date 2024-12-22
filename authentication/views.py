@@ -61,30 +61,27 @@ def logout_user(request):
 # UNTUK FLUTTER
 @csrf_exempt
 def login_flutter(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        if user.is_active:
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
             login(request, user)
-            # Status login sukses.
+            # Di sini, user.user_type tidak ada (karena milik UserProfile),
+            # maka kita gunakan user.userprofile.user_type
             return JsonResponse({
-                "username": user.username,
-                "status": True,
-                "message": "Login sukses!"
-                # Tambahkan data lainnya jika ingin mengirim data ke Flutter.
-            }, status=200)
+                "status": "success",
+                "message": "Successfully logged in!",
+                "user_type": user.userprofile.user_type,
+            })
         else:
             return JsonResponse({
-                "status": False,
-                "message": "Login gagal, akun dinonaktifkan."
+                "status": "error",
+                "message": "Invalid username/password.",
             }, status=401)
 
-    else:
-        return JsonResponse({
-            "status": False,
-            "message": "Login gagal, periksa kembali email atau kata sandi."
-        }, status=401)
+
     
 # UNTUK FLUTTER 
 @csrf_exempt
@@ -161,23 +158,37 @@ def register_flutter(request):
         }, status=400)
     
 def get_user_type(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({
+            'status': 'error',
+            'user_type': None,
+            'is_authenticated': False,
+            'message': 'User not logged in'
+        })
+    
+    # Di sini, request.user sudah mengacu ke user yang sama 
+    # yang login melalui login_flutter (jika cookie dikirim).
     try:
-        user_type = request.user.userprofile.user_type
         return JsonResponse({
             'status': 'success',
-            'user_type': user_type,
+            'user_type': request.user.userprofile.user_type,  # <-- Akses user_type
             'is_authenticated': True
         })
     except AttributeError:
         return JsonResponse({
             'status': 'error',
             'user_type': None,
-            'is_authenticated': False,
+            'is_authenticated': True,  # user login tapi userprofile tidak ada
             'message': 'User profile not found'
         })
+
     
 
 def get_user_data(request):
+    print("Is Authenticated?", request.user.is_authenticated)  # Debug
+    print("User:", request.user)  # Debug
+
+
     try:
         user = request.user
         user_profile = user.userprofile
