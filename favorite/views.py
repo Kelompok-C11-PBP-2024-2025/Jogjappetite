@@ -196,35 +196,32 @@ def show_all_restaurants_flutter(request):
     ]
     return JsonResponse(data, safe=False)
 
+# @login_required(login_url="authentication:login")  # Pastikan user login terlebih dahulu
 @csrf_exempt
-@login_required(login_url="authentication:login")  # Pastikan user login terlebih dahulu
 def add_favorite_flutter(request):
     if request.method == "POST":
         try:
-            # Ambil data JSON dari request
+            print(f"Request body raw: {request.body}")  # Debug tambahan
             data = json.loads(request.body)
+            print(f"Request data parsed: {data}")  # Debug tambahan
 
-            restaurant_id = data.get('restaurant_id')  # ID restoran yang akan ditambahkan
-            notes = data.get('notes')  # Catatan dari user
+            restaurant_id = data.get('restaurant_id')
+            notes = data.get('notes')
 
-            # Validasi data
             if not restaurant_id or not notes:
                 return JsonResponse(
                     {"success": False, "message": "Restaurant ID and notes are required."},
                     status=400,
                 )
 
-            # Ambil restoran dari database
             restaurant = get_object_or_404(Restaurant, id=restaurant_id)
 
-            # Cek apakah restoran sudah ada di daftar favorit pengguna
             if Favorite.objects.filter(user=request.user, restaurant=restaurant).exists():
                 return JsonResponse(
                     {"success": False, "message": "Restaurant already added to favorites."},
                     status=400,
                 )
 
-            # Tambahkan restoran ke daftar favorit
             Favorite.objects.create(
                 user=request.user,
                 restaurant=restaurant,
@@ -235,14 +232,12 @@ def add_favorite_flutter(request):
                 {"success": True, "message": "Favorite berhasil ditambahkan!"},
                 status=201,
             )
-
         except json.JSONDecodeError:
             return JsonResponse(
                 {"success": False, "message": "Invalid JSON data."},
                 status=400,
             )
-    else:
-        return JsonResponse(
-            {"success": False, "message": "Invalid request method."},
-            status=405,
-        )
+    return JsonResponse(
+        {"success": False, "message": "Invalid request method."},
+        status=405,
+    )
