@@ -229,7 +229,7 @@ def add_favorite_flutter(request):
             )
 
             return JsonResponse(
-                {"success": True, "message": "Favorite berhasil ditambahkan!"},
+                {"success": True, "message": "Favorite Restaurant Successfully added!"},
                 status=201,
             )
         except json.JSONDecodeError:
@@ -241,3 +241,88 @@ def add_favorite_flutter(request):
         {"success": False, "message": "Invalid request method."},
         status=405,
     )
+
+@csrf_exempt
+@login_required(login_url="authentication:login")  # Pastikan user login terlebih dahulu
+@require_POST
+def delete_favorite_flutter(request):
+    try:
+        # Ambil data dari body request
+        data = json.loads(request.body)
+        favorite_id = data.get('favorite_id', None)
+
+        if not favorite_id:
+            return JsonResponse(
+                {"success": False, "message": "Favorite ID is required."},
+                status=400,
+            )
+
+        # Cari favorit berdasarkan ID dan user yang sedang login
+        favorite = get_object_or_404(Favorite, id=favorite_id, user=request.user)
+        
+        # Hapus favorit
+        favorite.delete()
+
+        return JsonResponse(
+            {"success": True, "message": "Favorite has been successfully deleted."},
+            status=200,
+        )
+    except Favorite.DoesNotExist:
+        return JsonResponse(
+            {"success": False, "message": "Favorite not found."},
+            status=404,
+        )
+    except json.JSONDecodeError:
+        return JsonResponse(
+            {"success": False, "message": "Invalid JSON data."},
+            status=400,
+        )
+    except Exception as e:
+        return JsonResponse(
+            {"success": False, "message": f"An error occurred: {str(e)}"},
+            status=500,
+        )
+    
+@csrf_exempt
+@login_required(login_url="authentication:login")  # Pastikan user login terlebih dahulu
+@require_POST
+def edit_favorite_flutter(request):
+    try:
+        # Ambil data dari body request
+        data = json.loads(request.body)
+        favorite_id = data.get('favorite_id', None)
+        new_notes = data.get('notes', '').strip()
+
+        # Validasi data
+        if not favorite_id or not new_notes:
+            return JsonResponse(
+                {"success": False, "message": "Favorite ID and new notes are required."},
+                status=400,
+            )
+
+        # Ambil favorit berdasarkan ID dan user yang sedang login
+        favorite = get_object_or_404(Favorite, id=favorite_id, user=request.user)
+
+        # Update notes favorit
+        favorite.notes = new_notes
+        favorite.save()
+
+        return JsonResponse(
+            {"success": True, "message": "Notes successfully updated."},
+            status=200,
+        )
+    except Favorite.DoesNotExist:
+        return JsonResponse(
+            {"success": False, "message": "Favorite not found."},
+            status=404,
+        )
+    except json.JSONDecodeError:
+        return JsonResponse(
+            {"success": False, "message": "Invalid JSON data."},
+            status=400,
+        )
+    except Exception as e:
+        return JsonResponse(
+            {"success": False, "message": f"An error occurred: {str(e)}"},
+            status=500,
+        )

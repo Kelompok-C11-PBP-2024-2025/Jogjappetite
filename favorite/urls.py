@@ -14,4 +14,6 @@ urlpatterns = [
     path('flutter/', views.show_main_favorite_flutter, name='show_main_favorite_flutter'),
     path('all-restaurants/flutter/', views.show_all_restaurants_flutter, name='show_all_restaurants_flutter'),
     path('add-favorite-flutter/', views.add_favorite_flutter, name='add_favorite_flutter'),
+    path('delete-favorite-flutter/', views.delete_favorite_flutter, name='delete_favorite_flutter'),
+    path('edit-favorite-flutter/', views.edit_favorite_flutter, name='edit_favorite_flutter'),
 ]
